@@ -9,58 +9,33 @@
     <atom:link href="http://blogls.top/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>丈夫处世兮，立功名；立功名兮，慰平生</description>
-    <pubDate>Thu, 13 Apr 2023 06:55:26 GMT</pubDate>
+    <pubDate>Sun, 28 May 2023 16:14:05 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
-      <title>“记忆多维进化多任务优化算法”</title>
-      <link>http://blogls.top/2023/04/13/%E2%80%9C%E8%AE%B0%E5%BF%86%E5%A4%9A%E7%BB%B4%E8%BF%9B%E5%8C%96%E5%A4%9A%E4%BB%BB%E5%8A%A1%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95%E2%80%9D/</link>
-      <guid>http://blogls.top/2023/04/13/%E2%80%9C%E8%AE%B0%E5%BF%86%E5%A4%9A%E7%BB%B4%E8%BF%9B%E5%8C%96%E5%A4%9A%E4%BB%BB%E5%8A%A1%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95%E2%80%9D/</guid>
-      <pubDate>Thu, 13 Apr 2023 06:55:26 GMT</pubDate>
-      
-      
-      
-      
-      
-      
-      <comments>http://blogls.top/2023/04/13/%E2%80%9C%E8%AE%B0%E5%BF%86%E5%A4%9A%E7%BB%B4%E8%BF%9B%E5%8C%96%E5%A4%9A%E4%BB%BB%E5%8A%A1%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95%E2%80%9D/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>test_my_site</title>
-      <link>http://blogls.top/2023/02/28/test-my-site/</link>
-      <guid>http://blogls.top/2023/02/28/test-my-site/</guid>
-      <pubDate>Tue, 28 Feb 2023 04:05:28 GMT</pubDate>
-      
-      
-      
-      
-      
-      
-      <comments>http://blogls.top/2023/02/28/test-my-site/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Hello World</title>
-      <link>http://blogls.top/2023/02/28/hello-world/</link>
-      <guid>http://blogls.top/2023/02/28/hello-world/</guid>
-      <pubDate>Tue, 28 Feb 2023 03:59:06 GMT</pubDate>
+      <title>2022|Enable Deep Learning on Mobile Devices: Methods, Systems, and Applications|韩松|CCF-B</title>
+      <link>http://blogls.top/2023/05/28/2022-Enable-Deep-Learning-on-Mobile-Devices-Methods-Systems-and-Applications-%E9%9F%A9%E6%9D%BE-CCF-B/</link>
+      <guid>http://blogls.top/2023/05/28/2022-Enable-Deep-Learning-on-Mobile-Devices-Methods-Systems-and-Applications-%E9%9F%A9%E6%9D%BE-CCF-B/</guid>
+      <pubDate>Sun, 28 May 2023 14:33:33 GMT</pubDate>
       
         
         
-      <description>&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for</description>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;链接：&lt;a href=&quot;https://arxiv.org/pdf/2204.11786.pdf&quot;&gt;https://arxiv.org/pdf/2204.11786.pdf&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;1-总结&quot;&gt;&lt;</description>
         
       
       
       
-      <content:encoded><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content:encoded>
+      <content:encoded><![CDATA[<blockquote><p>链接：<a href="https://arxiv.org/pdf/2204.11786.pdf">https://arxiv.org/pdf/2204.11786.pdf</a></p></blockquote><h1 id="1-总结"><a href="#1-总结" class="headerlink" title="1.总结"></a>1.总结</h1><p>本文介绍了一种用于在移动设备上实现深度学习的方法、系统和应用。文章从介绍流行的模型压缩方法开始，包括剪枝、分解、量化以及紧凑模型设计。为了减少这些手动解决方案的大量设计成本，讨论了每个人的AutoML框架，如<strong>神经架构搜索（NAS）</strong>和<strong>自动剪枝和量化</strong>。然后涵盖了高效的设备内训练，以便在移动设备上基于本地数据实现用户定制。除了通用加速技术，还展示了通过利用它们的空间稀疏性和时间&#x2F;令牌冗余来加速点云、视频和自然语言处理的几种任务特定加速。最后，为了支持所有这些算法进展，从软件和硬件角度介绍了高效深度学习系统设计。</p><p><img src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202305282317848.png"></p><h1 id="2-优势"><a href="#2-优势" class="headerlink" title="2.优势"></a>2.优势</h1><p>与以前的解决方案相比，本文旨在涵盖更广泛的高效深度学习方法和应用：从手动到自动，从新原语&#x2F;操作设计到设计空间探索，从训练到推理，从算法到硬件，从通用目的到应用特定优化。</p><h1 id="3-细节"><a href="#3-细节" class="headerlink" title="3.细节"></a>3.细节</h1><h2 id="3-1剪枝"><a href="#3-1剪枝" class="headerlink" title="3.1剪枝"></a>3.1剪枝</h2><p>DNN通常是过度参数化的，修剪可以去除神经网络中的冗余元素，以减少模型大小和计算成本。</p><p><img src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202305282324146.png"></p><p><strong>Step1：选择修剪粒度</strong></p><ul><li><p>颗粒度修剪：</p><ul><li><p>去除权重张量中的个别元素（细粒度）</p></li><li><p>基于模式的修剪（细粒度）</p></li><li><p>通道修剪（粗粒度）</p></li></ul></li><li><p>硬件加速</p></li></ul><p><strong>Step2：重要性标准</strong></p><p>确定哪些权重要被修剪对于修剪后的模型性能也是至关重要的。在模型训练后，有几种重要性标准的启发式方法来估计每个权重的重要性。</p><p><strong>Step3：训练方法</strong></p><p>在大的压缩比下，直接删除深度神经网络中的权重将大大降低准确性。因此，需要进行一些训练&#x2F;微调来恢复性能损失。微调可以在修剪后进行，以恢复性能下降。</p><h2 id="3-2低秩因子化"><a href="#3-2低秩因子化" class="headerlink" title="3.2低秩因子化"></a>3.2低秩因子化</h2><p>使用矩阵&#x2F;张量分解来降低深度神经网络中卷积或全连接层的复杂性，使用低秩过滤器来加速卷积的想法在信号处理领域已被长期研究，比如SVD。</p><h2 id="3-3量化"><a href="#3-3量化" class="headerlink" title="3.3量化"></a>3.3量化</h2><p>通过减少表示深层网络所需的每个权重的比特来压缩网络。在硬件支持下，量化后的网络可以有更快的推理速度。</p><p><img src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202305282333445.png"></p><ul><li><strong>四舍五入方案</strong>：为了将全精度权重(32位浮点值)量化为低精度，四舍五入被用来将浮点值映射到一个量化桶中。<ul><li>k-means：落入同一类的共享权重</li><li>线性&#x2F;统一量化：范围截断后直接将浮点值四舍五入为最接近的量化值。</li></ul></li><li><strong>位精度</strong>：使用不同的位来权衡模型大小，较低的位精度模型小，但精度下降也大。全精度权重和激活都使用FP32。半精度使用FP16。INT8常用于GPU加速。</li><li><strong>量化方案</strong>：①对于更高精度的量化( 如INT8)，可以进行<strong>训练后量化</strong>，在全精度模型训练后对权重和激活进行量化，激活的量化范围是通过计算训练集上的分布来确定的。应用训练后的INT8量化通常会导致精度的微小损失或没有损失。最近的工作也研究了INT4模型的训练后量化问题。②<strong>量化感知训练</strong>可以通过在训练期间模拟推理时间量化来减少量化精度的损失，训练期间的前向传递与测试时间一致，这有助于设备上的部署。</li></ul><h2 id="3-4-知识蒸馏"><a href="#3-4-知识蒸馏" class="headerlink" title="3.4 知识蒸馏"></a>3.4 知识蒸馏</h2><p>KD将大模型（教师）中学习的“暗知识”转移到小模型（学生）中。</p><h2 id="3-5紧凑模型设计"><a href="#3-5紧凑模型设计" class="headerlink" title="3.5紧凑模型设计"></a>3.5紧凑模型设计</h2><ul><li>Mobile net</li><li>shuffle net：引入了两个新的操作，顺时针分组卷积和channel shuffle。</li><li>squeeze net</li></ul><h2 id="3-6NAS"><a href="#3-6NAS" class="headerlink" title="3.6NAS"></a>3.6NAS</h2><p>——</p><h2 id="3-7自动模型压缩"><a href="#3-7自动模型压缩" class="headerlink" title="3.7自动模型压缩"></a>3.7自动模型压缩</h2><p>模型压缩方法可以提高部署模型的效率。然而，模型压缩的性能主要受超参数的影响。例如，深度网络中的不同层有不同的能力和敏感度( 例如，CNN中的第一层通常对修剪非常敏感 )。因此我们应该<strong>对网络的不同层应用不同的修剪比例</strong>，以达到最佳性能。设计空间如此之大，以至于人类的启发式方法通常是次优的，而且人工模型压缩也很耗时。为此，提出了自动模型压缩，以找到好的压缩策略。</p><ul><li><p><strong>自动剪枝</strong>：传统的模型修剪技术依赖于手工制作的特征，需要领域专家探索庞大的设计空间在模型大小、速度和精度之间进行权衡，这通常是次优的，而且很费时间。AMC利用强化学习来有效地对设计空间进行采样，并为给定的网络找到最佳的剪枝策略。奖励被计算为准确性和FLOP的函数；MetaPruning首先训练了一个PruningNet，一种<strong>元网络</strong>，它能够为给定的目标网络的任何修剪结构生成权重参数，然后用它来搜索不同约束条件下的最佳修剪策略。该元网络可用于直接测量压缩精度，而无需进行微调。</p></li><li><p><strong>自动量化</strong>：混合精度量化也需要大量的努力来决定每一层的最佳位宽，以实现最佳的精度-性能权衡。硬件感知自动量化(HAQ)利用强化学习来自动确定量化策略；一种用于混合精度量化的二阶量化方法Hessian AWare Quantization ( HAWQ )允许根据各层的Hessian谱，自动选择各层的相对量化精度，当应用于大型语言模型时，还显示出卓越的性能。</p></li></ul><h2 id="3-8联合压缩与NAS"><a href="#3-8联合压缩与NAS" class="headerlink" title="3.8联合压缩与NAS"></a>3.8联合压缩与NAS</h2><ul><li>顺序优化：即分别应用这两种技术。</li><li>联合优化（端到端）</li></ul><p><img src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202305282353765.png"></p><h2 id="3-9高效的设备上学习"><a href="#3-9高效的设备上学习" class="headerlink" title="3.9高效的设备上学习"></a>3.9高效的设备上学习</h2><ul><li>梯度检查点</li><li>激活修剪</li><li>低比特训练</li><li>梯度压缩</li></ul><h2 id="3-10高效的迁移学习"><a href="#3-10高效的迁移学习" class="headerlink" title="3.10高效的迁移学习"></a>3.10高效的迁移学习</h2><p>——</p><h2 id="3-11联邦学习"><a href="#3-11联邦学习" class="headerlink" title="3.11联邦学习"></a>3.11联邦学习</h2><p>联合学习允许多个客户联合训练一个模型，而不需要明确分享他们的数据。随着个人数据的隐私问题越来越受到关注，这也导致了在不破坏隐私的情况下进行训练的需求越来越大。虽然在部署中拥有许多边缘设备是很常见的，但联合学习提供了一种利用所有设备的方法，并解决了安全问题，因为本地数据从未离开过客户端。与配备高端网络基础设施的集群不同，边缘设备通常与功能较弱的网络(Wi-Fi)相连在<strong>这种情况下，带宽很低，延迟很高</strong>，传统方法的扩展性很差。为了消除瓶颈，联合平均、梯度压缩和量化大大减少了传输的比特，以降低带宽要求，延迟更新处理了延迟的问题。</p>]]></content:encoded>
       
       
       
+      <category domain="http://blogls.top/tags/PaperReading/">PaperReading</category>
       
-      <comments>http://blogls.top/2023/02/28/hello-world/#disqus_thread</comments>
+      
+      <comments>http://blogls.top/2023/05/28/2022-Enable-Deep-Learning-on-Mobile-Devices-Methods-Systems-and-Applications-%E9%9F%A9%E6%9D%BE-CCF-B/#disqus_thread</comments>
       
     </item>
     

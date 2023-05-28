@@ -2,9 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blogls.top/2023/04/13/%E2%80%9C%E8%AE%B0%E5%BF%86%E5%A4%9A%E7%BB%B4%E8%BF%9B%E5%8C%96%E5%A4%9A%E4%BB%BB%E5%8A%A1%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95%E2%80%9D/</loc>
+    <loc>http://blogls.top/2023/05/28/2022-Enable-Deep-Learning-on-Mobile-Devices-Methods-Systems-and-Applications-%E9%9F%A9%E6%9D%BE-CCF-B/</loc>
     
-    <lastmod>2023-04-13</lastmod>
+    <lastmod>2023-05-28</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -46,24 +46,6 @@
     <priority>0.6</priority>
   </url>
   
-  <url>
-    <loc>http://blogls.top/2023/02/28/test-my-site/</loc>
-    
-    <lastmod>2023-02-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blogls.top/2023/02/28/hello-world/</loc>
-    
-    <lastmod>2023-02-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
 
   <url>
     <loc>http://blogls.top/</loc>
@@ -72,6 +54,13 @@
     <priority>1.0</priority>
   </url>
 
+  
+  <url>
+    <loc>http://blogls.top/tags/PaperReading/</loc>
+    <lastmod>2023-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
   
 
   
