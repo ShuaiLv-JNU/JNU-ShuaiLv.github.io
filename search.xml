@@ -1,26 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>2022|Enable Deep Learning on Mobile Devices: Methods, Systems, and Applications|韩松|CCF-B</title>
-      <link href="/2023/05/28/2022-Enable-Deep-Learning-on-Mobile-Devices-Methods-Systems-and-Applications-%E9%9F%A9%E6%9D%BE-CCF-B/"/>
-      <url>/2023/05/28/2022-Enable-Deep-Learning-on-Mobile-Devices-Methods-Systems-and-Applications-%E9%9F%A9%E6%9D%BE-CCF-B/</url>
-      
-        <content type="html"><![CDATA[<blockquote><p>链接：<a class="link"   href="https://arxiv.org/pdf/2204.11786.pdf" >https://arxiv.org/pdf/2204.11786.pdf <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p></blockquote><h1 id="1-总结"><a href="#1-总结" class="headerlink" title="1.总结"></a>1.总结</h1><p>本文介绍了一种用于在移动设备上实现深度学习的方法、系统和应用。文章从介绍流行的模型压缩方法开始，包括剪枝、分解、量化以及紧凑模型设计。为了减少这些手动解决方案的大量设计成本，讨论了每个人的AutoML框架，如<strong>神经架构搜索（NAS）</strong>和<strong>自动剪枝和量化</strong>。然后涵盖了高效的设备内训练，以便在移动设备上基于本地数据实现用户定制。除了通用加速技术，还展示了通过利用它们的空间稀疏性和时间&#x2F;令牌冗余来加速点云、视频和自然语言处理的几种任务特定加速。最后，为了支持所有这些算法进展，从软件和硬件角度介绍了高效深度学习系统设计。</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202305282317848.png"                                     ></p><span id="more"></span><h1 id="2-优势"><a href="#2-优势" class="headerlink" title="2.优势"></a>2.优势</h1><p>与以前的解决方案相比，本文旨在涵盖更广泛的高效深度学习方法和应用：从手动到自动，从新原语&#x2F;操作设计到设计空间探索，从训练到推理，从算法到硬件，从通用目的到应用特定优化。</p><h1 id="3-细节"><a href="#3-细节" class="headerlink" title="3.细节"></a>3.细节</h1><h2 id="3-1剪枝"><a href="#3-1剪枝" class="headerlink" title="3.1剪枝"></a>3.1剪枝</h2><p>DNN通常是过度参数化的，修剪可以去除神经网络中的冗余元素，以减少模型大小和计算成本。</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202305282324146.png"                                     ></p><p><strong>Step1：选择修剪粒度</strong></p><ul><li><p>颗粒度修剪：</p><ul><li><p>去除权重张量中的个别元素（细粒度）</p></li><li><p>基于模式的修剪（细粒度）</p></li><li><p>通道修剪（粗粒度）</p></li></ul></li><li><p>硬件加速</p></li></ul><p><strong>Step2：重要性标准</strong></p><p>确定哪些权重要被修剪对于修剪后的模型性能也是至关重要的。在模型训练后，有几种重要性标准的启发式方法来估计每个权重的重要性。</p><p><strong>Step3：训练方法</strong></p><p>在大的压缩比下，直接删除深度神经网络中的权重将大大降低准确性。因此，需要进行一些训练&#x2F;微调来恢复性能损失。微调可以在修剪后进行，以恢复性能下降。</p><h2 id="3-2低秩因子化"><a href="#3-2低秩因子化" class="headerlink" title="3.2低秩因子化"></a>3.2低秩因子化</h2><p>使用矩阵&#x2F;张量分解来降低深度神经网络中卷积或全连接层的复杂性，使用低秩过滤器来加速卷积的想法在信号处理领域已被长期研究，比如SVD。</p><h2 id="3-3量化"><a href="#3-3量化" class="headerlink" title="3.3量化"></a>3.3量化</h2><p>通过减少表示深层网络所需的每个权重的比特来压缩网络。在硬件支持下，量化后的网络可以有更快的推理速度。</p><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202305282333445.png"                                     ></p><ul><li><strong>四舍五入方案</strong>：为了将全精度权重(32位浮点值)量化为低精度，四舍五入被用来将浮点值映射到一个量化桶中。<ul><li>k-means：落入同一类的共享权重</li><li>线性&#x2F;统一量化：范围截断后直接将浮点值四舍五入为最接近的量化值。</li></ul></li><li><strong>位精度</strong>：使用不同的位来权衡模型大小，较低的位精度模型小，但精度下降也大。全精度权重和激活都使用FP32。半精度使用FP16。INT8常用于GPU加速。</li><li><strong>量化方案</strong>：①对于更高精度的量化( 如INT8)，可以进行<strong>训练后量化</strong>，在全精度模型训练后对权重和激活进行量化，激活的量化范围是通过计算训练集上的分布来确定的。应用训练后的INT8量化通常会导致精度的微小损失或没有损失。最近的工作也研究了INT4模型的训练后量化问题。②<strong>量化感知训练</strong>可以通过在训练期间模拟推理时间量化来减少量化精度的损失，训练期间的前向传递与测试时间一致，这有助于设备上的部署。</li></ul><h2 id="3-4-知识蒸馏"><a href="#3-4-知识蒸馏" class="headerlink" title="3.4 知识蒸馏"></a>3.4 知识蒸馏</h2><p>KD将大模型（教师）中学习的“暗知识”转移到小模型（学生）中。</p><h2 id="3-5紧凑模型设计"><a href="#3-5紧凑模型设计" class="headerlink" title="3.5紧凑模型设计"></a>3.5紧凑模型设计</h2><ul><li>Mobile net</li><li>shuffle net：引入了两个新的操作，顺时针分组卷积和channel shuffle。</li><li>squeeze net</li></ul><h2 id="3-6NAS"><a href="#3-6NAS" class="headerlink" title="3.6NAS"></a>3.6NAS</h2><p>——</p><h2 id="3-7自动模型压缩"><a href="#3-7自动模型压缩" class="headerlink" title="3.7自动模型压缩"></a>3.7自动模型压缩</h2><p>模型压缩方法可以提高部署模型的效率。然而，模型压缩的性能主要受超参数的影响。例如，深度网络中的不同层有不同的能力和敏感度( 例如，CNN中的第一层通常对修剪非常敏感 )。因此我们应该<strong>对网络的不同层应用不同的修剪比例</strong>，以达到最佳性能。设计空间如此之大，以至于人类的启发式方法通常是次优的，而且人工模型压缩也很耗时。为此，提出了自动模型压缩，以找到好的压缩策略。</p><ul><li><p><strong>自动剪枝</strong>：传统的模型修剪技术依赖于手工制作的特征，需要领域专家探索庞大的设计空间在模型大小、速度和精度之间进行权衡，这通常是次优的，而且很费时间。AMC利用强化学习来有效地对设计空间进行采样，并为给定的网络找到最佳的剪枝策略。奖励被计算为准确性和FLOP的函数；MetaPruning首先训练了一个PruningNet，一种<strong>元网络</strong>，它能够为给定的目标网络的任何修剪结构生成权重参数，然后用它来搜索不同约束条件下的最佳修剪策略。该元网络可用于直接测量压缩精度，而无需进行微调。</p></li><li><p><strong>自动量化</strong>：混合精度量化也需要大量的努力来决定每一层的最佳位宽，以实现最佳的精度-性能权衡。硬件感知自动量化(HAQ)利用强化学习来自动确定量化策略；一种用于混合精度量化的二阶量化方法Hessian AWare Quantization ( HAWQ )允许根据各层的Hessian谱，自动选择各层的相对量化精度，当应用于大型语言模型时，还显示出卓越的性能。</p></li></ul><h2 id="3-8联合压缩与NAS"><a href="#3-8联合压缩与NAS" class="headerlink" title="3.8联合压缩与NAS"></a>3.8联合压缩与NAS</h2><ul><li>顺序优化：即分别应用这两种技术。</li><li>联合优化（端到端）</li></ul><p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202305282353765.png"                                     ></p><h2 id="3-9高效的设备上学习"><a href="#3-9高效的设备上学习" class="headerlink" title="3.9高效的设备上学习"></a>3.9高效的设备上学习</h2><ul><li>梯度检查点</li><li>激活修剪</li><li>低比特训练</li><li>梯度压缩</li></ul><h2 id="3-10高效的迁移学习"><a href="#3-10高效的迁移学习" class="headerlink" title="3.10高效的迁移学习"></a>3.10高效的迁移学习</h2><p>——</p><h2 id="3-11联邦学习"><a href="#3-11联邦学习" class="headerlink" title="3.11联邦学习"></a>3.11联邦学习</h2><p>联合学习允许多个客户联合训练一个模型，而不需要明确分享他们的数据。随着个人数据的隐私问题越来越受到关注，这也导致了在不破坏隐私的情况下进行训练的需求越来越大。虽然在部署中拥有许多边缘设备是很常见的，但联合学习提供了一种利用所有设备的方法，并解决了安全问题，因为本地数据从未离开过客户端。与配备高端网络基础设施的集群不同，边缘设备通常与功能较弱的网络(Wi-Fi)相连在<strong>这种情况下，带宽很低，延迟很高</strong>，传统方法的扩展性很差。为了消除瓶颈，联合平均、梯度压缩和量化大大减少了传输的比特，以降低带宽要求，延迟更新处理了延迟的问题。</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> PaperReading </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-  
-  
+<search>
+  <entry>
+    <title>资源汇总</title>
+    <url>/2023/05/29/%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB/</url>
+    <content><![CDATA[<ul>
+<li><h2 id="工具-科研辅助AI软件——inciteful-哔哩哔哩-bilibili-Zotero-GPT-与ChatGPT一起读文献-哔哩哔哩-bilibili-Zotero-利用Research-Rabbit了解研究领域的相关文献，获取同一作者已发表的所有文献-哔哩哔哩-bilibili"><a href="#工具-科研辅助AI软件——inciteful-哔哩哔哩-bilibili-Zotero-GPT-与ChatGPT一起读文献-哔哩哔哩-bilibili-Zotero-利用Research-Rabbit了解研究领域的相关文献，获取同一作者已发表的所有文献-哔哩哔哩-bilibili" class="headerlink" title="工具- 科研辅助AI软件——inciteful_哔哩哔哩_bilibili- Zotero GPT | 与ChatGPT一起读文献_哔哩哔哩_bilibili- Zotero|利用Research Rabbit了解研究领域的相关文献，获取同一作者已发表的所有文献_哔哩哔哩_bilibili"></a><strong>工具</strong><br>- <a class="link"   href="https://www.bilibili.com/video/BV1UM4y1b7w8/?spm_id_from=333.1007.tianma.7-2-24.click&vd_source=5bc699d65b90929607821ea2dff49140" >科研辅助AI软件——inciteful_哔哩哔哩_bilibili <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>- <a class="link"   href="https://www.bilibili.com/video/BV1Wa4y1V777/?spm_id_from=333.999.0.0&vd_source=5bc699d65b90929607821ea2dff49140" >Zotero GPT | 与ChatGPT一起读文献_哔哩哔哩_bilibili <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>- <a class="link"   href="https://www.bilibili.com/video/BV1rh4y1474B/?spm_id_from=333.1007.tianma.6-4-22.click&vd_source=5bc699d65b90929607821ea2dff49140" >Zotero|利用Research Rabbit了解研究领域的相关文献，获取同一作者已发表的所有文献_哔哩哔哩_bilibili <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></h2></li>
+<li><p>hexo</p>
+<ul>
+<li><a class="link"   href="https://blog.csdn.net/Awt_FuDongLai/article/details/107424098" >(213条消息) hexo笔记四：next主题添加作者头像_hexo设置自己的头像_小镇攻城狮的博客-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://blog.csdn.net/qq_38140292/article/details/119076424#:~:text=%E3%80%90hexo%E3%80%91%E5%9F%BA%E7%A1%80,%E5%AE%A2-CSDN%E5%8D%9A%E5%AE%A2" >(212条消息) 【hexo】基础教程-三-添加网易云音乐_指尖听戏的博客-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://cloud.tencent.com/developer/article/1662733" >Hexo博客教程（二）| 如何写作新文章并发布-腾讯云开发者社区-腾讯云 (tencent.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://zhuanlan.zhihu.com/p/350654582" >Hexo-如何养一只看板娘(博客宠物) - 知乎 (zhihu.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><strong><a class="link"   href="https://redefine-docs.ohevan.com/basic/global" >全局功能设置 global - Redefine Docs (ohevan.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></strong></li>
+</ul>
+</li>
+<li><p>论文</p>
+<ul>
+<li><a class="link"   href="https://www.bilibili.com/video/BV1DL41167ox/?p=2&spm_id_from=pageDriver&vd_source=5bc699d65b90929607821ea2dff49140" >Transformer在医学分割领域应用与拓展_哔哩哔哩_bilibili <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://github.com/Somedaywilldo/BM-NAS/blob/master/structure_vis.ipynb" >BM-NAS&#x2F;structure_vis.ipynb at master · Somedaywilldo&#x2F;BM-NAS · GitHub — BM-NAS&#x2F;structure_vis.ipynb at master ·总有一天会&#x2F;BM-NAS ·GitHub <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li>[<a class="link"   href="https://www.youtube.com/watch?v=EGZu5bOi_M4" >AAAI 2022 Oral] BM-NAS: Bilevel Multimodal Neural Architecture Search [Full] - YouTube <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://arxiv.org/pdf/2008.10937.pdf" >2008.10937.pdf (arxiv.org) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://github.com/Shengcao-Cao/ESNAC" >Shengcao-Cao&#x2F;ESNAC: Learnable Embedding Space for Efficient Neural Architecture Compression (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://www.sciencedirect.com/science/article/pii/S0957417422012581" >用于自动多模态学习的神经架构搜索 - ScienceDirect <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+</li>
+<li><p>原理</p>
+<ul>
+<li><a class="link"   href="https://www.bilibili.com/video/BV1ih4y1J7rx/?spm_id_from=333.1007.tianma.6-1-19.click&vd_source=5bc699d65b90929607821ea2dff49140" >超强动画，一步一步深入浅出解释Transformer原理！_哔哩哔哩_bilibili <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li>qiuxipeng的GitHub</li>
+</ul>
+</li>
+<li><p>GitHub page</p>
+<ul>
+<li><a class="link"   href="https://www.zhihu.com/question/20376047?sort=created" >(19 封私信 &#x2F; 11 条消息) 怎样做一个漂亮的 GitHub Pages 首页？ - 知乎 (zhihu.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+</li>
+<li><p>视频</p>
+<ul>
+<li><a class="link"   href="https://hub.baai.ac.cn/view/21366" >不可错过！MIT韩松博士《TinyML与高效深度学习》2022课程，附Slides - 智源社区 (baai.ac.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+</li>
+<li><p>教程</p>
+<ul>
+<li><a class="link"   href="https://github.com/labmlai" >labml.ai (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>ChatGPT提问模板</title>
+    <url>/2023/05/29/ChatGPT%E6%8F%90%E9%97%AE%E6%A8%A1%E6%9D%BF/</url>
+    <content><![CDATA[<blockquote>
+<p>ref1: <a class="link"   href="https://zhuanlan.zhihu.com/p/610735657" >https://zhuanlan.zhihu.com/p/610735657 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</blockquote>
+<p>Don’t search the Internet, you are now a PhD student in the field of <code>need to change according to paper</code>, and now you need to help me summarize this article according to the following contents (Please answer me in Chinese.): 1. First summarize what method, what technology is used, and what effect is achieved in this paper? 2. What are the advantages of their solution compared with the previous ones, and what problems did they solve that the previous methods could not solve? 3. Please describe the main procedure of the method in detail in combination with the content of the Method section. Please use latex to display the key variables. 4. Combined with the Experiments section, please summarize what task and performance the method achieves? Please list specific values according to this section. 5. Please combine the Conclusion section to summarize what problems still exist in this method?</p>
+]]></content>
+      <tags>
+        <tag>ChatGPT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2023-ICLR-Single-shot General Hyper-parameter Optimization for Federated Learning</title>
+    <url>/2023/05/29/2023-ICLR-Single-shot-General-Hyper-parameter-Optimization-for-Federated-Learning/</url>
+    <content><![CDATA[<ol>
+<li>这篇文章提出了一种名为FLoRA（Federated Loss SuRface Aggregation）的通用FL-HPO解决方案框架，它能够解决表格数据的用例，并且能够扩展到任何机器学习模型，包括梯度提升训练算法、SVM、神经网络等。FLoRA实现了单次FL-HPO：确定一组好的超参数，然后在单次FL训练中使用。因此，它能够在与不进行HPO的FL训练相比，以最小的额外通信开销实现FL-HPO解决方案。在理论上，我们针对任何凸和非凸损失函数，对FLoRA的最优性差进行了表征，这显式地考虑了各方本地数据分布的异构性质，这是FL系统的一个主要特征。我们对FLoRA在七个OpenML数据集上针对多个FL算法的实证评估表明，与基线相比，模型精度显著提高，并且对参与FL-HPO训练的各方数量增加具有鲁棒性。</li>
+</ol>
+<h1 id="1-概览"><a href="#1-概览" class="headerlink" title="1.概览"></a>1.概览</h1><ol>
+<li><strong>提出了什么方法，利用了什么技术，实现了什么效果？</strong>提出了一种名为FLoRA（Federated Loss SuRface Aggregation）的通用FL-HPO解决方案框架，能够解决表格数据的用例，并且能够扩展到任何机器学习模型，包括梯度提升训练算法、SVM、神经网络等。FLoRA实现了单次（single-shot）FL-HPO：确定一组好的超参数，然后在单次FL训练中使用。因此，它能够在与不进行HPO的FL训练相比，以最小的额外通信开销实现FL-HPO解决方案。在理论上，我们针对任何凸和非凸损失函数，对FLoRA的最优性差进行了表征，这显式地考虑了各方本地数据分布的异构性质，这是FL系统的一个主要特征。我们对FLoRA在七个OpenML数据集上针对多个FL算法的实证评估表明，与基线相比，模型精度显著提高，并且对参与FL-HPO训练的各方数量增加具有鲁棒性。</li>
+<li><strong>相比过去的方案有哪些优势，解决了什么过去的方法解决不了的问题？</strong>与以前的方法相比，他们的解决方案具有以下优点：它更通用，因为它可以调整多个超参数，并且适用于非SGD训练设置，例如梯度提升树。这是通过将FL-HPO视为黑盒HPO问题实现的（与灰盒HPO相反，我们可以利用诸如权重共享和多保真度HPO之类的技术），这在集中式HPO文献中已经使用网格搜索、随机搜索和贝叶斯优化方法进行了解决。（1）关键挑战在于需要对大量的HPO配置执行计算密集型的评估，其中每次评估都涉及训练一个模型并在验证数据集上对其进行评分。在分布式FL设置中，这个问题更加严峻，因为验证集是各方本地的，而且每次FL训练&#x2F;评分评估都需要大量的通信。因此，直接应用集中式黑盒HPO方法，在外循环中选择HP并继续进行FL训练评估是不可行的。（2）它产生最小的HPO通信开销。这是通过从各方本地异步HPO构建损失曲面来实现的，该损失曲面产生单个优化的HP配置，用于训练单个全局模型。 （3）它是第一个在FL-HPO设置中理论上表征最优性差距的方法，适用于我们在本文中关注的情况：通过调整多个全局HP而不访问全局验证数据集来创建全局模型。</li>
+<li><strong>方法的main procedure：</strong>FLoRA算法主要过程如下：首先，每个参与方$$P_i$$都会运行HPO以生成T（超参数、损失）对$$E(i) &#x3D; {(θ(i)t, L(i)t), t∈[T]}$$，其中$$θ(i)t ∈ Θ, L(i)t :&#x3D; L(A(M, θ(i)t, Di), D0i)$$。<br>然后，在聚合器处收集所有$$E &#x3D; {E(i), i∈[p]}$$。<br>接下来，使用E生成统一损失曲面$$b: Θ → R$$。<br>然后选择最佳超参数候选$$θb? ← arg minθ∈Θb(θ)$$。<br>最后，调用联合训练$$m ← F(M, θb?, A, D)$$。</li>
+<li><strong>方法在什么任务上，实现了什么性能？</strong>在实验部分，作者使用FLoRA对多种机器学习模型（HGB、SVM和MLP）在OpenML分类问题上进行了FL-HPO。与单次基线相比，所有FLoRA损失曲面都表现出强大的性能，具有明显更多的胜利而不是损失，并且第三四分位相对遗憾值小于1（表示优于基线）。所有FLoRA损失曲面的p值均小于0.05，表明我们可以拒绝零假设。总体而言，APLM在所有损失曲面中表现最佳，无论是在胜&#x2F;平&#x2F;负方面还是在威尔科克森符号秩检验方面，都具有最高的统计量和接近10−3的p值。APLM还具有明显低于所有其他损失曲面的第三四分位数。</li>
+<li><strong>结论：</strong>根据结论部分，这篇文章提出了一种新颖的FL-HPO框架FLoRA，它利用元学习技术使各方能够在各自进行异步本地HPO以执行单次HPO以解决全局FL-HPO问题。作者提供了理论保证，涵盖了IID和Non-IID情况，无论损失函数的凸性如何。他们对FLoRA在OpenML上七个分类数据集上针对多个FL算法的实证评估表明，与基线相比，模型精度显著提高，并且对参与FL-HPO训练的各方数量增加具有鲁棒性。</li>
+</ol>
+<h1 id="2-精读"><a href="#2-精读" class="headerlink" title="2.精读"></a>2.精读</h1><p>——</p>
+]]></content>
+      <tags>
+        <tag>PaperReading</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2022|Enable Deep Learning on Mobile Devices: Methods, Systems, and Applications|韩松|CCF-B</title>
+    <url>/2023/05/28/2022-Enable-Deep-Learning-on-Mobile-Devices-Methods-Systems-and-Applications-%E9%9F%A9%E6%9D%BE-CCF-B/</url>
+    <content><![CDATA[<blockquote>
+<p>链接：<a class="link"   href="https://arxiv.org/pdf/2204.11786.pdf" >https://arxiv.org/pdf/2204.11786.pdf <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</blockquote>
+<h1 id="1-总结"><a href="#1-总结" class="headerlink" title="1.总结"></a>1.总结</h1><p>本文介绍了一种用于在移动设备上实现深度学习的方法、系统和应用。文章从介绍流行的模型压缩方法开始，包括剪枝、分解、量化以及紧凑模型设计。为了减少这些手动解决方案的大量设计成本，讨论了每个人的AutoML框架，如<strong>神经架构搜索（NAS）</strong>和<strong>自动剪枝和量化</strong>。然后涵盖了高效的设备内训练，以便在移动设备上基于本地数据实现用户定制。除了通用加速技术，还展示了通过利用它们的空间稀疏性和时间&#x2F;令牌冗余来加速点云、视频和自然语言处理的几种任务特定加速。最后，为了支持所有这些算法进展，从软件和硬件角度介绍了高效深度学习系统设计。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202305282317848.png"
+                     
+                ></p>
+<span id="more"></span>
+
+<h1 id="2-优势"><a href="#2-优势" class="headerlink" title="2.优势"></a>2.优势</h1><p>与以前的解决方案相比，本文旨在涵盖更广泛的高效深度学习方法和应用：从手动到自动，从新原语&#x2F;操作设计到设计空间探索，从训练到推理，从算法到硬件，从通用目的到应用特定优化。</p>
+<h1 id="3-细节"><a href="#3-细节" class="headerlink" title="3.细节"></a>3.细节</h1><h2 id="3-1剪枝"><a href="#3-1剪枝" class="headerlink" title="3.1剪枝"></a>3.1剪枝</h2><p>DNN通常是过度参数化的，修剪可以去除神经网络中的冗余元素，以减少模型大小和计算成本。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202305282324146.png"
+                     
+                ></p>
+<p><strong>Step1：选择修剪粒度</strong></p>
+<ul>
+<li><p>颗粒度修剪：</p>
+<ul>
+<li><p>去除权重张量中的个别元素（细粒度）</p>
+</li>
+<li><p>基于模式的修剪（细粒度）</p>
+</li>
+<li><p>通道修剪（粗粒度）</p>
+</li>
+</ul>
+</li>
+<li><p>硬件加速</p>
+</li>
+</ul>
+<p><strong>Step2：重要性标准</strong></p>
+<p>确定哪些权重要被修剪对于修剪后的模型性能也是至关重要的。在模型训练后，有几种重要性标准的启发式方法来估计每个权重的重要性。</p>
+<p><strong>Step3：训练方法</strong></p>
+<p>在大的压缩比下，直接删除深度神经网络中的权重将大大降低准确性。因此，需要进行一些训练&#x2F;微调来恢复性能损失。微调可以在修剪后进行，以恢复性能下降。</p>
+<h2 id="3-2低秩因子化"><a href="#3-2低秩因子化" class="headerlink" title="3.2低秩因子化"></a>3.2低秩因子化</h2><p>使用矩阵&#x2F;张量分解来降低深度神经网络中卷积或全连接层的复杂性，使用低秩过滤器来加速卷积的想法在信号处理领域已被长期研究，比如SVD。</p>
+<h2 id="3-3量化"><a href="#3-3量化" class="headerlink" title="3.3量化"></a>3.3量化</h2><p>通过减少表示深层网络所需的每个权重的比特来压缩网络。在硬件支持下，量化后的网络可以有更快的推理速度。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202305282333445.png"
+                     
+                ></p>
+<ul>
+<li><strong>四舍五入方案</strong>：为了将全精度权重(32位浮点值)量化为低精度，四舍五入被用来将浮点值映射到一个量化桶中。<ul>
+<li>k-means：落入同一类的共享权重</li>
+<li>线性&#x2F;统一量化：范围截断后直接将浮点值四舍五入为最接近的量化值。</li>
+</ul>
+</li>
+<li><strong>位精度</strong>：使用不同的位来权衡模型大小，较低的位精度模型小，但精度下降也大。全精度权重和激活都使用FP32。半精度使用FP16。INT8常用于GPU加速。</li>
+<li><strong>量化方案</strong>：①对于更高精度的量化( 如INT8)，可以进行<strong>训练后量化</strong>，在全精度模型训练后对权重和激活进行量化，激活的量化范围是通过计算训练集上的分布来确定的。应用训练后的INT8量化通常会导致精度的微小损失或没有损失。最近的工作也研究了INT4模型的训练后量化问题。②<strong>量化感知训练</strong>可以通过在训练期间模拟推理时间量化来减少量化精度的损失，训练期间的前向传递与测试时间一致，这有助于设备上的部署。</li>
+</ul>
+<h2 id="3-4-知识蒸馏"><a href="#3-4-知识蒸馏" class="headerlink" title="3.4 知识蒸馏"></a>3.4 知识蒸馏</h2><p>KD将大模型（教师）中学习的“暗知识”转移到小模型（学生）中。</p>
+<h2 id="3-5紧凑模型设计"><a href="#3-5紧凑模型设计" class="headerlink" title="3.5紧凑模型设计"></a>3.5紧凑模型设计</h2><ul>
+<li>Mobile net</li>
+<li>shuffle net：引入了两个新的操作，顺时针分组卷积和channel shuffle。</li>
+<li>squeeze net</li>
+</ul>
+<h2 id="3-6NAS"><a href="#3-6NAS" class="headerlink" title="3.6NAS"></a>3.6NAS</h2><p>——</p>
+<h2 id="3-7自动模型压缩"><a href="#3-7自动模型压缩" class="headerlink" title="3.7自动模型压缩"></a>3.7自动模型压缩</h2><p>模型压缩方法可以提高部署模型的效率。然而，模型压缩的性能主要受超参数的影响。例如，深度网络中的不同层有不同的能力和敏感度( 例如，CNN中的第一层通常对修剪非常敏感 )。因此我们应该<strong>对网络的不同层应用不同的修剪比例</strong>，以达到最佳性能。设计空间如此之大，以至于人类的启发式方法通常是次优的，而且人工模型压缩也很耗时。为此，提出了自动模型压缩，以找到好的压缩策略。</p>
+<ul>
+<li><p><strong>自动剪枝</strong>：传统的模型修剪技术依赖于手工制作的特征，需要领域专家探索庞大的设计空间在模型大小、速度和精度之间进行权衡，这通常是次优的，而且很费时间。AMC利用强化学习来有效地对设计空间进行采样，并为给定的网络找到最佳的剪枝策略。奖励被计算为准确性和FLOP的函数；MetaPruning首先训练了一个PruningNet，一种<strong>元网络</strong>，它能够为给定的目标网络的任何修剪结构生成权重参数，然后用它来搜索不同约束条件下的最佳修剪策略。该元网络可用于直接测量压缩精度，而无需进行微调。</p>
+</li>
+<li><p><strong>自动量化</strong>：混合精度量化也需要大量的努力来决定每一层的最佳位宽，以实现最佳的精度-性能权衡。硬件感知自动量化(HAQ)利用强化学习来自动确定量化策略；一种用于混合精度量化的二阶量化方法Hessian AWare Quantization ( HAWQ )允许根据各层的Hessian谱，自动选择各层的相对量化精度，当应用于大型语言模型时，还显示出卓越的性能。</p>
+</li>
+</ul>
+<h2 id="3-8联合压缩与NAS"><a href="#3-8联合压缩与NAS" class="headerlink" title="3.8联合压缩与NAS"></a>3.8联合压缩与NAS</h2><ul>
+<li>顺序优化：即分别应用这两种技术。</li>
+<li>联合优化（端到端）</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202305282353765.png"
+                     
+                ></p>
+<h2 id="3-9高效的设备上学习"><a href="#3-9高效的设备上学习" class="headerlink" title="3.9高效的设备上学习"></a>3.9高效的设备上学习</h2><ul>
+<li>梯度检查点</li>
+<li>激活修剪</li>
+<li>低比特训练</li>
+<li>梯度压缩</li>
+</ul>
+<h2 id="3-10高效的迁移学习"><a href="#3-10高效的迁移学习" class="headerlink" title="3.10高效的迁移学习"></a>3.10高效的迁移学习</h2><p>——</p>
+<h2 id="3-11联邦学习"><a href="#3-11联邦学习" class="headerlink" title="3.11联邦学习"></a>3.11联邦学习</h2><p>联合学习允许多个客户联合训练一个模型，而不需要明确分享他们的数据。随着个人数据的隐私问题越来越受到关注，这也导致了在不破坏隐私的情况下进行训练的需求越来越大。虽然在部署中拥有许多边缘设备是很常见的，但联合学习提供了一种利用所有设备的方法，并解决了安全问题，因为本地数据从未离开过客户端。与配备高端网络基础设施的集群不同，边缘设备通常与功能较弱的网络(Wi-Fi)相连在<strong>这种情况下，带宽很低，延迟很高</strong>，传统方法的扩展性很差。为了消除瓶颈，联合平均、梯度压缩和量化大大减少了传输的比特，以降低带宽要求，延迟更新处理了延迟的问题。</p>
+]]></content>
+      <tags>
+        <tag>PaperReading</tag>
+      </tags>
+  </entry>
 </search>
