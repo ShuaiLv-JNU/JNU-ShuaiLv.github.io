@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blogls.top/links/index.html</loc>
+    <loc>http://blogls.top/2023/05/30/2023-ICLR-Transfer-NAS-with-Meta-learned-Bayesian-Surrogates/</loc>
     
     <lastmod>2023-05-30</lastmod>
     
@@ -13,7 +13,16 @@
   <url>
     <loc>http://blogls.top/2023/05/29/%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB/</loc>
     
-    <lastmod>2023-05-29</lastmod>
+    <lastmod>2023-05-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blogls.top/shuoshuo/index.html</loc>
+    
+    <lastmod>2023-05-30</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -22,7 +31,52 @@
   <url>
     <loc>http://blogls.top/2023/05/29/2023-ICLR-Single-shot-General-Hyper-parameter-Optimization-for-Federated-Learning/</loc>
     
-    <lastmod>2023-05-29</lastmod>
+    <lastmod>2023-05-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blogls.top/about/index.html</loc>
+    
+    <lastmod>2023-05-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blogls.top/masonry/index.html</loc>
+    
+    <lastmod>2023-05-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blogls.top/tags/index.html</loc>
+    
+    <lastmod>2023-05-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blogls.top/categories/index.html</loc>
+    
+    <lastmod>2023-05-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blogls.top/links/index.html</loc>
+    
+    <lastmod>2023-05-30</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -41,42 +95,6 @@
     <loc>http://blogls.top/2023/05/28/2022-Enable-Deep-Learning-on-Mobile-Devices-Methods-Systems-and-Applications-%E9%9F%A9%E6%9D%BE-CCF-B/</loc>
     
     <lastmod>2023-05-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blogls.top/tags/index.html</loc>
-    
-    <lastmod>2023-03-07</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blogls.top/about/index.html</loc>
-    
-    <lastmod>2023-03-07</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blogls.top/categories/index.html</loc>
-    
-    <lastmod>2023-03-07</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blogls.top/resources/index.html</loc>
-    
-    <lastmod>2023-03-07</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

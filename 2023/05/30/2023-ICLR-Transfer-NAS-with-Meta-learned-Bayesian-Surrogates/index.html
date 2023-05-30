@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Shuai Lv">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+        
+            <link rel="preconnect" href="https://npm.elemecdn.com" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://blogls.top/2023/05/30/2023-iclr-transfer-nas-with-meta-learned-bayesian-surrogates/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="1.论文 这篇论文提出了一种新的神经网络结构搜索方法，称为“Transfer NAS with Meta-Learned Bayesian Surrogates”。该方法使用贝叶斯优化（BO）和深度内核高斯过程（DKGP）来进行神经网络结构搜索。此外，该方法还使用图神经网络（GNN）和基于Transformer的数据集编码器来获得架构嵌入和数据集上下文特征。该方法在六个计算机视觉数据集上实现了最先">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2023-ICLR-Transfer NAS with Meta-learned Bayesian Surrogates">
+<meta property="og:url" content="http://blogls.top/2023/05/30/2023-ICLR-Transfer-NAS-with-Meta-learned-Bayesian-Surrogates/index.html">
+<meta property="og:site_name" content="乐愚良">
+<meta property="og:description" content="1.论文 这篇论文提出了一种新的神经网络结构搜索方法，称为“Transfer NAS with Meta-Learned Bayesian Surrogates”。该方法使用贝叶斯优化（BO）和深度内核高斯过程（DKGP）来进行神经网络结构搜索。此外，该方法还使用图神经网络（GNN）和基于Transformer的数据集编码器来获得架构嵌入和数据集上下文特征。该方法在六个计算机视觉数据集上实现了最先">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202305302252677.png">
+<meta property="article:published_time" content="2023-05-30T14:47:33.000Z">
+<meta property="article:modified_time" content="2023-05-30T15:08:16.802Z">
+<meta property="article:author" content="Shuai Lv">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202305302252677.png">
+    
+    
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q3ZMF4ZML1"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-Q3ZMF4ZML1');
+        </script>
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            2023-ICLR-Transfer NAS with Meta-learned Bayesian Surrogates -
+        
+        LeYuLiang
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/assets/fonts.css">
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"blogls.top","root":"/","language":"en","path":"search.xml"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":true,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":true,"title":"推荐阅读","limit":3,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":true,"id":"G-Q3ZMF4ZML1"}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"LeYuLiang's Blog","subtitle":{"text":["丈夫处世兮，立功名","立功名兮，慰平生","慰平生兮，吾将醉","吾将醉兮，发狂吟"],"hitokoto":{"enable":true,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"links":{"github":"https://github.com/ShuaiLv-JNU","instagram":"https://www.instagram.com/liang_leyu/","zhihu":"https://www.zhihu.com/people/darker-7-73","twitter":"https://twitter.com/lushuai66337858","email":"lvshuai@stu2022.jnu.edu.cn"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"Something Just Like This","artist":"Coldplay","url":"https://evan.beee.top/music/Something%20Just%20Like%20This%20-%20The%20Chainsmokers%E3%80%81Coldplay.mp3","cover":"https://evan.beee.top/music/covers/Something_Just_Like_This.png"}]},"mermaid":{"enable":true,"version":"9.3.0"}},"version":"2.1.4","navbar":{"auto_hide":true,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Resources":{"icon":"fa-regular fa-folder","submenus":{"Photo":"/masonry"}},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/ShuaiLv-JNU"}},"Links":{"path":"/links","icon":"fa-regular fa-link"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"You only live once, so make sense.","links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}}};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    Global.data_config = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/rss2.xml" title="乐愚良" type="application/rss+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/logo.svg">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                LeYuLiang
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-folder"></i>
+                                        
+                                        RESOURCES&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/masonry">PHOTO
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/ShuaiLv-JNU">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/links"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-link"></i>
+                                        
+                                        LINKS
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-folder"></i>
+                                
+                                RESOURCES&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/masonry">PHOTO</a>
+                            </li>
+                        
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/ShuaiLv-JNU">GITHUB</a>
+                            </li>
+                        
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/links"  >
+                             
+                                
+                                    <i class="fa-regular fa-link"></i>
+                                
+                                LINKS
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">2023-ICLR-Transfer NAS with Meta-learned Bayesian Surrogates</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/avatar.jpg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Shuai Lv</span>
+                            
+                                <span class="author-label">Lv1</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-05-30 22:47:33</span>
+        <span class="mobile">2023-05-30 22:47</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-05-30 23:08:16</span>
+            <span class="mobile">2023-05-30 23:08</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>11 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="1-论文"><a href="#1-论文" class="headerlink" title="1.论文"></a>1.论文</h2><ul>
+<li>这篇论文提出了一种新的神经网络结构搜索方法，称为“Transfer NAS with Meta-Learned Bayesian Surrogates”。该方法使用贝叶斯优化（BO）和深度内核高斯过程（DKGP）来进行神经网络结构搜索。此外，该方法还使用图神经网络（GNN）和基于Transformer的数据集编码器来获得架构嵌入和数据集上下文特征。该方法在六个计算机视觉数据集上实现了最先进的结果，并且与黑盒优化方法相比，具有与一次性NAS方法相同数量级的计算成本。此外，该方法还可以在不同数据集之间传递信息，从而提高了效率。</li>
+<li>相对于以前的方法，该方法具有以下优点：<ul>
+<li>该方法可以在不同数据集之间传递信息，从而提高了效率；</li>
+<li>该方法可以利用以前的深度学习经验，从而更快地找到最佳架构；</li>
+<li>该方法可以在不同数据集上进行元学习，从而更好地适应新任务。</li>
+</ul>
+</li>
+<li>该方法的主要步骤如下：<ul>
+<li>首先，使用GNN将神经网络结构嵌入到向量空间中；</li>
+<li>然后，使用Transformer编码器将数据集上下文特征编码为向量；</li>
+<li>接下来，使用DKGP学习嵌入空间中架构和数据集之间的内核；</li>
+<li>最后，在嵌入空间中使用BO进行优化。</li>
+</ul>
+</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202305302252677.png"
+                     
+                ></p>
+<ul>
+<li>在实验部分，作者将其方法与其他NAS方法进行了比较，并在六个计算机视觉数据集上实现了最先进的结果。例如，在CIFAR-10数据集上，作者的方法达到了3.5%的测试误差率，并且速度比其他NAS方法快得多。</li>
+<li>作者指出，该方法仍存在一些问题。例如，在大型数据集上进行元学习仍然是一个挑战。此外，在某些情况下，该方法可能会受到过拟合的影响。</li>
+</ul>
+<h2 id="2-代码"><a href="#2-代码" class="headerlink" title="2.代码"></a>2.代码</h2><h3 id="2-1main"><a href="#2-1main" class="headerlink" title="2.1main"></a>2.1main</h3><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">###########################################################################################</span></span><br><span class="line"><span class="comment"># Copyright (c) Hayeon Lee, Eunyoung Hyung [GitHub MetaD2A], 2021</span></span><br><span class="line"><span class="comment"># Rapid Neural Architecture Search by Learning to Generate Graphs from Datasets, ICLR 2021</span></span><br><span class="line"><span class="comment">###########################################################################################</span></span><br><span class="line"><span class="comment">## Step1:导入相关库函数</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> optim</span><br><span class="line"><span class="keyword">from</span> torch.optim.lr_scheduler <span class="keyword">import</span> ReduceLROnPlateau</span><br><span class="line"></span><br><span class="line"><span class="comment"># from parser import get_parser</span></span><br><span class="line"><span class="keyword">from</span> generator <span class="keyword">import</span> Generator</span><br><span class="line"><span class="keyword">from</span> predictor <span class="keyword">import</span> Predictor</span><br><span class="line">sys.path.append(os.getcwd())</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">str2bool</span>(<span class="params">v</span>):</span><br><span class="line">  <span class="keyword">return</span> v.lower() <span class="keyword">in</span> [<span class="string">&#x27;t&#x27;</span>, <span class="string">&#x27;true&#x27;</span>, <span class="literal">True</span>]<span class="comment"># 判断是否为True</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Step2:设置输入参数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_parser</span>():</span><br><span class="line">  parser = argparse.ArgumentParser()</span><br><span class="line">  <span class="comment"># general settings</span></span><br><span class="line">  parser.add_argument(<span class="string">&#x27;--seed&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">333</span>)</span><br><span class="line">  parser.add_argument(<span class="string">&#x27;--gpu&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">str</span>, default=<span class="string">&#x27;0&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;set visible gpus&#x27;</span>)</span><br><span class="line">  parser.add_argument(<span class="string">&#x27;--model_name&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">str</span>, default=<span class="string">&#x27;generator&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;select model [generator|predictor]&#x27;</span>)</span><br><span class="line">  parser.add_argument(<span class="string">&#x27;--save-path&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">str</span>, default=<span class="string">&#x27;C:\\Users\\gress\\OneDrive\\Documents\\Gresa\\DeepKernelGP\\MetaD2A_nas_bench_201\\results&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;the path of save directory&#x27;</span>)</span><br><span class="line">  parser.add_argument(<span class="string">&#x27;--data-path&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">str</span>, default=<span class="string">&#x27;C:\\Users\\gress\\OneDrive\\Documents\\Gresa\\DeepKernelGP\\MetaD2A_nas_bench_201\\data&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;the path of save directory&#x27;</span>)</span><br><span class="line">  parser.add_argument(<span class="string">&#x27;--save-epoch&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">400</span>,</span><br><span class="line">                      <span class="built_in">help</span>=<span class="string">&#x27;how many epochs to wait each time to save model states&#x27;</span>)</span><br><span class="line">  parser.add_argument(<span class="string">&#x27;--max-epoch&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">400</span>, <span class="built_in">help</span>=<span class="string">&#x27;number of epochs to train&#x27;</span>)</span><br><span class="line">  parser.add_argument(<span class="string">&#x27;--batch_size&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">1</span>, <span class="built_in">help</span>=<span class="string">&#x27;batch size for generator&#x27;</span>)</span><br><span class="line">  parser.add_argument(<span class="string">&#x27;--graph-data-name&#x27;</span>, default=<span class="string">&#x27;nasbench201&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;graph dataset name&#x27;</span>)</span><br><span class="line">  parser.add_argument(<span class="string">&#x27;--nvt&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">7</span>,</span><br><span class="line">                      <span class="built_in">help</span>=<span class="string">&#x27;number of different node types, 7: NAS-Bench-201 including in/out node&#x27;</span>)</span><br><span class="line">  <span class="comment"># set encoder</span></span><br><span class="line">  parser.add_argument(<span class="string">&#x27;--num-sample&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">20</span>, <span class="built_in">help</span>=<span class="string">&#x27;the number of images as input for set encoder&#x27;</span>)</span><br><span class="line">  <span class="comment"># graph encoder</span></span><br><span class="line">  parser.add_argument(<span class="string">&#x27;--hs&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">56</span>, <span class="built_in">help</span>=<span class="string">&#x27;hidden size of GRUs&#x27;</span>)</span><br><span class="line">  parser.add_argument(<span class="string">&#x27;--nz&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">56</span>, <span class="built_in">help</span>=<span class="string">&#x27;the number of dimensions of latent vectors z&#x27;</span>)</span><br><span class="line">  <span class="comment"># test</span></span><br><span class="line">  parser.add_argument(<span class="string">&#x27;--test&#x27;</span>, action=<span class="string">&#x27;store_true&#x27;</span>, default=<span class="literal">True</span>, <span class="built_in">help</span>=<span class="string">&#x27;turn on test mode&#x27;</span>)</span><br><span class="line">  parser.add_argument(<span class="string">&#x27;--load-epoch&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">400</span>, <span class="built_in">help</span>=<span class="string">&#x27;checkpoint epoch loaded for meta-test&#x27;</span>)</span><br><span class="line">  parser.add_argument(<span class="string">&#x27;--data-name&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">str</span>, default=<span class="literal">None</span>, <span class="built_in">help</span>=<span class="string">&#x27;meta-test dataset name&#x27;</span>)</span><br><span class="line">  parser.add_argument(<span class="string">&#x27;--num-class&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="literal">None</span>, <span class="built_in">help</span>=<span class="string">&#x27;the number of class of dataset&#x27;</span>)</span><br><span class="line">  parser.add_argument(<span class="string">&#x27;--num-gen-arch&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">800</span>,</span><br><span class="line">                      <span class="built_in">help</span>=<span class="string">&#x27;the number of candidate architectures generated by the generator&#x27;</span>)</span><br><span class="line">  parser.add_argument(<span class="string">&#x27;--train-arch&#x27;</span>, <span class="built_in">type</span>=str2bool, default=<span class="literal">True</span>, <span class="built_in">help</span>=<span class="string">&#x27;whether to train the searched architecture&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  args = parser.parse_args()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> args</span><br><span class="line"></span><br><span class="line"><span class="comment">## Step3:主函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">  args = get_parser()<span class="comment"># 获取命令行参数</span></span><br><span class="line">  os.environ[<span class="string">&quot;CUDA_VISIBLE_DEVICES&quot;</span>]=args.gpu<span class="comment"># 指定可见的CUDA设备</span></span><br><span class="line">  device = torch.device(<span class="string">&quot;cuda:0&quot;</span>)</span><br><span class="line">  torch.cuda.manual_seed(args.seed)<span class="comment"># 设置CUDA种子</span></span><br><span class="line">  torch.manual_seed(args.seed)<span class="comment"># 设置CPU种子</span></span><br><span class="line">  np.random.seed(args.seed)</span><br><span class="line">  random.seed(args.seed)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(args.save_path):</span><br><span class="line">    os.makedirs(args.save_path)</span><br><span class="line">  args.model_path = os.path.join(args.save_path, args.model_name, <span class="string">&#x27;model&#x27;</span>)</span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(args.model_path):</span><br><span class="line">    os.makedirs(args.model_path)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> args.model_name == <span class="string">&#x27;generator&#x27;</span>:</span><br><span class="line">    g = Generator(args)</span><br><span class="line">    <span class="keyword">if</span> args.test:</span><br><span class="line">      g.meta_test()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">      g.meta_train()</span><br><span class="line">  <span class="keyword">elif</span> args.model_name == <span class="string">&#x27;predictor&#x27;</span>:</span><br><span class="line">    p = Predictor(args)</span><br><span class="line">    <span class="keyword">if</span> args.test:</span><br><span class="line">      p.meta_test()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">      p.meta_train()</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">raise</span> ValueError(<span class="string">&#x27;You should select generator|predictor|train_arch&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">  main()</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="2-2process-dataset"><a href="#2-2process-dataset" class="headerlink" title="2.2process_dataset"></a>2.2process_dataset</h3><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> torchvision.models <span class="keyword">as</span> models</span><br><span class="line"><span class="keyword">import</span> torchvision.datasets <span class="keyword">as</span> dset</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> torchvision.transforms <span class="keyword">as</span> transforms</span><br><span class="line"><span class="keyword">import</span> os, sys</span><br><span class="line"><span class="keyword">if</span> sys.version_info[<span class="number">0</span>] == <span class="number">2</span>:</span><br><span class="line">	<span class="keyword">import</span> cPickle <span class="keyword">as</span> pickle</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	<span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line">parser = argparse.ArgumentParser(<span class="string">&quot;sota&quot;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--gpu&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">str</span>, default=<span class="string">&#x27;0&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;set visible gpus&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--data-path&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">str</span>, default=<span class="string">&#x27;data&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;the path of save directory&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--dataset&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">str</span>, default=<span class="string">&#x27;cifar10&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;choose dataset&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--seed&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=-<span class="number">1</span>, <span class="built_in">help</span>=<span class="string">&#x27;random seed&#x27;</span>)</span><br><span class="line">args = parser.parse_args()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> args.seed <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> args.seed &lt; <span class="number">0</span>: args.seed = random.randint(<span class="number">1</span>, <span class="number">100000</span>)</span><br><span class="line"></span><br><span class="line">os.environ[<span class="string">&quot;CUDA_VISIBLE_DEVICES&quot;</span>] = args.gpu</span><br><span class="line">np.random.seed(args.seed)</span><br><span class="line">random.seed(args.seed)</span><br><span class="line"></span><br><span class="line"><span class="comment"># remove last fully-connected layer</span></span><br><span class="line">model = models.resnet18(pretrained=<span class="literal">True</span>).<span class="built_in">eval</span>()</span><br><span class="line">feature_extractor = torch.nn.Sequential(*<span class="built_in">list</span>(model.children())[:-<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_transform</span>(<span class="params">dataset</span>):</span><br><span class="line">	<span class="keyword">if</span> args.dataset == <span class="string">&#x27;mnist&#x27;</span>:</span><br><span class="line">		mean, std = [<span class="number">0.1307</span>, <span class="number">0.1307</span>, <span class="number">0.1307</span>], [<span class="number">0.3081</span>, <span class="number">0.3081</span>, <span class="number">0.3081</span>]</span><br><span class="line">	<span class="keyword">elif</span> args.dataset == <span class="string">&#x27;svhn&#x27;</span>:</span><br><span class="line">		mean, std = [<span class="number">0.4376821</span>, <span class="number">0.4437697</span>, <span class="number">0.47280442</span>], [<span class="number">0.19803012</span>, <span class="number">0.20101562</span>, <span class="number">0.19703614</span>]</span><br><span class="line">	<span class="keyword">elif</span> args.dataset == <span class="string">&#x27;cifar10&#x27;</span>:</span><br><span class="line">		mean = [x / <span class="number">255</span> <span class="keyword">for</span> x <span class="keyword">in</span> [<span class="number">125.3</span>, <span class="number">123.0</span>, <span class="number">113.9</span>]]</span><br><span class="line">		std = [x / <span class="number">255</span> <span class="keyword">for</span> x <span class="keyword">in</span> [<span class="number">63.0</span>, <span class="number">62.1</span>, <span class="number">66.7</span>]]</span><br><span class="line">	<span class="keyword">elif</span> args.dataset == <span class="string">&#x27;cifar100&#x27;</span>:</span><br><span class="line">		mean = [x / <span class="number">255</span> <span class="keyword">for</span> x <span class="keyword">in</span> [<span class="number">129.3</span>, <span class="number">124.1</span>, <span class="number">112.4</span>]]</span><br><span class="line">		std = [x / <span class="number">255</span> <span class="keyword">for</span> x <span class="keyword">in</span> [<span class="number">68.2</span>, <span class="number">65.4</span>, <span class="number">70.4</span>]]</span><br><span class="line">	<span class="keyword">elif</span> args.dataset == <span class="string">&#x27;imagenet32&#x27;</span>:</span><br><span class="line">		mean = [x / <span class="number">255</span> <span class="keyword">for</span> x <span class="keyword">in</span> [<span class="number">122.68</span>, <span class="number">116.66</span>, <span class="number">104.01</span>]]</span><br><span class="line">		std = [x / <span class="number">255</span> <span class="keyword">for</span> x <span class="keyword">in</span> [<span class="number">66.22</span>, <span class="number">64.20</span>, <span class="number">67.86</span>]]</span><br><span class="line"></span><br><span class="line">	transform = transforms.Compose([</span><br><span class="line">		transforms.Resize((<span class="number">32</span>, <span class="number">32</span>)),</span><br><span class="line">		transforms.ToTensor(),</span><br><span class="line">		transforms.Normalize(mean, std),</span><br><span class="line">	])</span><br><span class="line">	<span class="keyword">if</span> dataset == <span class="string">&#x27;mnist&#x27;</span>:</span><br><span class="line">		transform.transforms.append(transforms.Lambda(<span class="keyword">lambda</span> x: x.repeat(<span class="number">3</span>, <span class="number">1</span>, <span class="number">1</span>)))</span><br><span class="line">	<span class="keyword">return</span> transform</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">process</span>(<span class="params">dataset, n_classes</span>):</span><br><span class="line">	data_label = &#123;i: [] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n_classes)&#125;</span><br><span class="line">	<span class="keyword">for</span> x, y <span class="keyword">in</span> dataset:</span><br><span class="line">		data_label[y].append(x)</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n_classes):</span><br><span class="line">		data_label[i] = torch.stack(data_label[i])</span><br><span class="line">	</span><br><span class="line">	holder = &#123;i: [] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n_classes)&#125;</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n_classes):</span><br><span class="line">		<span class="keyword">with</span> torch.no_grad():</span><br><span class="line">			data = feature_extractor(data_label[i])</span><br><span class="line">			holder[i].append(data.squeeze())</span><br><span class="line">	<span class="keyword">return</span> holder</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ImageNet32</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">	train_list = [</span><br><span class="line">		[<span class="string">&#x27;train_data_batch_1&#x27;</span>, <span class="string">&#x27;27846dcaa50de8e21a7d1a35f30f0e91&#x27;</span>],</span><br><span class="line">		[<span class="string">&#x27;train_data_batch_2&#x27;</span>, <span class="string">&#x27;c7254a054e0e795c69120a5727050e3f&#x27;</span>],</span><br><span class="line">		[<span class="string">&#x27;train_data_batch_3&#x27;</span>, <span class="string">&#x27;4333d3df2e5ffb114b05d2ffc19b1e87&#x27;</span>],</span><br><span class="line">		[<span class="string">&#x27;train_data_batch_4&#x27;</span>, <span class="string">&#x27;1620cdf193304f4a92677b695d70d10f&#x27;</span>],</span><br><span class="line">		[<span class="string">&#x27;train_data_batch_5&#x27;</span>, <span class="string">&#x27;348b3c2fdbb3940c4e9e834affd3b18d&#x27;</span>],</span><br><span class="line">		[<span class="string">&#x27;train_data_batch_6&#x27;</span>, <span class="string">&#x27;6e765307c242a1b3d7d5ef9139b48945&#x27;</span>],</span><br><span class="line">		[<span class="string">&#x27;train_data_batch_7&#x27;</span>, <span class="string">&#x27;564926d8cbf8fc4818ba23d2faac7564&#x27;</span>],</span><br><span class="line">		[<span class="string">&#x27;train_data_batch_8&#x27;</span>, <span class="string">&#x27;f4755871f718ccb653440b9dd0ebac66&#x27;</span>],</span><br><span class="line">		[<span class="string">&#x27;train_data_batch_9&#x27;</span>, <span class="string">&#x27;bb6dd660c38c58552125b1a92f86b5d4&#x27;</span>],</span><br><span class="line">		[<span class="string">&#x27;train_data_batch_10&#x27;</span>, <span class="string">&#x27;8f03f34ac4b42271a294f91bf480f29b&#x27;</span>],</span><br><span class="line">	]</span><br><span class="line">	valid_list = [</span><br><span class="line">		[<span class="string">&#x27;val_data&#x27;</span>, <span class="string">&#x27;3410e3017fdaefba8d5073aaa65e4bd6&#x27;</span>],</span><br><span class="line">	]</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, root, n_class, transform</span>):</span><br><span class="line">		self.transform = transform</span><br><span class="line">		downloaded_list = self.train_list</span><br><span class="line">		self.n_class = n_class</span><br><span class="line">		self.data_label = &#123;i: [] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n_class)&#125;</span><br><span class="line">		self.data = []</span><br><span class="line">		self.targets = []</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> i, (file_name, checksum) <span class="keyword">in</span> <span class="built_in">enumerate</span>(downloaded_list):</span><br><span class="line">			file_path = os.path.join(root, file_name)</span><br><span class="line">			<span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">				<span class="keyword">if</span> sys.version_info[<span class="number">0</span>] == <span class="number">2</span>:</span><br><span class="line">					entry = pickle.load(f)</span><br><span class="line">				<span class="keyword">else</span>:</span><br><span class="line">					entry = pickle.load(f, encoding=<span class="string">&#x27;latin1&#x27;</span>)</span><br><span class="line">				<span class="keyword">for</span> j, k <span class="keyword">in</span> <span class="built_in">enumerate</span>(entry[<span class="string">&#x27;labels&#x27;</span>]):</span><br><span class="line">					self.data_label[k - <span class="number">1</span>].append(entry[<span class="string">&#x27;data&#x27;</span>][j])</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n_class):</span><br><span class="line">			self.data_label[i] = np.vstack(self.data_label[i]).reshape(-<span class="number">1</span>, <span class="number">3</span>, <span class="number">32</span>, <span class="number">32</span>)</span><br><span class="line">			self.data_label[i] = self.data_label[i].transpose((<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>))  <span class="comment"># convert to HWC</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self, use_num_cls, max_num=<span class="literal">None</span></span>):</span><br><span class="line">		<span class="keyword">assert</span> <span class="built_in">isinstance</span>(use_num_cls, <span class="built_in">list</span>) \</span><br><span class="line">		       <span class="keyword">and</span> <span class="built_in">len</span>(use_num_cls) &gt; <span class="number">0</span> <span class="keyword">and</span> <span class="built_in">len</span>(use_num_cls) &lt; self.n_class, \</span><br><span class="line">			<span class="string">&#x27;invalid use_num_cls : &#123;:&#125;&#x27;</span>.<span class="built_in">format</span>(use_num_cls)</span><br><span class="line">		new_data, new_targets = [], []</span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> use_num_cls:</span><br><span class="line">			new_data.append(self.data_label[i][:max_num] <span class="keyword">if</span> max_num <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> self.data_label[i])</span><br><span class="line">			new_targets.extend([i] * max_num <span class="keyword">if</span> max_num <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span></span><br><span class="line">			                   <span class="keyword">else</span> [i] * <span class="built_in">len</span>(self.data_label[i]))</span><br><span class="line">		self.data = np.concatenate(new_data)</span><br><span class="line">		self.targets = new_targets</span><br><span class="line">		</span><br><span class="line">		imgs = []</span><br><span class="line">		<span class="keyword">for</span> img <span class="keyword">in</span> self.data:</span><br><span class="line">			img = Image.fromarray(img)</span><br><span class="line">			img = self.transform(img)</span><br><span class="line">			<span class="keyword">with</span> torch.no_grad():</span><br><span class="line">				imgs.append(feature_extractor(img.unsqueeze(<span class="number">0</span>)).squeeze().unsqueeze(<span class="number">0</span>))</span><br><span class="line">		<span class="keyword">return</span> torch.cat(imgs)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	ncls = &#123;<span class="string">&#x27;mnist&#x27;</span>: <span class="number">10</span>, <span class="string">&#x27;svhn&#x27;</span>: <span class="number">10</span>, <span class="string">&#x27;cifar10&#x27;</span>: <span class="number">10</span>, <span class="string">&#x27;cifar100&#x27;</span>: <span class="number">100</span>, <span class="string">&#x27;imagenet32&#x27;</span>: <span class="number">1000</span>&#125;</span><br><span class="line">	transform = get_transform(args.dataset)</span><br><span class="line">	<span class="keyword">if</span> args.dataset == <span class="string">&#x27;imagenet32&#x27;</span>:</span><br><span class="line">		imgnet32 = ImageNet32(args.data, ncls[args.dataset], transform)</span><br><span class="line">		data_label = &#123;i: [] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>)&#125;</span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>):</span><br><span class="line">			m = imgnet32.get([i])</span><br><span class="line">			data_label[i].append(m)</span><br><span class="line">			<span class="keyword">if</span> i % <span class="number">10</span> == <span class="number">0</span>:</span><br><span class="line">				<span class="built_in">print</span>(<span class="string">f&#x27;Currently saving features of <span class="subst">&#123;i&#125;</span>-th class&#x27;</span>)</span><br><span class="line">				torch.save(data_label, <span class="string">f&#x27;<span class="subst">&#123;args.save_path&#125;</span>/<span class="subst">&#123;args.dataset&#125;</span>bylabel.pt&#x27;</span>)</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		<span class="keyword">if</span> args.dataset == <span class="string">&#x27;mnist&#x27;</span>:</span><br><span class="line">			data = dset.MNIST(args.data_path, train=<span class="literal">True</span>, transform=transform, download=<span class="literal">True</span>)</span><br><span class="line">		<span class="keyword">elif</span> args.dataset == <span class="string">&#x27;svhn&#x27;</span>:</span><br><span class="line">			data = dset.SVHN(args.data_path, split=<span class="string">&#x27;train&#x27;</span>, transform=transform, download=<span class="literal">True</span>)</span><br><span class="line">		<span class="keyword">elif</span> args.dataset == <span class="string">&#x27;cifar10&#x27;</span>:</span><br><span class="line">			data = dset.CIFAR10(args.data_path, train=<span class="literal">True</span>, transform=transform, download=<span class="literal">True</span>)</span><br><span class="line">		<span class="keyword">elif</span> args.dataset == <span class="string">&#x27;cifar100&#x27;</span>:</span><br><span class="line">			data = dset.CIFAR100(args.data_path, train=<span class="literal">True</span>, transform=transform, download=<span class="literal">True</span>)</span><br><span class="line">		dataset = process(data, ncls[args.dataset])</span><br><span class="line">		torch.save(dataset, <span class="string">f&#x27;<span class="subst">&#123;args.save_path&#125;</span>/<span class="subst">&#123;args.dataset&#125;</span>bylabel.pt&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 2023-ICLR-Transfer NAS with Meta-learned Bayesian Surrogates</li>
+        <li><strong>Author:</strong> Shuai Lv</li>
+        <li><strong>Created at:</strong> 2023-05-30 22:47:33</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-05-30 23:08:16
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://blogls.top/2023/05/30/2023-ICLR-Transfer-NAS-with-Meta-learned-Bayesian-Surrogates/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            <div class="recommended-article">
+  <div class="recommended-article-header">
+    <i aria-hidden="true"></i><span>推荐阅读</span>
+  </div>
+  <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/05/29/ChatGPT提问模板/" title="ChatGPT提问模板" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="ChatGPT提问模板">
+  <span class="title">ChatGPT提问模板</span>
+</a><a class="recommended-article-item" href="/2023/05/29/2023-ICLR-Single-shot-General-Hyper-parameter-Optimization-for-Federated-Learning/" title="2023-ICLR-Single-shot General Hyper-parameter Optimization for Federated Learning" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="2023-ICLR-Single-shot General Hyper-parameter Optimization for Federated Learning">
+  <span class="title">2023-ICLR-Single-shot General Hyper-parameter Optimization for Federated Learning</span>
+</a><a class="recommended-article-item" href="/2023/05/28/2022-Enable-Deep-Learning-on-Mobile-Devices-Methods-Systems-and-Applications-韩松-CCF-B/" title="2022|Enable Deep Learning on Mobile Devices: Methods, Systems, and Applications|韩松|CCF-B" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="2022|Enable Deep Learning on Mobile Devices: Methods, Systems, and Applications|韩松|CCF-B">
+  <span class="title">2022|Enable Deep Learning on Mobile Devices: Methods, Systems, and Applications|韩松|CCF-B</span>
+</a></div>
+</div>
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/05/29/%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">资源汇总</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: 'ca3b187a2eb63dfd2d20',
+                    clientSecret: 'e96896908ba4dc10bb61a89de608ea3a0ce32013',
+                    repo: 'Gitalk',
+                    owner: 'ShuaiLv-JNU',
+                    admin: ['ShuaiLv-JNU'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">2023-ICLR-Transfer NAS with Meta-learned Bayesian Surrogates</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E8%AE%BA%E6%96%87"><span class="nav-text">1.论文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%BB%A3%E7%A0%81"><span class="nav-text">2.代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1main"><span class="nav-text">2.1main</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2process-dataset"><span class="nav-text">2.2process_dataset</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Shuai Lv</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.1.4</a>
+        </div>
+        
+        
+        
+            <div id="start_div" style="display:none">
+                2023/5/28 22:00:00
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <div class="customize-info info-item">ChatGPT is all you need.</div>
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+<script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/utils.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/main.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/layouts/navbarShrink.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/tools/scrollTopBottom.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/tools/codeBlock.js"></script>
+
+
+
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/layouts/lazyload.js"></script>
+
+
+
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/tools/runtime.js"></script>
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/layouts/odometer.min.js"></script>
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/libs/Typed.min.js"></script>
+  <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/plugins/typed.js"></script>
+
+
+
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/libs/mermaid.min.js"></script>
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/plugins/mermaid.js"></script>
+
+
+
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/libs/minimasonry.min.js"></script>
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/plugins/masonry.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/tools/tocToggle.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/libs/anime.min.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/layouts/toc.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/plugins/tabs.js"></script>
+    
+</div>
+
+
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+    <div id="aplayer"></div>
+<script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/libs/APlayer.min.js"></script>
+<script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/plugins/aplayer.js"></script>
+
+</body>
+</html>
