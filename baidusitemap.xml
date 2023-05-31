@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://blogls.top/2023/05/31/2023-ICLR-Meta-prediction-Model-for-Distillation-Aware-NAS-on-Unseen-Datasets/</loc>
+    <lastmod>2023-05-31</lastmod>
+  </url>
+  <url>
     <loc>http://blogls.top/2023/05/30/2023-ICLR-Transfer-NAS-with-Meta-learned-Bayesian-Surrogates/</loc>
     <lastmod>2023-05-30</lastmod>
   </url>
