@@ -599,6 +599,24 @@
     <div id="aplayer"></div>
 <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/libs/APlayer.min.js"></script>
 <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/plugins/aplayer.js"></script>
-
+<!-- 引用 artitalk -->
+<script type="text/javascript" src="https://unpkg.com/artitalk"></script>
+<!-- 存放说说的容器 -->
+<div id="artitalk_main"></div>
+<script async data-pjax>
+new Artitalk({
+    appId: 'rnQsKUzrw8qOVPphdHZTETI7-gzGzoHsz', // Your LeanCloud appId
+    appKey: 'u67ASo3HHPFNN4DtNUWzO4Ku', // Your LeanCloud appKey
+    serverURL: 'https://avoscloud.com',
+    pageSize: 50, //每页评论数量
+    shuoPla: '', //评论框里显示，可以不填
+    motion: 1, //加载动画的开关 0（关闭），1（开启）
+    atComment: 1, //评论功能的开关 0（关闭），1（开启）
+    bgImg: '', //评论框里的背景，可以不填
+    color1: '#ffffff', //自定义颜色，有几种方式
+    color2: '#ffffff',
+    color3: '#3b9a9c',
+})
+</script>
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"superSample":2,"width":200,"height":400,"position":"left","hOffset":20,"vOffset":0},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"dialog":{"enable":true,"hitokoto":true},"log":false});</script></body>
 </html>
