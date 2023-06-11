@@ -129,7 +129,115 @@
 <li>FSM局限性</li>
 </ul>
 <p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306102248399.png"></p>
-<h4 id="1-2-Statecharts-状态图"><a href="#1-2-Statecharts-状态图" class="headerlink" title="1.2 Statecharts(状态图)"></a>1.2 Statecharts(状态图)</h4><h3 id="1-2-Petri网"><a href="#1-2-Petri网" class="headerlink" title="1.2 Petri网"></a>1.2 Petri网</h3><h3 id="1-3-Z规格、CSP等"><a href="#1-3-Z规格、CSP等" class="headerlink" title="1.3 Z规格、CSP等"></a>1.3 Z规格、CSP等</h3><h2 id="2-软件安全"><a href="#2-软件安全" class="headerlink" title="2.软件安全"></a>2.软件安全</h2><p>软件安全基础、开发、问题及防治</p>
+<h4 id="1-2-Statecharts-状态图"><a href="#1-2-Statecharts-状态图" class="headerlink" title="1.2 Statecharts(状态图)"></a>1.2 Statecharts(状态图)</h4><p>1987， 以色列 Harel；状态数极大减少；描述能力更强。</p>
+<ul>
+<li>状态：圆角矩阵</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306111047735.png"></p>
+<ul>
+<li>OR</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306111048275.png"></p>
+<ul>
+<li>AND</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306111631042.png"></p>
+<ul>
+<li>变迁</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306111632113.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306111641535.png"></p>
+<ul>
+<li>变迁与状态的连接：（指向“AND”，“OR”；退出）</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306111643322.png"></p>
+<ul>
+<li>复合变迁</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306111644993.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306111645186.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306111645017.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112241349.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112242870.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112242697.png"></p>
+<ul>
+<li>电梯控制系统</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112245423.png"></p>
+<ul>
+<li>电梯控制按钮</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112246105.png"></p>
+<ul>
+<li>楼层控制按钮</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112247565.png"></p>
+<ul>
+<li>电梯运动系统（简单规格）</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112249318.png"></p>
+<p>完全规格如下：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112251007.png"></p>
+<ul>
+<li>stop-up与stop-down的细化</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112254251.png"></p>
+<ul>
+<li>4个楼层和1个电梯系统的规约</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112255567.png"></p>
+<h3 id="1-2-Petri网"><a href="#1-2-Petri网" class="headerlink" title="1.2 Petri网"></a>1.2 Petri网</h3><p>用于描述和分析：<strong>并发concurrency 、异步、分布式</strong>软件系统。（德国 C. A. Petri, 1962-博士论文《自动机通信》）</p>
+<p><strong>并发系统的特点</strong>：</p>
+<ul>
+<li>由若干<strong>任务（或进程、线程） 组成</strong></li>
+<li>多个任务之间<strong>异步地工作</strong>（各个任务可独立地工作）</li>
+<li>各个任务<strong>内部：是顺序的</strong></li>
+<li>相互间的通讯和协调，称为<strong>同步</strong></li>
+</ul>
+<p>Petri网例子：</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112303152.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112304078.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112316678.png"></p>
+<ul>
+<li>petri网相关定义</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112318133.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112318311.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112319909.png"></p>
+<ul>
+<li>petri网的描述（模拟）功能</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112320902.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112320870.png"></p>
+<blockquote>
+<p>生产者 消费者 petri网</p>
+</blockquote>
+<ul>
+<li>petri网的特性</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112321775.png"></p>
+<ul>
+<li>petri网的扩展（推广）</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112322572.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112324014.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112324641.png"></p>
+<ul>
+<li><strong>petri网的子类</strong>：**目的-<strong>提高Petri网的分析能力；</strong>方法-**加入某些条件（限制）。常见子类：FSM、标记图</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112327527.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112329714.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112329046.png"></p>
+<ul>
+<li><p>petri网的描述能力：</p>
+<p>描述几种常见的关系-顺序、并发、冲突、混惑关系。</p>
+</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112331863.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112331136.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112332032.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306112334422.png"></p>
+<h3 id="1-3-Z规格、CSP等"><a href="#1-3-Z规格、CSP等" class="headerlink" title="1.3 Z规格、CSP等"></a>1.3 Z规格、CSP等</h3><h2 id="2-软件安全"><a href="#2-软件安全" class="headerlink" title="2.软件安全"></a>2.软件安全</h2><p>软件安全基础、开发、问题及防治</p>
 ]]></content>
   </entry>
   <entry>
