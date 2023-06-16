@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Shuai Lv">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+        
+            <link rel="preconnect" href="https://npm.elemecdn.com" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://blogls.top/2023/06/16/efficient-dl-system/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="Efficient model inference Lecture: slides, video  Seminar: notebook, video   1. slides1.1 scopetask、data collection、architecture choice、train the model、deployment、profit Model speed  The inference tim">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Efficient DL System">
+<meta property="og:url" content="http://blogls.top/2023/06/16/Efficient-DL-System/index.html">
+<meta property="og:site_name" content="乐愚良">
+<meta property="og:description" content="Efficient model inference Lecture: slides, video  Seminar: notebook, video   1. slides1.1 scopetask、data collection、architecture choice、train the model、deployment、profit Model speed  The inference tim">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170011152.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170021633.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170023738.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170023006.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170024904.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170024046.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170026011.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170027828.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170029113.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170030430.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170032997.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170033988.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170034932.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170034802.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170036281.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170037504.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170037082.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170039931.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170039814.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170040648.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170042182.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170043583.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170043253.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170044257.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170044659.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170046796.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170047205.png">
+<meta property="article:published_time" content="2023-06-16T15:43:25.000Z">
+<meta property="article:modified_time" content="2023-06-16T16:48:53.447Z">
+<meta property="article:author" content="Shuai Lv">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170011152.png">
+    
+    
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q3ZMF4ZML1"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-Q3ZMF4ZML1');
+        </script>
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Efficient DL System -
+        
+        LeYuLiang
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/assets/fonts.css">
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"blogls.top","root":"/","language":"en","path":"search.xml"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":true,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":true,"title":"推荐阅读","limit":3,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":true,"id":"G-Q3ZMF4ZML1"}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"LeYuLiang's Blog","subtitle":{"text":["丈夫处世兮，立功名","立功名兮，慰平生","慰平生兮，吾将醉","吾将醉兮，发狂吟"],"hitokoto":{"enable":true,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"links":{"github":"https://github.com/ShuaiLv-JNU","instagram":"https://www.instagram.com/liang_leyu/","zhihu":"https://www.zhihu.com/people/darker-7-73","twitter":"https://twitter.com/lushuai66337858","email":"lvshuai@stu2022.jnu.edu.cn"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"Something Just Like This","artist":"Coldplay","url":"https://evan.beee.top/music/Something%20Just%20Like%20This%20-%20The%20Chainsmokers%E3%80%81Coldplay.mp3","cover":"https://evan.beee.top/music/covers/Something_Just_Like_This.png"}]},"mermaid":{"enable":true,"version":"9.3.0"}},"version":"2.1.4","navbar":{"auto_hide":true,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Resources":{"icon":"fa-regular fa-folder","submenus":{"Photo":"/masonry"}},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/ShuaiLv-JNU"}},"Links":{"path":"/links","icon":"fa-regular fa-link"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"You only live once, so make sense.","links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}}};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    Global.data_config = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 5.4.2"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/rss2.xml" title="乐愚良" type="application/rss+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/logo.svg">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                LeYuLiang
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-folder"></i>
+                                        
+                                        RESOURCES&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/masonry">PHOTO
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/ShuaiLv-JNU">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/links"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-link"></i>
+                                        
+                                        LINKS
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-folder"></i>
+                                
+                                RESOURCES&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/masonry">PHOTO</a>
+                            </li>
+                        
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/ShuaiLv-JNU">GITHUB</a>
+                            </li>
+                        
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/links"  >
+                             
+                                
+                                    <i class="fa-regular fa-link"></i>
+                                
+                                LINKS
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">Efficient DL System</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/avatar.jpg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Shuai Lv</span>
+                            
+                                <span class="author-label">Lv2</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-06-16 23:43:25</span>
+        <span class="mobile">2023-06-16 23:43</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-06-17 00:48:53</span>
+            <span class="mobile">2023-06-17 00:48</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>4.5k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>27 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h1 id="Efficient-model-inference"><a href="#Efficient-model-inference" class="headerlink" title="Efficient model inference"></a>Efficient model inference</h1><ul>
+<li>Lecture: <a href="./lecture.pdf">slides</a>, <a class="link" target="_blank" rel="noopener" href="https://disk.yandex.ru/i/fxmPq6xFKNpIGg">video <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li>Seminar: <a href="./practice.pdf">notebook</a>, <a class="link" target="_blank" rel="noopener" href="https://disk.yandex.ru/i/OTPFOFBX_nH5JA">video <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h2 id="1-slides"><a href="#1-slides" class="headerlink" title="1. slides"></a>1. slides</h2><h3 id="1-1-scope"><a href="#1-1-scope" class="headerlink" title="1.1 scope"></a>1.1 scope</h3><p>task、data collection、architecture choice、train the model、deployment、profit</p>
+<p><strong>Model speed</strong></p>
+<ul>
+<li>The inference time is <strong>how long</strong> is takes for a forward propagation</li>
+<li>Three core ideas:<ul>
+<li><strong>FLOPs or Floating Point Operations</strong> are total number of calculations such as addition,subtraction, division, multiplication</li>
+<li><strong>FLOPS</strong> are the Floating Point Operations per Second</li>
+<li><strong>MACs</strong> or <strong>Multiply-Accumulate Computations</strong> are operations that perform addition and multiplication, that is, 2 operations</li>
+</ul>
+</li>
+</ul>
+<p>As a rule, we consider <strong>1 MAC = 2 FLOPs</strong></p>
+<p><strong>Calculating FLOPs</strong></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170011152.png"></p>
+<ul>
+<li><p>The model will do FLOPs = 60,840 + 259,200 + 737,280 + 2,560 = 1,060,400 operations</p>
+</li>
+<li><p>Say we have a CPU that performs 1 GFLOPS </p>
+<p>FLOPs/FLOPS = (1,060,400)/(1,000,000,000) = 0,001 s or 1ms</p>
+</li>
+</ul>
+<p><strong>What slows down the model?</strong>  </p>
+<ul>
+<li>Unnecessary / ineffective operations (attention examples, depthwise convs)</li>
+<li>Synchronisation costs (global pooling, squeeze-and-excitation blocks)</li>
+<li>Memory access (branches in ConvNets)</li>
+</ul>
+<h3 id="1-2-Efficient-architectures"><a href="#1-2-Efficient-architectures" class="headerlink" title="1.2 Efficient architectures"></a>1.2 Efficient architectures</h3><p><strong>Efficient architectures</strong></p>
+<p>What’s the time of 256x256 image classification on CPU?</p>
+<ul>
+<li>MobileNets (2017-2019)<ul>
+<li>Convolutions → depthwise-separable convolutions</li>
+<li>V3: ~ 1ms on IPhone 12, ImageNet accuracy 72%, 3.4kk params</li>
+</ul>
+</li>
+<li>MobileOne (2022)<ul>
+<li>Reparametrization of branches</li>
+<li>~ 1ms on IPhone 12, ImageNet accuracy 78%, 4.5kk params</li>
+</ul>
+</li>
+</ul>
+<p><strong>MoblieNet</strong></p>
+<p>Main idea: replace ConvBlocks with depthwise convolutions + pointwise convolutions</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170021633.jpg"></p>
+<p><strong>MoblieOne</strong></p>
+<p>Main idea: remove overparametrized branches from depthwise-separable ConvBlocks</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170023738.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170023006.png"></p>
+<p>Advantages of branches removal:</p>
+<ul>
+<li>Fast</li>
+<li>Memory-economical</li>
+<li>Flexible architecture</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170024904.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170024046.png"></p>
+<p><strong>ALBERT</strong></p>
+<ul>
+<li>Projections for embeddings</li>
+<li>Parameters sharing for layers</li>
+</ul>
+<p><strong>Linformer</strong></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170026011.png"></p>
+<p><strong>Linear Transformer</strong></p>
+<ul>
+<li>Linear time w.r.t. sequence length</li>
+<li>Constant memory</li>
+<li>Causal masking</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170027828.png"></p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="1-3-Reducing-number-of-model’s-parameters"><a href="#1-3-Reducing-number-of-model’s-parameters" class="headerlink" title="1.3 Reducing number of model’s parameters"></a>1.3 Reducing number of model’s parameters</h3><p><strong>1. knowledge distillation</strong></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170029113.png"></p>
+<p><strong>response-based</strong></p>
+<ul>
+<li>Update <strong>student</strong> weights and freeze <strong>teacher</strong> weights</li>
+<li>The <strong>responses</strong> can be logits, offsets, heatmaps and so on</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170030430.png"></p>
+<ul>
+<li>Optimise weighted combination of <strong>student</strong> and <strong>distillation</strong> losses</li>
+<li>As usual, <strong>student loss</strong> is cross-entropy and <strong>distillation loss</strong> is Kullback-Leibler divergence</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170032997.png"></p>
+<ul>
+<li>Soft targets contain the informative <strong>dark knowledge</strong> from the teacher model</li>
+<li>Higher temperatures produce softer probabilities which provides a stronger signal to the student</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170033988.png"></p>
+<p><strong>feature-based</strong></p>
+<ul>
+<li>Directly match the feature activations of the teacher and the student</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170034932.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170034802.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170036281.png"></p>
+<blockquote>
+<p>TinyBERT</p>
+</blockquote>
+<p><strong>a good teacher</strong></p>
+<ul>
+<li>Distillation as function matching</li>
+<li>Consistent teaching</li>
+<li>Patient teaching</li>
+<li>Good for new data</li>
+</ul>
+<p><strong>schemes</strong></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170037504.png"></p>
+<ul>
+<li>Fewer layers or fewer channels in each layer</li>
+<li>Quantized version  </li>
+<li>Efficient basic operations</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170037082.png"></p>
+<p><strong>2. pruning</strong></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170039931.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170039814.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170040648.png"></p>
+<p><strong>3. matrices decompositions</strong></p>
+<ul>
+<li>Linear layer: Y = X W; where X is (p, n) and W is (n, m)</li>
+<li>SVD: W = U Σ <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.05ex;" xmlns="http://www.w3.org/2000/svg" width="3.188ex" height="1.954ex" role="img" focusable="false" viewBox="0 -841.7 1409.1 863.7"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msup"><g data-mml-node="mi"><path data-c="1D449" d="M52 648Q52 670 65 683H76Q118 680 181 680Q299 680 320 683H330Q336 677 336 674T334 656Q329 641 325 637H304Q282 635 274 635Q245 630 242 620Q242 618 271 369T301 118L374 235Q447 352 520 471T595 594Q599 601 599 609Q599 633 555 637Q537 637 537 648Q537 649 539 661Q542 675 545 679T558 683Q560 683 570 683T604 682T668 681Q737 681 755 683H762Q769 676 769 672Q769 655 760 640Q757 637 743 637Q730 636 719 635T698 630T682 623T670 615T660 608T652 599T645 592L452 282Q272 -9 266 -16Q263 -18 259 -21L241 -22H234Q216 -22 216 -15Q213 -9 177 305Q139 623 138 626Q133 637 76 637H59Q52 642 52 648Z"></path></g><g data-mml-node="mi" transform="translate(861.3,363) scale(0.707)"><path data-c="1D447" d="M40 437Q21 437 21 445Q21 450 37 501T71 602L88 651Q93 669 101 677H569H659Q691 677 697 676T704 667Q704 661 687 553T668 444Q668 437 649 437Q640 437 637 437T631 442L629 445Q629 451 635 490T641 551Q641 586 628 604T573 629Q568 630 515 631Q469 631 457 630T439 622Q438 621 368 343T298 60Q298 48 386 46Q418 46 427 45T436 36Q436 31 433 22Q429 4 424 1L422 0Q419 0 415 0Q410 0 363 1T228 2Q99 2 64 0H49Q43 6 43 9T45 27Q49 40 55 46H83H94Q174 46 189 55Q190 56 191 56Q196 59 201 76T241 233Q258 301 269 344Q339 619 339 625Q339 630 310 630H279Q212 630 191 624Q146 614 121 583T67 467Q60 445 57 441T43 437H40Z"></path></g></g></g></g></svg></mjx-container>; where U is (n, n), Σ is diagonal (n, m), V is (m, m)</li>
+<li>Truncate SVD</li>
+<li>Change order of multiplications</li>
+<li>Acquired complexity change: p n m → p n k + k m n</li>
+<li>k &lt; p n m / (p n + m n)</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170042182.png"></p>
+<h3 id="1-4-Get-the-most-out-of-training"><a href="#1-4-Get-the-most-out-of-training" class="headerlink" title="1.4 Get the most out of training"></a>1.4 Get the most out of training</h3><ul>
+<li>quantization aware training</li>
+<li>stochastic weight averaging</li>
+</ul>
+<p><strong>1. quantization</strong></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170043583.png"></p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170043253.png"></p>
+<ul>
+<li>uniformity</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170044257.png"></p>
+<ul>
+<li>clustering</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170044659.png"></p>
+<ul>
+<li>static VS dynamic</li>
+</ul>
+<p>Static quantization：</p>
+<ol>
+<li>Post training procedure</li>
+<li>Activations are fused to layers if possible</li>
+<li>Scaling factors are computed on the representative dataset</li>
+<li>Suitable for CNNs</li>
+</ol>
+<p>Dynamic quantization：</p>
+<ol>
+<li>On the fly during inference</li>
+<li>Weights are converted to int8, activations are in full precision</li>
+<li>Scaling factors are computed on the fly in full precision based onactivations</li>
+<li>Suitable for Transformers</li>
+</ol>
+<ul>
+<li>quantization aware training</li>
+</ul>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170046796.png"></p>
+<ul>
+<li>Stochastic weight averaging</li>
+</ul>
+<p>Get better models to lose less quality while reducing model’s size</p>
+<p>Simple averaging of the model’s weights for the last several epochs may improve convergence</p>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306170047205.png"></p>
+<h3 id="1-5-Relations-with-inference-engines"><a href="#1-5-Relations-with-inference-engines" class="headerlink" title="1.5 Relations with inference engines"></a>1.5 Relations with inference engines</h3><ul>
+<li>Use ONNX to fuse layers and quantize model</li>
+<li>Use DeepSpeed with ONNX RT and everything else we’ve teached you previously</li>
+<li>Carefully chose architecture for your problem</li>
+<li>Use knowledge distillation</li>
+<li>Quantize model</li>
+<li>Use best practices for training</li>
+<li>Use efficient software</li>
+</ul>
+<h2 id="2-HomeWork"><a href="#2-HomeWork" class="headerlink" title="2. HomeWork"></a>2. HomeWork</h2><h3 id="2-1-Seminar-outline"><a href="#2-1-Seminar-outline" class="headerlink" title="2.1 Seminar outline"></a>2.1 Seminar outline</h3><ol>
+<li>Static PTQ<ul>
+<li>Toy example</li>
+<li>MobileNetV2 on CIFAR10</li>
+<li>QAT for MobileNetV2</li>
+<li>Speed benchmark</li>
+</ul>
+</li>
+<li>42 GB T5 to a single GPU showcase</li>
+</ol>
+<h3 id="2-2-Static-PTQ"><a href="#2-2-Static-PTQ" class="headerlink" title="2.2 Static PTQ"></a>2.2 Static PTQ</h3><h4 id="2-2-1-Toy-example"><a href="#2-2-1-Toy-example" class="headerlink" title="2.2.1 Toy example"></a>2.2.1 Toy example</h4><p><a class="link" target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/quantization.html">Source <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> of the section</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> copy</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"><span class="keyword">import</span> torchvision.transforms <span class="keyword">as</span> transforms</span><br><span class="line"><span class="keyword">from</span> torch.ao.quantization <span class="keyword">import</span> DeQuantStub, QuantStub</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line"><span class="keyword">from</span> tqdm.auto <span class="keyword">import</span> trange</span><br><span class="line"></span><br><span class="line">warnings.filterwarnings(<span class="string">"ignore"</span>)</span><br><span class="line">device = torch.device(<span class="string">"cuda:0"</span> <span class="keyword">if</span> torch.cuda.is_available <span class="keyword">else</span> <span class="string">"cpu"</span>)</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">M</span>(torch.nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        <span class="comment"># QuantStub converts tensors from floating point to quantized</span></span><br><span class="line">        self.quant = torch.quantization.QuantStub()</span><br><span class="line">        self.conv = torch.nn.Conv2d(<span class="number">1</span>, <span class="number">5</span>, <span class="number">3</span>)</span><br><span class="line">        self.relu = torch.nn.ReLU()</span><br><span class="line">        self.flatten = torch.nn.Flatten()</span><br><span class="line">        self.linear = torch.nn.Linear(<span class="number">4500</span>, <span class="number">100</span>)</span><br><span class="line">        <span class="comment"># DeQuantStub converts tensors from quantized to floating point</span></span><br><span class="line">        self.dequant = torch.quantization.DeQuantStub()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="comment"># manually specify where tensors will be converted from floating</span></span><br><span class="line">        <span class="comment"># point to quantized in the quantized model</span></span><br><span class="line">        x = self.quant(x)</span><br><span class="line">        start = time()</span><br><span class="line">        x = self.conv(x)</span><br><span class="line">        x = self.relu(x)</span><br><span class="line">        x = self.linear(self.flatten(x))</span><br><span class="line">        <span class="comment"># manually specify where tensors will be converted from quantized</span></span><br><span class="line">        <span class="comment"># to floating point in the quantized model</span></span><br><span class="line">        x = self.dequant(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># create a model instance</span></span><br><span class="line">model_fp32 = M()</span><br><span class="line"></span><br><span class="line"><span class="comment"># model must be set to eval mode for static quantization logic to work</span></span><br><span class="line">model_fp32.<span class="built_in">eval</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># attach a global qconfig, which contains information about what kind</span></span><br><span class="line"><span class="comment"># of observers to attach. Use 'fbgemm' for server inference and</span></span><br><span class="line"><span class="comment"># 'qnnpack' for mobile inference. Other quantization configurations such</span></span><br><span class="line"><span class="comment"># as selecting symmetric or assymetric quantization and MinMax or L2Norm</span></span><br><span class="line"><span class="comment"># calibration techniques can be specified here.</span></span><br><span class="line">model_fp32.qconfig = torch.quantization.get_default_qconfig(<span class="string">"fbgemm"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Fuse the activations to preceding layers, where applicable.</span></span><br><span class="line"><span class="comment"># This needs to be done manually depending on the model architecture.</span></span><br><span class="line"><span class="comment"># Common fusions include `conv + relu` and `conv + batchnorm + relu`</span></span><br><span class="line">model_fp32_fused = torch.quantization.fuse_modules(model_fp32, [[<span class="string">"conv"</span>, <span class="string">"relu"</span>]])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Prepare the model for static quantization. This inserts observers in</span></span><br><span class="line"><span class="comment"># the model that will observe activation tensors during calibration.</span></span><br><span class="line">model_fp32_prepared = torch.quantization.prepare(model_fp32_fused)</span><br><span class="line"></span><br><span class="line"><span class="comment"># calibrate the prepared model to determine quantization parameters for activations</span></span><br><span class="line"><span class="comment"># in a real world setting, the calibration would be done with a representative dataset</span></span><br><span class="line">input_fp32 = torch.randn(<span class="number">4</span>, <span class="number">1</span>, <span class="number">32</span>, <span class="number">32</span>)</span><br><span class="line">model_fp32_prepared(input_fp32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Convert the observed model to a quantized model. This does several things:</span></span><br><span class="line"><span class="comment"># quantizes the weights, computes and stores the scale and bias value to be</span></span><br><span class="line"><span class="comment"># used with each activation tensor, and replaces key operators with quantized</span></span><br><span class="line"><span class="comment"># implementations.</span></span><br><span class="line">model_int8 = torch.quantization.convert(model_fp32_prepared)</span><br><span class="line"></span><br><span class="line"><span class="comment"># run the model, relevant calculations will happen in int8</span></span><br><span class="line">res = model_int8(input_fp32)</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model_int8</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+<pre><code>M(
+  (quant): Quantize(scale=tensor([0.0534]), zero_point=tensor([64]), dtype=torch.quint8)
+  (conv): QuantizedConvReLU2d(1, 5, kernel_size=(3, 3), stride=(1, 1), scale=0.019489329308271408, zero_point=0)
+  (relu): Identity()
+  (flatten): Flatten(start_dim=1, end_dim=-1)
+  (linear): QuantizedLinear(in_features=4500, out_features=100, scale=0.011786960065364838, zero_point=61, qscheme=torch.per_channel_affine)
+  (dequant): DeQuantize()
+)
+</code></pre>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%%timeit</span><br><span class="line">res = model_int8(input_fp32)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>476 µs ± 6.54 µs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)
+</code></pre>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%%timeit</span><br><span class="line">res = model_fp32(input_fp32)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>319 µs ± 2.54 µs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)
+</code></pre>
+<p>Why no speed up?</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">torch.save(model_int8.state_dict(), <span class="string">"test_model_q.pth"</span>)</span><br><span class="line">torch.save(model_fp32.state_dict(), <span class="string">"test_model_full.pth"</span>)</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!ls -al test_model_q.pth</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>-rw-rw-r-- 1 ubuntu ubuntu 456379 Mar 13 23:51 test_model_q.pth
+</code></pre>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!ls -al test_model_full.pth</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>-rw-rw-r-- 1 ubuntu ubuntu 1802207 Mar 13 23:51 test_model_full.pth
+</code></pre>
+<h4 id="2-2-2-MobileNetV2-on-CIFAR10"><a href="#2-2-2-MobileNetV2-on-CIFAR10" class="headerlink" title="2.2.2 MobileNetV2 on CIFAR10"></a>2.2.2 MobileNetV2 on CIFAR10</h4><p><a class="link" target="_blank" rel="noopener" href="https://pytorch.org/tutorials/advanced/static_quantization_tutorial.html">Source <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> of the section</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">_make_divisible</span>(<span class="params">v, divisor, min_value=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    This function is taken from the original tf repo.</span></span><br><span class="line"><span class="string">    It ensures that all layers have a channel number that is divisible by 8</span></span><br><span class="line"><span class="string">    It can be seen here:</span></span><br><span class="line"><span class="string">    https://github.com/tensorflow/models/blob/master/research/slim/nets/mobilenet/mobilenet.py</span></span><br><span class="line"><span class="string">    :param v:</span></span><br><span class="line"><span class="string">    :param divisor:</span></span><br><span class="line"><span class="string">    :param min_value:</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> min_value <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        min_value = divisor</span><br><span class="line">    new_v = <span class="built_in">max</span>(min_value, <span class="built_in">int</span>(v + divisor / <span class="number">2</span>) // divisor * divisor)</span><br><span class="line">    <span class="comment"># Make sure that round down does not go down by more than 10%.</span></span><br><span class="line">    <span class="keyword">if</span> new_v &lt; <span class="number">0.9</span> * v:</span><br><span class="line">        new_v += divisor</span><br><span class="line">    <span class="keyword">return</span> new_v</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ConvBNReLU</span>(nn.Sequential):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, in_planes, out_planes, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>, groups=<span class="number">1</span></span>):</span><br><span class="line">        padding = (kernel_size - <span class="number">1</span>) // <span class="number">2</span></span><br><span class="line">        <span class="built_in">super</span>().__init__(</span><br><span class="line">            nn.Conv2d(</span><br><span class="line">                in_planes,</span><br><span class="line">                out_planes,</span><br><span class="line">                kernel_size,</span><br><span class="line">                stride,</span><br><span class="line">                padding,</span><br><span class="line">                groups=groups,</span><br><span class="line">                bias=<span class="literal">False</span>,</span><br><span class="line">            ),</span><br><span class="line">            nn.BatchNorm2d(out_planes, momentum=<span class="number">0.1</span>),</span><br><span class="line">            nn.ReLU(inplace=<span class="literal">False</span>),</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">InvertedResidual</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, inp, oup, stride, expand_ratio</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.stride = stride</span><br><span class="line">        <span class="keyword">assert</span> stride <span class="keyword">in</span> [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">        hidden_dim = <span class="built_in">int</span>(<span class="built_in">round</span>(inp * expand_ratio))</span><br><span class="line">        self.use_res_connect = self.stride == <span class="number">1</span> <span class="keyword">and</span> inp == oup</span><br><span class="line"></span><br><span class="line">        layers = []</span><br><span class="line">        <span class="keyword">if</span> expand_ratio != <span class="number">1</span>:</span><br><span class="line">            <span class="comment"># pw</span></span><br><span class="line">            layers.append(ConvBNReLU(inp, hidden_dim, kernel_size=<span class="number">1</span>))</span><br><span class="line">        layers.extend(</span><br><span class="line">            [</span><br><span class="line">                <span class="comment"># dw</span></span><br><span class="line">                ConvBNReLU(hidden_dim, hidden_dim, stride=stride, groups=hidden_dim),</span><br><span class="line">                <span class="comment"># pw-linear</span></span><br><span class="line">                nn.Conv2d(hidden_dim, oup, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, bias=<span class="literal">False</span>),</span><br><span class="line">                nn.BatchNorm2d(oup, momentum=<span class="number">0.1</span>),</span><br><span class="line">            ]</span><br><span class="line">        )</span><br><span class="line">        self.conv = nn.Sequential(*layers)</span><br><span class="line">        <span class="comment"># Replace torch.add with floatfunctional</span></span><br><span class="line">        self.skip_add = nn.quantized.FloatFunctional()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="keyword">if</span> self.use_res_connect:</span><br><span class="line">            <span class="keyword">return</span> self.skip_add.add(x, self.conv(x))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> self.conv(x)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MobileNetV2</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self,</span></span><br><span class="line"><span class="params">        num_classes=<span class="number">1000</span>,</span></span><br><span class="line"><span class="params">        width_mult=<span class="number">1.0</span>,</span></span><br><span class="line"><span class="params">        inverted_residual_setting=<span class="literal">None</span>,</span></span><br><span class="line"><span class="params">        round_nearest=<span class="number">8</span>,</span></span><br><span class="line"><span class="params">    </span>):</span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        MobileNet V2 main class</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            num_classes (int): Number of classes</span></span><br><span class="line"><span class="string">            width_mult (float): Width multiplier - adjusts number of channels in each layer by this amount</span></span><br><span class="line"><span class="string">            inverted_residual_setting: Network structure</span></span><br><span class="line"><span class="string">            round_nearest (int): Round the number of channels in each layer to be a multiple of this number</span></span><br><span class="line"><span class="string">            Set to 1 to turn off rounding</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        block = InvertedResidual</span><br><span class="line">        input_channel = <span class="number">32</span></span><br><span class="line">        last_channel = <span class="number">1280</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> inverted_residual_setting <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            inverted_residual_setting = [</span><br><span class="line">                <span class="comment"># t, c, n, s</span></span><br><span class="line">                [<span class="number">1</span>, <span class="number">16</span>, <span class="number">1</span>, <span class="number">1</span>],</span><br><span class="line">                [<span class="number">6</span>, <span class="number">24</span>, <span class="number">2</span>, <span class="number">2</span>],</span><br><span class="line">                [<span class="number">6</span>, <span class="number">32</span>, <span class="number">3</span>, <span class="number">2</span>],</span><br><span class="line">                [<span class="number">6</span>, <span class="number">64</span>, <span class="number">4</span>, <span class="number">2</span>],</span><br><span class="line">                [<span class="number">6</span>, <span class="number">96</span>, <span class="number">3</span>, <span class="number">1</span>],</span><br><span class="line">                [<span class="number">6</span>, <span class="number">160</span>, <span class="number">3</span>, <span class="number">2</span>],</span><br><span class="line">                [<span class="number">6</span>, <span class="number">320</span>, <span class="number">1</span>, <span class="number">1</span>],</span><br><span class="line">            ]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># only check the first element, assuming user knows t,c,n,s are required</span></span><br><span class="line">        <span class="keyword">if</span> (</span><br><span class="line">            <span class="built_in">len</span>(inverted_residual_setting) == <span class="number">0</span></span><br><span class="line">            <span class="keyword">or</span> <span class="built_in">len</span>(inverted_residual_setting[<span class="number">0</span>]) != <span class="number">4</span></span><br><span class="line">        ):</span><br><span class="line">            <span class="keyword">raise</span> ValueError(</span><br><span class="line">                <span class="string">"inverted_residual_setting should be non-empty "</span></span><br><span class="line">                <span class="string">"or a 4-element list, got {}"</span>.<span class="built_in">format</span>(inverted_residual_setting)</span><br><span class="line">            )</span><br><span class="line"></span><br><span class="line">        <span class="comment"># building first layer</span></span><br><span class="line">        input_channel = _make_divisible(input_channel * width_mult, round_nearest)</span><br><span class="line">        self.last_channel = _make_divisible(</span><br><span class="line">            last_channel * <span class="built_in">max</span>(<span class="number">1.0</span>, width_mult), round_nearest</span><br><span class="line">        )</span><br><span class="line">        features = [ConvBNReLU(<span class="number">3</span>, input_channel, stride=<span class="number">2</span>)]</span><br><span class="line">        <span class="comment"># building inverted residual blocks</span></span><br><span class="line">        <span class="keyword">for</span> t, c, n, s <span class="keyword">in</span> inverted_residual_setting:</span><br><span class="line">            output_channel = _make_divisible(c * width_mult, round_nearest)</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">                stride = s <span class="keyword">if</span> i == <span class="number">0</span> <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">                features.append(</span><br><span class="line">                    block(input_channel, output_channel, stride, expand_ratio=t)</span><br><span class="line">                )</span><br><span class="line">                input_channel = output_channel</span><br><span class="line">        <span class="comment"># building last several layers</span></span><br><span class="line">        features.append(ConvBNReLU(input_channel, self.last_channel, kernel_size=<span class="number">1</span>))</span><br><span class="line">        <span class="comment"># make it nn.Sequential</span></span><br><span class="line">        self.features = nn.Sequential(*features)</span><br><span class="line">        self.quant = QuantStub()</span><br><span class="line">        self.dequant = DeQuantStub()</span><br><span class="line">        <span class="comment"># building classifier</span></span><br><span class="line">        self.classifier = nn.Sequential(</span><br><span class="line">            nn.Dropout(<span class="number">0.2</span>),</span><br><span class="line">            nn.Linear(self.last_channel, num_classes),</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="comment"># weight initialization</span></span><br><span class="line">        <span class="keyword">for</span> m <span class="keyword">in</span> self.modules():</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">isinstance</span>(m, nn.Conv2d):</span><br><span class="line">                nn.init.kaiming_normal_(m.weight, mode=<span class="string">"fan_out"</span>)</span><br><span class="line">                <span class="keyword">if</span> m.bias <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                    nn.init.zeros_(m.bias)</span><br><span class="line">            <span class="keyword">elif</span> <span class="built_in">isinstance</span>(m, nn.BatchNorm2d):</span><br><span class="line">                nn.init.ones_(m.weight)</span><br><span class="line">                nn.init.zeros_(m.bias)</span><br><span class="line">            <span class="keyword">elif</span> <span class="built_in">isinstance</span>(m, nn.Linear):</span><br><span class="line">                nn.init.normal_(m.weight, <span class="number">0</span>, <span class="number">0.01</span>)</span><br><span class="line">                nn.init.zeros_(m.bias)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        x = self.quant(x)</span><br><span class="line">        x = self.features(x)</span><br><span class="line">        x = x.mean([<span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">        x = self.classifier(x)</span><br><span class="line">        x = self.dequant(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Fuse Conv+BN and Conv+BN+Relu modules prior to quantization</span></span><br><span class="line">    <span class="comment"># This operation does not change the numerics</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">fuse_model</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">for</span> m <span class="keyword">in</span> self.modules():</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">type</span>(m) == ConvBNReLU:</span><br><span class="line">                torch.ao.quantization.fuse_modules(m, [<span class="string">"0"</span>, <span class="string">"1"</span>, <span class="string">"2"</span>], inplace=<span class="literal">True</span>)</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">type</span>(m) == InvertedResidual:</span><br><span class="line">                <span class="keyword">for</span> idx <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(m.conv)):</span><br><span class="line">                    <span class="keyword">if</span> <span class="built_in">type</span>(m.conv[idx]) == nn.Conv2d:</span><br><span class="line">                        torch.ao.quantization.fuse_modules(</span><br><span class="line">                            m.conv, [<span class="built_in">str</span>(idx), <span class="built_in">str</span>(idx + <span class="number">1</span>)], inplace=<span class="literal">True</span></span><br><span class="line">                        )</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AverageMeter</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="string">"""Computes and stores the average and current value"""</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, fmt=<span class="string">":f"</span></span>):</span><br><span class="line">        self.name = name</span><br><span class="line">        self.fmt = fmt</span><br><span class="line">        self.reset()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">reset</span>(<span class="params">self</span>):</span><br><span class="line">        self.val = <span class="number">0</span></span><br><span class="line">        self.avg = <span class="number">0</span></span><br><span class="line">        self.<span class="built_in">sum</span> = <span class="number">0</span></span><br><span class="line">        self.count = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">update</span>(<span class="params">self, val, n=<span class="number">1</span></span>):</span><br><span class="line">        self.val = val</span><br><span class="line">        self.<span class="built_in">sum</span> += val * n</span><br><span class="line">        self.count += n</span><br><span class="line">        self.avg = self.<span class="built_in">sum</span> / self.count</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        fmtstr = <span class="string">"{name} {val"</span> + self.fmt + <span class="string">"} ({avg"</span> + self.fmt + <span class="string">"})"</span></span><br><span class="line">        <span class="keyword">return</span> fmtstr.<span class="built_in">format</span>(**self.__dict__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">accuracy</span>(<span class="params">output, target, topk=(<span class="params"><span class="number">1</span>,</span>)</span>):</span><br><span class="line">    <span class="string">"""Computes the accuracy over the k top predictions for the specified values of k"""</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        maxk = <span class="built_in">max</span>(topk)</span><br><span class="line">        batch_size = target.size(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">        _, pred = output.topk(maxk, <span class="number">1</span>, <span class="literal">True</span>, <span class="literal">True</span>)</span><br><span class="line">        pred = pred.t()</span><br><span class="line">        correct = pred.eq(target.view(<span class="number">1</span>, -<span class="number">1</span>).expand_as(pred))</span><br><span class="line"></span><br><span class="line">        res = []</span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> topk:</span><br><span class="line">            correct_k = correct[:k].reshape(-<span class="number">1</span>).<span class="built_in">float</span>().<span class="built_in">sum</span>(<span class="number">0</span>, keepdim=<span class="literal">True</span>)</span><br><span class="line">            res.append(correct_k.mul_(<span class="number">100.0</span> / batch_size))</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">evaluate</span>(<span class="params">model, criterion, data_loader, neval_batches, device=torch.device(<span class="params"><span class="string">"cpu"</span></span>)</span>):</span><br><span class="line">    model.<span class="built_in">eval</span>()</span><br><span class="line">    model.to(device)</span><br><span class="line">    top1 = AverageMeter(<span class="string">"Acc@1"</span>, <span class="string">":6.2f"</span>)</span><br><span class="line">    top5 = AverageMeter(<span class="string">"Acc@5"</span>, <span class="string">":6.2f"</span>)</span><br><span class="line">    cnt = <span class="number">0</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        <span class="keyword">for</span> image, target <span class="keyword">in</span> data_loader:</span><br><span class="line">            image, target = image.to(device), target.to(device)</span><br><span class="line">            output = model(image)</span><br><span class="line">            loss = criterion(output, target)</span><br><span class="line">            cnt += <span class="number">1</span></span><br><span class="line">            acc1, acc5 = accuracy(output, target, topk=(<span class="number">1</span>, <span class="number">5</span>))</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"."</span>, end=<span class="string">""</span>)</span><br><span class="line">            top1.update(acc1[<span class="number">0</span>], image.size(<span class="number">0</span>))</span><br><span class="line">            top5.update(acc5[<span class="number">0</span>], image.size(<span class="number">0</span>))</span><br><span class="line">            <span class="keyword">if</span> cnt &gt;= neval_batches:</span><br><span class="line">                <span class="keyword">return</span> top1, top5</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> top1, top5</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">load_model</span>(<span class="params">model_file</span>):</span><br><span class="line">    model = MobileNetV2()</span><br><span class="line">    state_dict = torch.load(model_file)</span><br><span class="line">    model.load_state_dict(state_dict)</span><br><span class="line">    model.to(<span class="string">"cpu"</span>)</span><br><span class="line">    <span class="keyword">return</span> model</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">print_size_of_model</span>(<span class="params">model</span>):</span><br><span class="line">    torch.save(model.state_dict(), <span class="string">"temp.p"</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f'Size (MB): <span class="subst">{os.path.getsize(<span class="string">"temp.p"</span>) / <span class="number">1e6</span>:<span class="number">.2</span>f}</span>'</span>)</span><br><span class="line">    os.remove(<span class="string">"temp.p"</span>)</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">prepare_data_loaders</span>():</span><br><span class="line">    normalize = transforms.Normalize((<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>), (<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>))</span><br><span class="line">    dataset = torchvision.datasets.CIFAR10(</span><br><span class="line">        root=<span class="string">"./data"</span>,</span><br><span class="line">        download=<span class="literal">True</span>,</span><br><span class="line">        train=<span class="literal">True</span>,</span><br><span class="line">        transform=transforms.Compose(</span><br><span class="line">            [</span><br><span class="line">                transforms.RandomHorizontalFlip(),</span><br><span class="line">                transforms.ToTensor(),</span><br><span class="line">                normalize,</span><br><span class="line">            ]</span><br><span class="line">        ),</span><br><span class="line">    )</span><br><span class="line">    dataset_test = torchvision.datasets.CIFAR10(</span><br><span class="line">        root=<span class="string">"./data"</span>,</span><br><span class="line">        download=<span class="literal">True</span>,</span><br><span class="line">        train=<span class="literal">False</span>,</span><br><span class="line">        transform=transforms.Compose(</span><br><span class="line">            [</span><br><span class="line">                transforms.ToTensor(),</span><br><span class="line">                normalize,</span><br><span class="line">            ]</span><br><span class="line">        ),</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    train_sampler = torch.utils.data.RandomSampler(dataset)</span><br><span class="line">    test_sampler = torch.utils.data.SequentialSampler(dataset_test)</span><br><span class="line"></span><br><span class="line">    data_loader = torch.utils.data.DataLoader(</span><br><span class="line">        dataset, batch_size=train_batch_size, sampler=train_sampler, num_workers=<span class="number">16</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    data_loader_test = torch.utils.data.DataLoader(</span><br><span class="line">        dataset_test, batch_size=eval_batch_size, sampler=test_sampler</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data_loader, data_loader_test</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># !wget https://download.pytorch.org/models/mobilenet_v2-b0353104.pth</span></span><br></pre></td></tr></table></figure></div>
+
+
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">saved_model_dir = <span class="string">"./"</span></span><br><span class="line">float_model_file = <span class="string">"mobilenet_v2-b0353104.pth"</span></span><br><span class="line">scripted_float_model_file = <span class="string">"mobilenet_quantization_scripted.pth"</span></span><br><span class="line">scripted_quantized_model_file = <span class="string">"mobilenet_quantization_scripted_quantized.pth"</span></span><br><span class="line"></span><br><span class="line">train_batch_size = <span class="number">512</span></span><br><span class="line">eval_batch_size = <span class="number">64</span></span><br></pre></td></tr></table></figure></div>
+
+
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">data_loader, data_loader_test = prepare_data_loaders()</span><br><span class="line">criterion = nn.CrossEntropyLoss()</span><br><span class="line">float_model = load_model(saved_model_dir + float_model_file).to(<span class="string">"cpu"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Next, we'll "fuse modules"; this can both make the model faster by saving on memory access</span></span><br><span class="line"><span class="comment"># while also improving numerical accuracy. While this can be used with any model, this is</span></span><br><span class="line"><span class="comment"># especially common with quantized models.</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"\n Inverted Residual Block: Before fusion \n\n"</span>, float_model.features[<span class="number">1</span>].conv)</span><br><span class="line">float_model.<span class="built_in">eval</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Fuses modules</span></span><br><span class="line">float_model.fuse_model()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Note fusion of Conv+BN+Relu and Conv+Relu</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"\n Inverted Residual Block: After fusion\n\n"</span>, float_model.features[<span class="number">1</span>].conv)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>Files already downloaded and verified
+Files already downloaded and verified
+
+ Inverted Residual Block: Before fusion 
+
+ Sequential(
+  (0): ConvBNReLU(
+    (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32, bias=False)
+    (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU()
+  )
+  (1): Conv2d(32, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+  (2): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+)
+
+ Inverted Residual Block: After fusion
+
+ Sequential(
+  (0): ConvBNReLU(
+    (0): ConvReLU2d(
+      (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32)
+      (1): ReLU()
+    )
+    (1): Identity()
+    (2): Identity()
+  )
+  (1): Conv2d(32, 16, kernel_size=(1, 1), stride=(1, 1))
+  (2): Identity()
+)
+</code></pre>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">float_model.classifier = nn.Sequential(</span><br><span class="line">    nn.Dropout(p=<span class="number">0.2</span>), nn.Linear(in_features=<span class="number">1280</span>, out_features=<span class="number">10</span>)</span><br><span class="line">)</span><br><span class="line">criterion = nn.CrossEntropyLoss()</span><br><span class="line">opt = torch.optim.Adam(params=float_model.parameters())</span><br><span class="line"></span><br><span class="line">num_eval_batches = <span class="number">1000</span></span><br></pre></td></tr></table></figure></div>
+
+
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> trange(<span class="number">10</span>):</span><br><span class="line">    float_model.train()</span><br><span class="line">    float_model.to(device)</span><br><span class="line">    <span class="keyword">for</span> x, y <span class="keyword">in</span> data_loader:</span><br><span class="line">        x, y = x.to(device), y.to(device)</span><br><span class="line">        preds = float_model(x)</span><br><span class="line">        loss = criterion(preds, y)</span><br><span class="line">        opt.zero_grad()</span><br><span class="line">        loss.backward()</span><br><span class="line">        opt.step()</span><br><span class="line">    float_model.<span class="built_in">eval</span>()</span><br><span class="line">    top1, top5 = evaluate(</span><br><span class="line">        float_model,</span><br><span class="line">        criterion,</span><br><span class="line">        data_loader_test,</span><br><span class="line">        neval_batches=num_eval_batches,</span><br><span class="line">        device=device,</span><br><span class="line">    )</span><br><span class="line">    <span class="built_in">print</span>(</span><br><span class="line">        <span class="string">f"Evaluation accuracy on <span class="subst">{(num_eval_batches * eval_batch_size)}</span> images, <span class="subst">{top1.avg:<span class="number">.2</span>f}</span>"</span></span><br><span class="line">    )</span><br></pre></td></tr></table></figure></div>
+
+
+<pre><code>  0%|          | 0/10 [00:00&lt;?, ?it/s]
+
+
+.............................................................................................................................................................Evaluation accuracy on 64000 images, 63.23
+.............................................................................................................................................................Evaluation accuracy on 64000 images, 73.98
+.............................................................................................................................................................Evaluation accuracy on 64000 images, 76.18
+.............................................................................................................................................................Evaluation accuracy on 64000 images, 78.29
+.............................................................................................................................................................Evaluation accuracy on 64000 images, 80.00
+.............................................................................................................................................................Evaluation accuracy on 64000 images, 81.40
+.............................................................................................................................................................Evaluation accuracy on 64000 images, 80.75
+.............................................................................................................................................................Evaluation accuracy on 64000 images, 81.42
+.............................................................................................................................................................Evaluation accuracy on 64000 images, 80.65
+.............................................................................................................................................................Evaluation accuracy on 64000 images, 81.29
+</code></pre>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">float_model.<span class="built_in">eval</span>()</span><br><span class="line">float_model.cpu()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"Size of baseline model"</span>)</span><br><span class="line">print_size_of_model(float_model)</span><br><span class="line"></span><br><span class="line">top1, top5 = evaluate(</span><br><span class="line">    float_model, criterion, data_loader_test, neval_batches=num_eval_batches</span><br><span class="line">)</span><br><span class="line"><span class="built_in">print</span>(</span><br><span class="line">    <span class="string">f"Evaluation accuracy on <span class="subst">{(num_eval_batches * eval_batch_size, )}</span> images, <span class="subst">{top1.avg:<span class="number">.2</span>f}</span>"</span></span><br><span class="line">)</span><br><span class="line">torch.jit.save(</span><br><span class="line">    torch.jit.script(float_model), saved_model_dir + scripted_float_model_file</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>Size of baseline model
+Size (MB): 8.92
+.............................................................................................................................................................Evaluation accuracy on (64000,) images, 81.29
+</code></pre>
+<p>Let’s quantize the model!</p>
+<p>Post-training static quantization involves not just converting the weights from float to int, as in dynamic quantization, but also performing the additional step of first feeding batches of data through the network and computing the resulting distributions of the different activations (specifically, this is done by inserting observer modules at different points that record this data). These distributions are then used to determine how the specifically the different activations should be quantized at inference time (a simple technique would be to simply divide the entire range of activations into 256 levels, but we support more sophisticated methods as well). Importantly, this additional step allows us to pass quantized values between operations instead of converting these values to floats — and then back to ints — between every operation, resulting in a significant speed-up.</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">num_calibration_batches = <span class="number">512</span></span><br><span class="line"></span><br><span class="line">q_model = copy.deepcopy(float_model)</span><br><span class="line"><span class="comment"># Specify quantization configuration</span></span><br><span class="line"><span class="comment"># Start with simple min/max range estimation and per-tensor quantization of weights</span></span><br><span class="line">q_model.qconfig = torch.ao.quantization.default_qconfig</span><br><span class="line"><span class="built_in">print</span>(q_model.qconfig)</span><br><span class="line">torch.ao.quantization.prepare(q_model, inplace=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Calibrate first</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"Post Training Quantization Prepare: Inserting Observers"</span>)</span><br><span class="line"><span class="built_in">print</span>(</span><br><span class="line">    <span class="string">"\n Inverted Residual Block:After observer insertion \n\n"</span>, q_model.features[<span class="number">1</span>].conv</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Calibrate with the training set</span></span><br><span class="line">evaluate(q_model, criterion, data_loader, neval_batches=num_calibration_batches)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"Post Training Quantization: Calibration done"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Convert to quantized model</span></span><br><span class="line">torch.ao.quantization.convert(q_model, inplace=<span class="literal">True</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"Post Training Quantization: Convert done"</span>)</span><br><span class="line"><span class="built_in">print</span>(</span><br><span class="line">    <span class="string">"\n Inverted Residual Block: After fusion and quantization, note fused modules: \n\n"</span>,</span><br><span class="line">    q_model.features[<span class="number">1</span>].conv,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"Size of model after quantization"</span>)</span><br><span class="line">print_size_of_model(q_model)</span><br><span class="line"></span><br><span class="line">top1, top5 = evaluate(</span><br><span class="line">    q_model, criterion, data_loader_test, neval_batches=num_eval_batches</span><br><span class="line">)</span><br><span class="line"><span class="built_in">print</span>(</span><br><span class="line">    <span class="string">f"Evaluation accuracy on <span class="subst">{(num_eval_batches * eval_batch_size, )}</span> images, <span class="subst">{top1.avg:<span class="number">.2</span>f}</span>"</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>QConfig(activation=functools.partial(&lt;class 'torch.ao.quantization.observer.MinMaxObserver'&gt;, quant_min=0, quant_max=127){}, weight=functools.partial(&lt;class 'torch.ao.quantization.observer.MinMaxObserver'&gt;, dtype=torch.qint8, qscheme=torch.per_tensor_symmetric){})
+Post Training Quantization Prepare: Inserting Observers
+
+ Inverted Residual Block:After observer insertion 
+
+ Sequential(
+  (0): ConvBNReLU(
+    (0): ConvReLU2d(
+      (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32)
+      (1): ReLU()
+      (activation_post_process): MinMaxObserver(min_val=inf, max_val=-inf)
+    )
+    (1): Identity()
+    (2): Identity()
+  )
+  (1): Conv2d(
+    32, 16, kernel_size=(1, 1), stride=(1, 1)
+    (activation_post_process): MinMaxObserver(min_val=inf, max_val=-inf)
+  )
+  (2): Identity()
+)
+..................................................................................................Post Training Quantization: Calibration done
+Post Training Quantization: Convert done
+
+ Inverted Residual Block: After fusion and quantization, note fused modules: 
+
+ Sequential(
+  (0): ConvBNReLU(
+    (0): QuantizedConvReLU2d(32, 32, kernel_size=(3, 3), stride=(1, 1), scale=0.08577563613653183, zero_point=0, padding=(1, 1), groups=32)
+    (1): Identity()
+    (2): Identity()
+  )
+  (1): QuantizedConv2d(32, 16, kernel_size=(1, 1), stride=(1, 1), scale=0.10430050641298294, zero_point=63)
+  (2): Identity()
+)
+Size of model after quantization
+Size (MB): 2.36
+.............................................................................................................................................................Evaluation accuracy on (64000,) images, 77.93
+</code></pre>
+<p>For this quantized model, we see lower accuracy on the eval dataset. This is because we used a simple min/max observer to determine quantization parameters. Nevertheless, we did reduce the size of our model down to just under 3.6 MB, almost a 4x decrease.</p>
+<p>In addition, we can significantly improve on the accuracy simply by using a different quantization configuration. We repeat the same exercise with the recommended configuration for quantizing for x86 architectures. This configuration does the following:</p>
+<p>Quantizes weights on a per-channel basis</p>
+<p>Uses a histogram observer that collects a histogram of activations and then picks quantization parameters in an optimal manner.</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">per_channel_quantized_model = copy.deepcopy(float_model)</span><br><span class="line">per_channel_quantized_model.qconfig = torch.ao.quantization.get_default_qconfig(</span><br><span class="line">    <span class="string">"fbgemm"</span></span><br><span class="line">)</span><br><span class="line"><span class="built_in">print</span>(per_channel_quantized_model.qconfig)</span><br><span class="line"></span><br><span class="line">torch.ao.quantization.prepare(per_channel_quantized_model, inplace=<span class="literal">True</span>)</span><br><span class="line">evaluate(per_channel_quantized_model, criterion, data_loader, num_calibration_batches)</span><br><span class="line">torch.ao.quantization.convert(per_channel_quantized_model, inplace=<span class="literal">True</span>)</span><br><span class="line">top1, top5 = evaluate(</span><br><span class="line">    per_channel_quantized_model,</span><br><span class="line">    criterion,</span><br><span class="line">    data_loader_test,</span><br><span class="line">    neval_batches=num_eval_batches,</span><br><span class="line">)</span><br><span class="line"><span class="built_in">print</span>(</span><br><span class="line">    <span class="string">f"Evaluation accuracy on <span class="subst">{(num_eval_batches * eval_batch_size, )}</span> images, <span class="subst">{top1.avg:<span class="number">.2</span>f}</span>"</span></span><br><span class="line">)</span><br><span class="line">torch.jit.save(</span><br><span class="line">    torch.jit.script(per_channel_quantized_model),</span><br><span class="line">    saved_model_dir + scripted_quantized_model_file,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(</span><br><span class="line">    <span class="string">f"Evaluation accuracy on <span class="subst">{(num_eval_batches * eval_batch_size, )}</span> images, <span class="subst">{top1.avg:<span class="number">.2</span>f}</span>"</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>QConfig(activation=functools.partial(&lt;class 'torch.ao.quantization.observer.HistogramObserver'&gt;, reduce_range=True){}, weight=functools.partial(&lt;class 'torch.ao.quantization.observer.PerChannelMinMaxObserver'&gt;, dtype=torch.qint8, qscheme=torch.per_channel_symmetric){})
+...............................................................................................................................................................................................................................................................Evaluation accuracy on (64000,) images, 80.19
+Evaluation accuracy on (64000,) images, 80.19
+</code></pre>
+<h4 id="2-2-3-QAT-for-MobileNetV2"><a href="#2-2-3-QAT-for-MobileNetV2" class="headerlink" title="2.2.3 QAT for MobileNetV2"></a>2.2.3 QAT for MobileNetV2</h4><p><a class="link" target="_blank" rel="noopener" href="https://pytorch.org/tutorials/advanced/static_quantization_tutorial.html">Source <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> for the section</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">train_one_epoch</span>(<span class="params"></span></span><br><span class="line"><span class="params">    model, criterion, optimizer, data_loader, device, ntrain_batches_log=<span class="number">200</span></span></span><br><span class="line"><span class="params"></span>):</span><br><span class="line">    model.to(device)</span><br><span class="line">    model.train()</span><br><span class="line">    top1 = AverageMeter(<span class="string">"Acc@1"</span>, <span class="string">":6.2f"</span>)</span><br><span class="line">    top5 = AverageMeter(<span class="string">"Acc@5"</span>, <span class="string">":6.2f"</span>)</span><br><span class="line">    avgloss = AverageMeter(<span class="string">"Loss"</span>, <span class="string">"1.5f"</span>)</span><br><span class="line"></span><br><span class="line">    cnt = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> image, target <span class="keyword">in</span> data_loader:</span><br><span class="line">        start_time = time()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"."</span>, end=<span class="string">""</span>)</span><br><span class="line">        cnt += <span class="number">1</span></span><br><span class="line">        image, target = image.to(device), target.to(device)</span><br><span class="line">        output = model(image)</span><br><span class="line">        loss = criterion(output, target)</span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step()</span><br><span class="line">        acc1, acc5 = accuracy(output, target, topk=(<span class="number">1</span>, <span class="number">5</span>))</span><br><span class="line">        top1.update(acc1[<span class="number">0</span>], image.size(<span class="number">0</span>))</span><br><span class="line">        top5.update(acc5[<span class="number">0</span>], image.size(<span class="number">0</span>))</span><br><span class="line">        avgloss.update(loss, image.size(<span class="number">0</span>))</span><br><span class="line">        <span class="keyword">if</span> cnt &gt;= ntrain_batches_log:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"Loss"</span>, avgloss.avg)</span><br><span class="line"></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f"Training: * Acc@1 <span class="subst">{top1.avg:<span class="number">.3</span>f}</span> Acc@5 <span class="subst">{top5.avg:<span class="number">.3</span>f}</span>"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"Full train set:  * Acc@1 <span class="subst">{top1.avg:<span class="number">.3</span>f}</span> Acc@5 <span class="subst">{top5.avg:<span class="number">.3</span>f}</span>"</span>)</span><br><span class="line">    <span class="keyword">return</span></span><br></pre></td></tr></table></figure></div>
+
+
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">qat_model = copy.deepcopy(float_model)</span><br><span class="line">qat_model.train()</span><br><span class="line">optimizer = torch.optim.SGD(qat_model.parameters(), lr=<span class="number">0.0001</span>)</span><br><span class="line">qat_model.qconfig = torch.ao.quantization.get_default_qat_qconfig(<span class="string">"fbgemm"</span>)</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># prepare_qat performs the “fake quantization”, preparing the model for quantization-aware training</span></span><br><span class="line">torch.ao.quantization.prepare_qat(qat_model, inplace=<span class="literal">True</span>)</span><br><span class="line"><span class="built_in">print</span>(</span><br><span class="line">    <span class="string">"Inverted Residual Block: After preparation for QAT, note fake-quantization modules \n"</span>,</span><br><span class="line">    qat_model.features[<span class="number">1</span>].conv,</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>Inverted Residual Block: After preparation for QAT, note fake-quantization modules 
+ Sequential(
+  (0): ConvBNReLU(
+    (0): ConvReLU2d(
+      32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=32
+      (weight_fake_quant): FusedMovingAvgObsFakeQuantize(
+        fake_quant_enabled=tensor([1]), observer_enabled=tensor([1]), scale=tensor([1.]), zero_point=tensor([0], dtype=torch.int32), dtype=torch.qint8, quant_min=-128, quant_max=127, qscheme=torch.per_channel_symmetric, reduce_range=False
+        (activation_post_process): MovingAveragePerChannelMinMaxObserver(min_val=tensor([]), max_val=tensor([]))
+      )
+      (activation_post_process): FusedMovingAvgObsFakeQuantize(
+        fake_quant_enabled=tensor([1]), observer_enabled=tensor([1]), scale=tensor([1.]), zero_point=tensor([0], dtype=torch.int32), dtype=torch.quint8, quant_min=0, quant_max=127, qscheme=torch.per_tensor_affine, reduce_range=True
+        (activation_post_process): MovingAverageMinMaxObserver(min_val=inf, max_val=-inf)
+      )
+    )
+    (1): Identity()
+    (2): Identity()
+  )
+  (1): Conv2d(
+    32, 16, kernel_size=(1, 1), stride=(1, 1)
+    (weight_fake_quant): FusedMovingAvgObsFakeQuantize(
+      fake_quant_enabled=tensor([1]), observer_enabled=tensor([1]), scale=tensor([1.]), zero_point=tensor([0], dtype=torch.int32), dtype=torch.qint8, quant_min=-128, quant_max=127, qscheme=torch.per_channel_symmetric, reduce_range=False
+      (activation_post_process): MovingAveragePerChannelMinMaxObserver(min_val=tensor([]), max_val=tensor([]))
+    )
+    (activation_post_process): FusedMovingAvgObsFakeQuantize(
+      fake_quant_enabled=tensor([1]), observer_enabled=tensor([1]), scale=tensor([1.]), zero_point=tensor([0], dtype=torch.int32), dtype=torch.quint8, quant_min=0, quant_max=127, qscheme=torch.per_tensor_affine, reduce_range=True
+      (activation_post_process): MovingAverageMinMaxObserver(min_val=inf, max_val=-inf)
+    )
+  )
+  (2): Identity()
+)
+</code></pre>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># QAT takes time and one needs to train over a few epochs.</span></span><br><span class="line"><span class="comment"># Train and check accuracy after each epoch</span></span><br><span class="line"><span class="keyword">for</span> nepoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    train_one_epoch(qat_model, criterion, optimizer, data_loader, device=device)</span><br><span class="line">    <span class="keyword">if</span> nepoch &gt; <span class="number">3</span>:</span><br><span class="line">        <span class="comment"># Freeze quantizer parameters</span></span><br><span class="line">        qat_model.apply(torch.ao.quantization.disable_observer)</span><br><span class="line">    <span class="keyword">if</span> nepoch &gt; <span class="number">2</span>:</span><br><span class="line">        <span class="comment"># Freeze batch norm mean and variance estimates</span></span><br><span class="line">        qat_model.apply(torch.nn.intrinsic.qat.freeze_bn_stats)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Check the accuracy after each epoch</span></span><br><span class="line">    quantized_model = torch.ao.quantization.convert(</span><br><span class="line">        qat_model.cpu().<span class="built_in">eval</span>(), inplace=<span class="literal">False</span></span><br><span class="line">    )</span><br><span class="line">    top1, top5 = evaluate(</span><br><span class="line">        quantized_model, criterion, data_loader_test, neval_batches=num_eval_batches</span><br><span class="line">    )</span><br><span class="line">    <span class="built_in">print</span>(</span><br><span class="line">        <span class="string">f"Evaluation accuracy on <span class="subst">{(num_eval_batches * eval_batch_size, )}</span> images, <span class="subst">{top1.avg:<span class="number">.2</span>f}</span>"</span></span><br><span class="line">    )</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>..................................................................................................Full train set:  * Acc@1 88.008 Acc@5 99.502
+.............................................................................................................................................................Evaluation accuracy on (64000,) images, 82.69
+..................................................................................................Full train set:  * Acc@1 88.984 Acc@5 99.598
+.............................................................................................................................................................Evaluation accuracy on (64000,) images, 82.98
+..................................................................................................Full train set:  * Acc@1 89.328 Acc@5 99.622
+.............................................................................................................................................................Evaluation accuracy on (64000,) images, 82.78
+..................................................................................................Full train set:  * Acc@1 89.360 Acc@5 99.654
+.............................................................................................................................................................Evaluation accuracy on (64000,) images, 82.88
+..................................................................................................Full train set:  * Acc@1 89.526 Acc@5 99.628
+.............................................................................................................................................................Evaluation accuracy on (64000,) images, 83.01
+..................................................................................................Full train set:  * Acc@1 89.856 Acc@5 99.650
+.............................................................................................................................................................Evaluation accuracy on (64000,) images, 82.92
+..................................................................................................Full train set:  * Acc@1 90.028 Acc@5 99.648
+.............................................................................................................................................................Evaluation accuracy on (64000,) images, 82.99
+..................................................................................................Full train set:  * Acc@1 89.948 Acc@5 99.680
+.............................................................................................................................................................Evaluation accuracy on (64000,) images, 83.00
+..................................................................................................Full train set:  * Acc@1 89.952 Acc@5 99.632
+.............................................................................................................................................................Evaluation accuracy on (64000,) images, 83.05
+..................................................................................................Full train set:  * Acc@1 89.940 Acc@5 99.642
+.............................................................................................................................................................Evaluation accuracy on (64000,) images, 83.21
+</code></pre>
+<h4 id="2-2-4-Speed-benchmark"><a href="#2-2-4-Speed-benchmark" class="headerlink" title="2.2.4 Speed benchmark"></a>2.2.4 Speed benchmark</h4><p>Does it actually speed up something? Yep!</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">elapsed = <span class="number">0</span></span><br><span class="line">model = per_channel_quantized_model</span><br><span class="line">model.<span class="built_in">eval</span>()</span><br><span class="line">num_batches = <span class="number">100</span></span><br><span class="line"><span class="comment"># Run the scripted model on a few batches of images</span></span><br><span class="line"><span class="keyword">for</span> i, (images, target) <span class="keyword">in</span> <span class="built_in">enumerate</span>(data_loader_test):</span><br><span class="line">    <span class="keyword">if</span> i &lt; num_batches:</span><br><span class="line">        start = time()</span><br><span class="line">        output = model(images)</span><br><span class="line">        end = time()</span><br><span class="line">        elapsed = elapsed + (end - start)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">num_images = images.size()[<span class="number">0</span>] * num_batches</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"Elapsed time: <span class="subst">{(elapsed / num_images * <span class="number">1000</span>)}</span> ms"</span>)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>Elapsed time: 0.30716948211193085 ms
+</code></pre>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">elapsed = <span class="number">0</span></span><br><span class="line">model = float_model</span><br><span class="line">model.<span class="built_in">eval</span>()</span><br><span class="line">num_batches = <span class="number">100</span></span><br><span class="line"><span class="comment"># Run the scripted model on a few batches of images</span></span><br><span class="line"><span class="keyword">for</span> i, (images, target) <span class="keyword">in</span> <span class="built_in">enumerate</span>(data_loader_test):</span><br><span class="line">    <span class="keyword">if</span> i &lt; num_batches:</span><br><span class="line">        start = time()</span><br><span class="line">        output = model(images)</span><br><span class="line">        end = time()</span><br><span class="line">        elapsed = elapsed + (end - start)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">num_images = images.size()[<span class="number">0</span>] * num_batches</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"Elapsed time: <span class="subst">{(elapsed / num_images * <span class="number">1000</span>)}</span> ms"</span>)</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>Elapsed time: 0.3881186619400978 ms
+</code></pre>
+<h3 id="2-3-45-GB-T5-to-a-single-GPU"><a href="#2-3-45-GB-T5-to-a-single-GPU" class="headerlink" title="2.3 45 GB T5 to a single GPU"></a>2.3 45 GB T5 to a single GPU</h3><p><a class="link" target="_blank" rel="noopener" href="https://huggingface.co/blog/hf-bitsandbytes-integration">Source <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> of the section</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> AutoModelForSeq2SeqLM, AutoTokenizer</span><br></pre></td></tr></table></figure></div>
+
+
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">model_name = <span class="string">"t5-3b-sharded"</span>  <span class="comment"># @param ["t5-11b-sharded", "t5-3b-sharded"]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># T5-3b and T5-11B are supported!</span></span><br><span class="line"><span class="comment"># We need sharded weights otherwise we get CPU OOM errors</span></span><br><span class="line">model_id = <span class="string">f"ybelkada/<span class="subst">{model_name}</span>"</span></span><br><span class="line"></span><br><span class="line">tokenizer = AutoTokenizer.from_pretrained(model_id)</span><br><span class="line">model_8bit = AutoModelForSeq2SeqLM.from_pretrained(</span><br><span class="line">    model_id, device_map=<span class="string">"auto"</span>, load_in_8bit=<span class="literal">True</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+
+<pre><code>===================================BUG REPORT===================================
+Welcome to bitsandbytes. For bug reports, please submit your error trace to: https://github.com/TimDettmers/bitsandbytes/issues
+================================================================================
+CUDA SETUP: CUDA runtime path found: /usr/local/cuda/lib64/libcudart.so
+CUDA SETUP: Highest compute capability among GPUs detected: 7.0
+CUDA SETUP: Detected CUDA version 111
+CUDA SETUP: Loading binary /home/ubuntu/anaconda3/envs/ml/lib/python3.10/site-packages/bitsandbytes/libbitsandbytes_cuda111_nocublaslt.so...
+
+
+
+Loading checkpoint shards:   0%|          | 0/5 [00:00&lt;?, ?it/s]
+</code></pre>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model_8bit.get_memory_footprint() / <span class="number">1e9</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+
+<pre><code>5.300543488
+</code></pre>
+<p>For t5-3b the int8 model is about ~5.3GB! whereas the original model has 11GB. For t5-11b the int8 model is about ~11GB vs 42GB for the original model. Now let’s generate and see the qualitative results of the 8bit model!</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">max_new_tokens = <span class="number">50</span></span><br><span class="line"></span><br><span class="line">input_ids = tokenizer(</span><br><span class="line">    <span class="string">"translate English to German: Hello my name is Younes and I am a Machine Learning Engineer at Hugging Face"</span>,</span><br><span class="line">    return_tensors=<span class="string">"pt"</span>,</span><br><span class="line">).input_ids</span><br><span class="line"></span><br><span class="line">outputs = model_8bit.generate(input_ids, max_new_tokens=max_new_tokens)</span><br><span class="line"><span class="built_in">print</span>(tokenizer.decode(outputs[<span class="number">0</span>], skip_special_tokens=<span class="literal">True</span>))</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>Hallo mein Name ist Younes und ich bin ein Ingenieur für Machine Learning bei Hugging Face
+</code></pre>
+<h2 id="3-Further-reading"><a href="#3-Further-reading" class="headerlink" title="3. Further reading"></a>3. Further reading</h2><h3 id="Efficient-architectures"><a href="#Efficient-architectures" class="headerlink" title="Efficient architectures"></a>Efficient architectures</h3><ul>
+<li><a class="link" target="_blank" rel="noopener" href="https://arxiv.org/pdf/1704.04861.pdf">https://arxiv.org/pdf/1704.04861.pdf <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://arxiv.org/pdf/2101.03697.pdf">https://arxiv.org/pdf/2101.03697.pdf <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://arxiv.org/pdf/2206.04040.pdf">https://arxiv.org/pdf/2206.04040.pdf <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://arxiv.org/pdf/2006.04768.pdf">https://arxiv.org/pdf/2006.04768.pdf <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://arxiv.org/pdf/1909.11942.pdf">https://arxiv.org/pdf/1909.11942.pdf <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://arxiv.org/pdf/2006.16236.pdf">https://arxiv.org/pdf/2006.16236.pdf <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h3 id="Knowledge-distillation"><a href="#Knowledge-distillation" class="headerlink" title="Knowledge distillation"></a>Knowledge distillation</h3><ul>
+<li><a class="link" target="_blank" rel="noopener" href="https://arxiv.org/pdf/2106.05237.pdf">https://arxiv.org/pdf/2106.05237.pdf <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://arxiv.org/pdf/1910.01108.pdf">https://arxiv.org/pdf/1910.01108.pdf <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://arxiv.org/pdf/1909.10351.pdf">https://arxiv.org/pdf/1909.10351.pdf <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h3 id="Pruning"><a href="#Pruning" class="headerlink" title="Pruning"></a>Pruning</h3><ul>
+<li><a class="link" target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.04089">https://arxiv.org/abs/2302.04089 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://arxiv.org/abs/2301.00774">https://arxiv.org/abs/2301.00774 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h3 id="Matrices-decompositions"><a href="#Matrices-decompositions" class="headerlink" title="Matrices decompositions"></a>Matrices decompositions</h3><ul>
+<li><a class="link" target="_blank" rel="noopener" href="https://arxiv.org/pdf/1906.11755.pdf">https://arxiv.org/pdf/1906.11755.pdf <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://arxiv.org/pdf/2004.09031.pdf">https://arxiv.org/pdf/2004.09031.pdf <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://arxiv.org/pdf/2009.13977.pdf">https://arxiv.org/pdf/2009.13977.pdf <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://arxiv.org/pdf/2004.04124.pdf">https://arxiv.org/pdf/2004.04124.pdf <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://arxiv.org/pdf/2111.06312.pdf">https://arxiv.org/pdf/2111.06312.pdf <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h3 id="Quantization"><a href="#Quantization" class="headerlink" title="Quantization"></a>Quantization</h3><ul>
+<li><a class="link" target="_blank" rel="noopener" href="https://arxiv.org/abs/2208.07339">https://arxiv.org/abs/2208.07339 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://huggingface.co/blog/hf-bitsandbytes-integration">https://huggingface.co/blog/hf-bitsandbytes-integration <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link" target="_blank" rel="noopener" href="https://pytorch.org/tutorials/advanced/static_quantization_tutorial.html">https://pytorch.org/tutorials/advanced/static_quantization_tutorial.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Efficient DL System</li>
+        <li><strong>Author:</strong> Shuai Lv</li>
+        <li><strong>Created at:</strong> 2023-06-16 23:43:25</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-06-17 00:48:53
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://blogls.top/2023/06/16/Efficient-DL-System/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            <div class="recommended-article">
+  <div class="recommended-article-header">
+    <i aria-hidden="true"></i><span>推荐阅读</span>
+  </div>
+  <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/05/30/2023-ICLR-Transfer-NAS-with-Meta-learned-Bayesian-Surrogates/" title="2023-ICLR-Transfer NAS with Meta-learned Bayesian Surrogates" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="2023-ICLR-Transfer NAS with Meta-learned Bayesian Surrogates">
+  <span class="title">2023-ICLR-Transfer NAS with Meta-learned Bayesian Surrogates</span>
+</a><a class="recommended-article-item" href="/2023/05/29/ChatGPT提问模板/" title="ChatGPT提问模板" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="ChatGPT提问模板">
+  <span class="title">ChatGPT提问模板</span>
+</a><a class="recommended-article-item" href="/2023/05/31/极客时间-Pytorch-图像分类模型/" title="极客时间-Pytorch-图像分类模型" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="极客时间-Pytorch-图像分类模型">
+  <span class="title">极客时间-Pytorch-图像分类模型</span>
+</a></div>
+</div>
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/06/16/Efficient-DL-Book/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Efficient DL Book</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: 'ca3b187a2eb63dfd2d20',
+                    clientSecret: 'e96896908ba4dc10bb61a89de608ea3a0ce32013',
+                    repo: 'Gitalk',
+                    owner: 'ShuaiLv-JNU',
+                    admin: ['ShuaiLv-JNU'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Efficient DL System</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Efficient-model-inference"><span class="nav-text">Efficient model inference</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-slides"><span class="nav-text">1. slides</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-scope"><span class="nav-text">1.1 scope</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Efficient-architectures"><span class="nav-text">1.2 Efficient architectures</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-text"></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Reducing-number-of-model%E2%80%99s-parameters"><span class="nav-text">1.3 Reducing number of model’s parameters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-Get-the-most-out-of-training"><span class="nav-text">1.4 Get the most out of training</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-Relations-with-inference-engines"><span class="nav-text">1.5 Relations with inference engines</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-HomeWork"><span class="nav-text">2. HomeWork</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Seminar-outline"><span class="nav-text">2.1 Seminar outline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Static-PTQ"><span class="nav-text">2.2 Static PTQ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-45-GB-T5-to-a-single-GPU"><span class="nav-text">2.3 45 GB T5 to a single GPU</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Further-reading"><span class="nav-text">3. Further reading</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Efficient-architectures"><span class="nav-text">Efficient architectures</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Knowledge-distillation"><span class="nav-text">Knowledge distillation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pruning"><span class="nav-text">Pruning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Matrices-decompositions"><span class="nav-text">Matrices decompositions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Quantization"><span class="nav-text">Quantization</span></a></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Shuai Lv</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.1.4</a>
+        </div>
+        
+        
+        
+            <div id="start_div" style="display:none">
+                2023/5/28 22:00:00
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <div class="customize-info info-item">ChatGPT is all you need.</div>
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+<script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/utils.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/main.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/layouts/navbarShrink.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/tools/scrollTopBottom.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/tools/codeBlock.js"></script>
+
+
+
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/layouts/lazyload.js"></script>
+
+
+
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/tools/runtime.js"></script>
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/layouts/odometer.min.js"></script>
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/libs/Typed.min.js"></script>
+  <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/plugins/typed.js"></script>
+
+
+
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/libs/mermaid.min.js"></script>
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/plugins/mermaid.js"></script>
+
+
+
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/libs/minimasonry.min.js"></script>
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/plugins/masonry.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/tools/tocToggle.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/libs/anime.min.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/layouts/toc.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/plugins/tabs.js"></script>
+    
+</div>
+
+
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+    <div id="aplayer"></div>
+<script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/libs/APlayer.min.js"></script>
+<script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/plugins/aplayer.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"superSample":2,"width":200,"height":400,"position":"left","hOffset":30,"vOffset":30},"mobile":{"show":true},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"dialog":{"enable":true,"hitokoto":true},"log":false});</script></body>
+</html>
