@@ -17,20 +17,18 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://blogls.top/2023/06/17/图像工程与处理期末论文/"/>
+    <link rel="canonical" href="http://blogls.top/tags/hpo/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="空间域图像处理（占比60%） 自适应中值滤波器（Adaptive Median Filter）的实现与研究。用程序实现该算法，要求程序能够根据图像给出最适合的滤波参数，同时用适当的图像做处理，来说明它的优点。另外任选几种滤波器算法和它对比，表现该算法的优点和缺点。(难度系数1.0，及格要求：能够根据不同图像给出中值滤波的最佳参数。加分点：与其他滤波算法进行比较分析) 频率域图像处理（占比40%）">
-<meta property="og:type" content="article">
-<meta property="og:title" content="图像工程与处理期末论文">
-<meta property="og:url" content="http://blogls.top/2023/06/17/%E5%9B%BE%E5%83%8F%E5%B7%A5%E7%A8%8B%E4%B8%8E%E5%A4%84%E7%90%86%E6%9C%9F%E6%9C%AB%E8%AE%BA%E6%96%87/index.html">
+        <meta name="description" content="丈夫处世兮，立功名；立功名兮，慰平生">
+<meta property="og:type" content="website">
+<meta property="og:title" content="乐愚良">
+<meta property="og:url" content="http://blogls.top/tags/HPO/index.html">
 <meta property="og:site_name" content="乐愚良">
-<meta property="og:description" content="空间域图像处理（占比60%） 自适应中值滤波器（Adaptive Median Filter）的实现与研究。用程序实现该算法，要求程序能够根据图像给出最适合的滤波参数，同时用适当的图像做处理，来说明它的优点。另外任选几种滤波器算法和它对比，表现该算法的优点和缺点。(难度系数1.0，及格要求：能够根据不同图像给出中值滤波的最佳参数。加分点：与其他滤波算法进行比较分析) 频率域图像处理（占比40%）">
+<meta property="og:description" content="丈夫处世兮，立功名；立功名兮，慰平生">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-06-17T14:23:12.000Z">
-<meta property="article:modified_time" content="2023-06-17T15:44:43.810Z">
 <meta property="article:author" content="Shuai Lv">
 <meta name="twitter:card" content="summary">
     
@@ -54,7 +52,7 @@
     
     <title>
         
-            图像工程与处理期末论文 -
+            Tag: HPO -
         
         LeYuLiang
     </title>
@@ -476,298 +474,39 @@ mjx-container[display="true"] + br {
 
                 
                     <div class="fade-in-down-animation">
-    <div class="post-page-container">
-        <div class="article-content-container">
-
-            
-            
-                <div class="article-title">
-                    <h1 class="article-title-regular">图像工程与处理期末论文</h1>
-                </div>
-            
-                
-            
-
-            
-                <div class="article-header">
-                    <div class="avatar">
-                        <img src="/images/avatar.jpg">
-                    </div>
-                    <div class="info">
-                        <div class="author">
-                            <span class="name">Shuai Lv</span>
-                            
-                                <span class="author-label">Lv3</span>
-                            
-                        </div>
-                        <div class="meta-info">
-                            <div class="article-meta-info">
-    <span class="article-date article-meta-item">
-        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2023-06-17 22:23:12</span>
-        <span class="mobile">2023-06-17 22:23</span>
-        <span class="hover-info">Created</span>
-    </span>
-    
-        <span class="article-date article-meta-item">
-            <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-06-17 23:44:43</span>
-            <span class="mobile">2023-06-17 23:44</span>
-            <span class="hover-info">Updated</span>
-        </span>
-    
-
-    
-    
-
-    
-    
-        <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.1k Words</span>
-        </span>
-    
-    
-        <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>4 Mins</span>
-        </span>
-    
-    
-        <span class="article-pv article-meta-item">
-            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
-        </span>
-    
-</div>
-
-                        </div>
-                    </div>
-                </div>
-            
-
-            <div class="article-content markdown-body">
-                <p><strong>空间域图像处理（占比60%）</strong></p>
-<p>自适应中值滤波器（Adaptive Median Filter）的实现与研究。用程序实现该算法，要求程序能够根据图像给出最适合的滤波参数，同时用适当的图像做处理，来说明它的优点。另外任选几种滤波器算法和它对比，表现该算法的优点和缺点。(难度系数1.0，及格要求：能够根据不同图像给出中值滤波的最佳参数。加分点：与其他滤波算法进行比较分析)</p>
-<p><strong>频率域图像处理（占比40%）</strong></p>
-<p>数字产品的迅速发展给多媒体安全和版权保护技术提出了新的要求,数字水印技术作为一种重要的解决方案引起了人们的高度重视。自行实现一种基于傅里叶变换的水印嵌入算法，水印的复杂度会成为难度系数的评判标准。(难度系数 1.0，及格要求：实现最基本的数字水印嵌入。加分点：尝试实现数字水印去除)</p>
-<hr>
-<ol>
-<li>盲水印是一种嵌入在数字媒体中的隐形水印，旨在对媒体进行身份认证和版权保护。与可见水印不同，盲水印通常是在媒体的不可察觉部分进行嵌入，以保持媒体的视觉质量。基本代码如下：</li>
-</ol>
-<ul>
-<li><a class="link" target="_blank" rel="noopener" href="https://github.com/lishuaijuly/watermark">GitHub - lishuaijuly/Watermark: 使用python实现的水印代码。1、LSB 2、DWT+SVD <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44009107/article/details/125036240">DCT水印嵌入与提取_(Python Version)_dct水印嵌入和提取的源程序_七月的和弦的博客-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link" target="_blank" rel="noopener" href="https://github.com/linyacool/blind-watermark/tree/python3">linyacool/blind-watermark at python3 (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-<ol start="2">
-<li>一般情况下，盲水印是为了提高抵抗性而设计的，以使其在经过一些图像处理操作（如压缩、裁剪、调整大小等）后仍然能够被检测到。因此，从技术角度来看，完全去除盲水印并不容易。如</li>
-</ol>
-<ul>
-<li><p><a class="link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/506901179">基于傅里叶变换的图像自适应水印算法 - 知乎 (zhihu.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-<li><p><a class="link" target="_blank" rel="noopener" href="https://github.com/guofei9987/blind_watermark">guofei9987/blind_watermark: Blind&amp;Invisible Watermark ，图片盲水印，提取水印无须原图！ (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<blockquote>
-<p>文章：<a class="link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/391883137">Python 图片盲水印/隐水印代码库 blind-watermark 发布 0.1.1 版本 - 知乎 (zhihu.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</blockquote>
-</li>
-</ul>
-<ol start="3">
-<li>虽然盲水印的去除是一个复杂的任务，但在某些情况下可能是可行的。如果攻击者具有原始图像和相应的盲水印嵌入密钥，他们可能能够以某种方式去除或篡改水印。但这需要对嵌入算法和密钥的详细了解，而这通常是受到版权保护的。</li>
-</ol>
-<blockquote>
-<p>使用关键词如 “blind watermark removal”、”invisible watermark removal”、”digital image watermark removal” 等，可以帮助你找到相关研究和论文。请注意，这是一个活跃的研究领域，因此可能会有一些最新的研究成果。</p>
-</blockquote>
-<p>如</p>
-<ul>
-<li><p>[vinthony/deep-blind-watermark-removal: <a class="link" target="_blank" rel="noopener" href="https://github.com/vinthony/deep-blind-watermark-removal">AAAI 2021] Split then Refine: Stacked Attention-guided ResUNets for Blind Single Image Visible Watermark Removal (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-<li><p><font color="red"><strong>重点：</strong></font><a class="link" target="_blank" rel="noopener" href="https://github.com/SixQuant/nowatermark">SixQuant/nowatermark: remove watermark. 去除图片中的水印 (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-<li><p>机器学习：<a class="link" target="_blank" rel="noopener" href="https://github.com/zuruoke/watermark-removal">Zuruoke/水印去除：一种机器学习图像修复任务，可本能地从与真实图像无法区分的图像中删除水印 (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-</ul>
-<p><strong>4.相关课程论文素材</strong></p>
-<ul>
-<li><p><a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/qingfengxd1/article/details/118074972">(215条消息) 【新星计划】Matlab-傅里叶变换隐藏水印_studyer_domi的博客-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-<li><p><a class="link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/379228103">如何给图片加盲水印？盲水印和图片隐写术实现及原理 - 知乎 (zhihu.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-<li><p><a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/qq_24502469/article/details/97758340">(215条消息) 音频数字水印的基础_今 晚 打 老 虎的博客-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-<li><p><a class="link" href="file:///C:/Users/lvshu/Downloads/基于实数离散傅里叶变换的图像数字水印算法_辛怡.pdf">基于实数离散傅里叶变换的图像数字水印算法_辛怡.pdf <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-<li><p><a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/sheziqiong/article/details/127202876">(215条消息) 基于离散傅里叶变换（DFT）的数字水印算法研究_傅里叶变换法的数字水印代码_biyezuopin的博客-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-<li><p><a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/m0_52363973/article/details/131115784">(215条消息) 基于DWT-DCT-SVD的图像数字水印算法_ILM:)的博客-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-<li><p>[(215条消息) <a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/hongchengling2/article/details/107747274">Opencv基础]水印，数字水印，频域水印(隐形水印)_opencv检测隐藏水印_Cang_Wang的博客-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-<li><p><a class="link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/27632585">从零开始的频域水印完全解析 - 知乎 (zhihu.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-</ul>
-<p><strong>5.chatgpt与图像水印</strong></p>
-<ul>
-<li><a class="link" target="_blank" rel="noopener" href="https://tianmunews.com/news.html?id=747421">ChatGPT的“克星”来了 数字水印用AI对抗AI？_潮新闻官网 (tianmunews.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-<p>6.没看懂(待看)</p>
-<ul>
-<li><a class="link" target="_blank" rel="noopener" href="https://github.com/marcbelmont/cnn-watermark-removal">marcbelmont/cnn-watermark-removal：完全卷积深度神经网络，用于从图像中删除透明叠加层 (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link" target="_blank" rel="noopener" href="https://github.com/topics/watermark?l=python">watermark · GitHub Topics <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li></li>
-</ul>
-
-            </div>
-
-            
-                <div class="post-copyright-info">
-                    <div class="article-copyright-info-container">
-    <ul>
-        <li><strong>Title:</strong> 图像工程与处理期末论文</li>
-        <li><strong>Author:</strong> Shuai Lv</li>
-        <li><strong>Created at:</strong> 2023-06-17 22:23:12</li>
-        
-            <li>
-                <strong>Updated at:</strong> 2023-06-17 23:44:43
-            </li>
-        
-        <li>
-            <strong>Link:</strong> https://blogls.top/2023/06/17/图像工程与处理期末论文/
-        </li>
-        <li>
-            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
-        </li>
-    </ul>
-</div>
-
-                </div>
-            
-
-            
-
-            <div class="recommended-article">
-  <div class="recommended-article-header">
-    <i aria-hidden="true"></i><span>推荐阅读</span>
-  </div>
-  <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/05/29/资源汇总/" title="资源汇总" rel="bookmark">
-  <img src="/images/wallhaven-wqery6-light.webp" alt="资源汇总">
-  <span class="title">资源汇总</span>
-</a><a class="recommended-article-item" href="/2023/06/27/Efficient-LLM/" title="Efficient LLM" rel="bookmark">
-  <img src="/images/wallhaven-wqery6-light.webp" alt="Efficient LLM">
-  <span class="title">Efficient LLM</span>
-</a><a class="recommended-article-item" href="/2023/06/16/Efficient-DL-Book/" title="Efficient DL Book" rel="bookmark">
-  <img src="/images/wallhaven-wqery6-light.webp" alt="Efficient DL Book">
-  <span class="title">Efficient DL Book</span>
-</a></div>
-</div>
-
-            
-                <div class="article-nav">
-                    
-                        <div class="article-prev">
-                            <a class="prev"
-                            rel="prev"
-                            href="/2023/06/18/ChatGPT%E7%BB%BC%E8%BF%B0-%E5%BE%85%E5%AE%9A/"
-                            >
-                                <span class="left arrow-icon flex-center">
-                                    <i class="fa-solid fa-chevron-left"></i>
-                                </span>
-                                <span class="title flex-center">
-                                    <span class="post-nav-title-item">ChatGPT综述(待定)</span>
-                                    <span class="post-nav-item">Prev posts</span>
-                                </span>
-                            </a>
-                        </div>
-                    
-                    
-                        <div class="article-next">
-                            <a class="next"
-                            rel="next"
-                            href="/2023/06/16/Efficient-DL-System/"
-                            >
-                                <span class="title flex-center">
-                                    <span class="post-nav-title-item">Efficient DL System</span>
-                                    <span class="post-nav-item">Next posts</span>
-                                </span>
-                                <span class="right arrow-icon flex-center">
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </span>
-                            </a>
-                        </div>
-                    
-                </div>
-            
-
-
-            
-                <div class="comment-container">
-                    <div class="comments-container">
-    <div id="comment-anchor"></div>
-    <div class="comment-area-title">
-        <i class="fa-solid fa-comments"></i>&nbsp;Comments
-    </div>
-    
-
-        
-            
-    <div id="gitalk-container"></div>
-    <script data-pjax
-            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
-    <script data-pjax>
-
-        function loadGitalk() {
-            let __gitalk__pathname = decodeURI(location.pathname);
-            const __gitalk__pathnameLength = __gitalk__pathname.length;
-            const __gitalk__pathnameMaxLength = 50;
-            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
-                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
-            }
-
-            try {
-                Gitalk && new Gitalk({
-                    clientID: 'ca3b187a2eb63dfd2d20',
-                    clientSecret: 'e96896908ba4dc10bb61a89de608ea3a0ce32013',
-                    repo: 'Gitalk',
-                    owner: 'ShuaiLv-JNU',
-                    admin: ['ShuaiLv-JNU'],
-                    id: __gitalk__pathname,
-                    language: 'en'
-                }).render('gitalk-container');
-
-            } catch (e) {
-                window.Gitalk = null;
-            }
-        }
-
-        if ('true') {
-            const loadGitalkTimeout = setTimeout(() => {
-                loadGitalk();
-                clearTimeout(loadGitalkTimeout);
-            }, 1000);
-        } else {
-            window.addEventListener('DOMContentLoaded', loadGitalk);
-        }
-    </script>
-
-
-
-        
-    
-</div>
-
-                </div>
-            
+    <div class="tag-container">
+        <div class="tag-name"><i class="fa-solid fa-tag"></i>&nbsp;HPO
         </div>
-
-        
-            <div class="toc-content-container">
-                <div class="post-toc-wrap">
-    <div class="post-toc">
-        <div class="toc-title">On this page</div>
-        <div class="page-title">图像工程与处理期末论文</div>
-        
-
-    </div>
-</div>
+        <div class="tag-post-list">
+            
+<div class="archive-list-container">
+    
+        <section class="archive-item">
+            <div class="archive-item-header">
+                <span class="archive-year">2023</span>
+                <span class="archive-year-post-count">[1]</span>
             </div>
-        
+            <ul class="article-list">
+              
+              <li class="article-item" date-is='06-26'>
+                <a href="/2023/06/26/LLM+AutoML/">
+                  <span class="article-title">LLM+AutoML</span>
+                </a>
+              </li>
+              
+            </ul>
+        </section>
+    
+</div>
+
+        </div>
+    </div>
+
+    <div class="tag-paginator">
+        <div class="paginator">
+    <span class="page-number current">1</span>
+</div>
+
     </div>
 </div>
 
@@ -848,27 +587,6 @@ mjx-container[display="true"] + br {
         </div>
     </div>
 
-    
-        <div class="post-tools">
-            <div class="post-tools-container">
-    <ul class="article-tools-list">
-        <!-- TOC aside toggle -->
-        
-            <li class="right-bottom-tools page-aside-toggle">
-                <i class="fa-regular fa-outdent"></i>
-            </li>
-        
-
-        <!-- go comment -->
-        
-            <li class="go-comment">
-                <i class="fa-regular fa-comments"></i>
-            </li>
-        
-    </ul>
-</div>
-
-        </div>
     
 
     <div class="right-side-tools-container">
@@ -962,8 +680,6 @@ mjx-container[display="true"] + br {
 
 
 <div class="post-scripts pjax">
-    
-        <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/tools/tocToggle.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/libs/anime.min.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/layouts/toc.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/plugins/tabs.js"></script>
     
 </div>
 

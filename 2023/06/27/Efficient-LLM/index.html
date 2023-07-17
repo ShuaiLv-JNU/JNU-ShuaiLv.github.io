@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Shuai Lv">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+        
+            <link rel="preconnect" href="https://npm.elemecdn.com" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://blogls.top/2023/06/27/efficient-llm/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="On Efficient Training of Large-Scale Deep Learning Models: A Literature Review-23.04   0. 摘要近年来，深度学习领域取得了重大进展，尤其在计算机视觉、自然语言处理和语音等领域。使用大规模模型在大量数据上进行训练，在实际应用、提高工业生产力和促进社会发展方面具有巨大的前景。然而，由于训练过程不稳定且对计算资源要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Efficient LLM">
+<meta property="og:url" content="http://blogls.top/2023/06/27/Efficient-LLM/index.html">
+<meta property="og:site_name" content="乐愚良">
+<meta property="og:description" content="On Efficient Training of Large-Scale Deep Learning Models: A Literature Review-23.04   0. 摘要近年来，深度学习领域取得了重大进展，尤其在计算机视觉、自然语言处理和语音等领域。使用大规模模型在大量数据上进行训练，在实际应用、提高工业生产力和促进社会发展方面具有巨大的前景。然而，由于训练过程不稳定且对计算资源要">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-06-27T07:49:58.000Z">
+<meta property="article:modified_time" content="2023-06-28T08:02:28.204Z">
+<meta property="article:author" content="Shuai Lv">
+<meta name="twitter:card" content="summary">
+    
+    
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q3ZMF4ZML1"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-Q3ZMF4ZML1');
+        </script>
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Efficient LLM -
+        
+        LeYuLiang
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/assets/fonts.css">
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"blogls.top","root":"/","language":"en","path":"search.xml"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":true,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":true,"title":"推荐阅读","limit":3,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":true,"id":"G-Q3ZMF4ZML1"}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"LeYuLiang's Blog","subtitle":{"text":["丈夫处世兮，立功名","立功名兮，慰平生","慰平生兮，吾将醉","吾将醉兮，发狂吟"],"hitokoto":{"enable":true,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"links":{"github":"https://github.com/ShuaiLv-JNU","instagram":"https://www.instagram.com/liang_leyu/","zhihu":"https://www.zhihu.com/people/darker-7-73","twitter":"https://twitter.com/lushuai66337858","email":"lvshuai@stu2022.jnu.edu.cn"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":true,"type":"fixed","audios":[{"name":"Something Just Like This","artist":"Coldplay","url":"https://evan.beee.top/music/Something%20Just%20Like%20This%20-%20The%20Chainsmokers%E3%80%81Coldplay.mp3","cover":"https://evan.beee.top/music/covers/Something_Just_Like_This.png"}]},"mermaid":{"enable":true,"version":"9.3.0"}},"version":"2.1.4","navbar":{"auto_hide":true,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Resources":{"icon":"fa-regular fa-folder","submenus":{"Photo":"/masonry"}},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/ShuaiLv-JNU"}},"Links":{"path":"/links","icon":"fa-regular fa-link"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"You only live once, so make sense.","links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}}};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    Global.data_config = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 5.4.2"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style><link rel="alternate" href="/rss2.xml" title="乐愚良" type="application/rss+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/logo.svg">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                LeYuLiang
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-folder"></i>
+                                        
+                                        RESOURCES&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/masonry">PHOTO
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown" 
+                                    href="#" onClick="return false;">
+                                    
+                                        
+                                            <i class="fa-regular fa-user"></i>
+                                        
+                                        ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                    
+                                        <li>
+                                        <a href="/about">ME
+                                        </a>
+                                        </li>
+                                    
+                                        <li>
+                                        <a target="_blank" rel="noopener" href="https://github.com/ShuaiLv-JNU">GITHUB
+                                        </a>
+                                        </li>
+                                    
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/links"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-link"></i>
+                                        
+                                        LINKS
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-folder"></i>
+                                
+                                RESOURCES&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/masonry">PHOTO</a>
+                            </li>
+                        
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="has-dropdown" 
+                        href="#" onClick="return false;">
+                            
+                                
+                                    <i class="fa-regular fa-user"></i>
+                                
+                                ABOUT&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                              
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" href="/about">ME</a>
+                            </li>
+                        
+                            <li class="dropdown-item flex-center">
+                                <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/ShuaiLv-JNU">GITHUB</a>
+                            </li>
+                        
+                    
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/links"  >
+                             
+                                
+                                    <i class="fa-regular fa-link"></i>
+                                
+                                LINKS
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">Efficient LLM</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/avatar.jpg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Shuai Lv</span>
+                            
+                                <span class="author-label">Lv3</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-06-27 15:49:58</span>
+        <span class="mobile">2023-06-27 15:49</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-06-28 16:02:28</span>
+            <span class="mobile">2023-06-28 16:02</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>12.1k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>42 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <blockquote>
+<p><a class="link" target="_blank" rel="noopener" href="https://arxiv.org/pdf/2304.03589.pdf">On Efficient Training of Large-Scale Deep Learning Models: A Literature Review-23.04 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</blockquote>
+<h1 id="0-摘要"><a href="#0-摘要" class="headerlink" title="0. 摘要"></a>0. 摘要</h1><p>近年来，深度学习领域取得了重大进展，尤其在计算机视觉、自然语言处理和语音等领域。使用大规模模型在大量数据上进行训练，在实际应用、提高工业生产力和促进社会发展方面具有巨大的前景。然而，由于训练过程不稳定且对计算资源要求严格，其应用受到极大限制。虽然有许多研究在一定程度上探索了高效训练领域，但我们仍期待有关训练大规模深度学习模型的通用加速技术的全面总结和指南。</p>
+<p>在本综述中，我们详细回顾了用于训练加速的通用技术。我们从五个主要视角出发，对基本的更新公式和其组成部分进行了总结：（1）”以数据为中心”，包括数据集正则化、数据采样和以数据为中心的课程学习技术，可以显著降低计算复杂度；（2）”以模型为中心”，包括加速基本模块、压缩训练、模型初始化和以模型为中心的课程学习技术，专注于减少参数计算和提供更好初始化的方式来加速训练；（3）”以优化为中心”，包括学习率的选择、大批量的使用、高效目标的设计和模型平均技术，注重训练策略和提高大规模模型的通用性；（4）”预算训练”，包括在资源受限情况下的一些独特的加速方法，例如对总迭代次数的限制；（5）”以系统为中心”，包括一些高效的分布式框架和开源库，为上述加速算法的实现提供足够的硬件支持。</p>
+<p>通过提出这一全面的分类法，我们的调查提供了对每个组件内部一般机制及其联合交互的全面回顾。同时，我们还对通用加速技术未来的发展进行了详细的分析和讨论，这可以启发我们重新思考和设计新的高效范式。总的来说，我们希望这一调查成为通用高效训练的有价值指南。</p>
+<h1 id="1-引言"><a href="#1-引言" class="headerlink" title="1. 引言"></a>1. 引言</h1><p>随着人工智能技术的快速发展，深度模型的参数以百万甚至数十亿的速度出现了引人注目的井喷式增长。</p>
+<ul>
+<li><p>Kaplan等[110]研究了模型大小，数据集大小和用于训练的计算量呈幂律分布的关系，表明较大的模型本质上需要大量的数据，学习的样本效率明显更高。</p>
+<ul>
+<li><p>大型模型的部署也成为了最重要的研究领域之一。例如，Dehghani等人[44]提出了ViT-22B，该模型展示了计算机视觉(CV)社区中“类似LLM(大型语言模型)”扩展的潜力。GPT-1[196]提出了监督式微调，以0.1B参数驱动语言模型。而两年后，GPT-3[18]在45TB数据样本上训练了175B个参数，并成功地在各种自然语言处理任务上取得了最先进的结果。Turing - nlg采用了具有约17.2亿个参数的生成语言模型，仅需一年时间即可快速迭代到具有530B个参数的大型模型MT-NLG[229]，在多个任务中远远领先于GPT-3。我们在图1中总结了随时间提出的模型尺寸发展的里程碑。</p>
+</li>
+<li><p>尽管从这种快速增长中获得的收益令人震惊，但为了保持实际效率，人们热切期待在探索新技术和训练能力方面取得实质性进展。就目前而言，训练如此大规模的模型的巨大而昂贵的成本通常是不可接受的。具体来说，训练GPT-3消耗大约355 GPU年，成本为460万美元。在如此庞大的参数和数据样本下，传统的从零开始训练显然无法承受如此巨大的费用，尤其是在扩展到引入额外架构和过多参数的下游任务[30,138,187,188,211,243]时。因此，pretraining—finetuning模式在深度学习领域越来越受到关注和闪耀。</p>
+</li>
+</ul>
+</li>
+<li><p>预训练的主题继承了迁移学习的范式，是在一个公共数据集上训练一个通用的基础模型，以获得一个出色的**特征提取器(从优化的角度来看也是一个很好的初始状态)**，以帮助在另一个特定任务上实现和稳定训练过程。</p>
+<ul>
+<li>许多研究领域都受益于预训练方法。具体来说，它有助于通过应用恢复的随机掩码图像来训练CV社区中的大型transformer模型。掩码autoencoder (MAE)[83]开发了一种非对称编码器-解码器架构来耦合<strong>自监督重建和后端训练</strong>，为下游任务产生了有希望的迁移性能。同样，来自图像transformer (BEiT)[7]的双向编码器表示遵循BERT[48]，通过从分块掩码图像生成的视觉标记来重建图像。</li>
+<li>在NLP社区，Radford等人[196]提出了生成式预训练(GPT)，通过在无标签文本的多样化语料库上采用生成式预训练来实现大增益。为了进一步提高其效率，GPT-2[197]大大增加了模型作为具有广泛语义知识的词向量提取器的能力。GPT-3[18]通过双环策略研究情境学习，可以在预训练中显著增强对知识的理解，在实践中促进流动性和通用性。</li>
+<li>Hendrycks等[88]的研究表明，使用预训练可以提高模型的鲁棒性和不确定性，这对于在巨大的数据集上进行训练，泛化效果很好显示出了巨大的优势。最近的进展揭示了从具有巨大容量的预训练模型中获得的实质性收获，特别是在任务不可知和少样本场景中。它也为未来的发展提出了一个有希望的方向，即在广泛的数据集上预训练的具有巨大参数的大规模模型能够超越其他监督训练的性能。这一激动人心的进展有效地<strong>降低了深度学习对地面真实值的依赖</strong>，极大地启发了大数据的应用。同时，它也对计算和训练效率提出了更严格的要求。包括时间和金钱在内的昂贵成本严重阻碍了它的发展。在此背景下，我们研究了这篇全面的综述，介绍和总结了<strong>大规模模型上训练加速的通用和实用技术</strong>，这些技术促进了更快的训练，也可能有助于预训练中庞大的基础模型。</li>
+</ul>
+</li>
+<li><p>最近的许多作品回顾和总结了高效训练技术，主要包括高效预训练模型的介绍，新设计的加速组件，先进的优化方法，NLP或CV社区的高效训练，以及训练过程中的技巧包。</p>
+<ul>
+<li>Qiu等人[194]对用于解决各种NLP任务的预训练模型进行了回顾和系统分类。他们研究了语言模型的发展历史和预训练方面的当前进展。</li>
+<li>Han等人[80]总结了与一般预训练技术相关的研究工作，并对他们的未来研究提供了一些见解。</li>
+<li>Bommasani等人[15]介绍了<strong>高效的基础模型</strong>，主要从它们的一般概念、强大的能力、基础训练技术和应用的角度进行介绍。他们还总结了预训练的演变以及目前在实际场景中面临的挑战。</li>
+<li>Zhou等人[305]对预训练基础模型(PFM)进行了全面的综述，讨论了他们在每个不同社区的成果的最新研究进展，这些成果可能会给当地的研究带来新的思维。同时，他们系统地总结了应用中存在的一些主要问题和未来的挑战。</li>
+<li>Lin等人[145]关注了新颖的Transformer模型，并回顾了Transformer模型的几个变体，这些变体被对齐以考虑<strong>高效的架构修改、预训练技术和训练加速</strong>。</li>
+<li>Weng[273]回顾了Transformer家族的发展，介绍了Transformer模型的详细演变，并系统地分析了每种架构的优缺点。</li>
+<li>Tay等人[246]总结了<strong>高效Transformer模型</strong>的一些变体。从实际训练的角度，他们提供了一些提高Transformer模型训练效率的策略和对未来研究的建议。</li>
+<li>Zhuang等人[308]研究了<strong>transformer高效训练</strong>的概述，包括计算效率、存储效率和硬件/算法协同设计。与他们不同的是，<strong>我们更关注基本的加速技术，这些技术不仅限于Transformer模型。</strong></li>
+<li>Open Machine Learning Systems Community[179]提供了一个关于高效机器学习系统设计和实现的全面研究。他们更关注数据预处理、前向和后向计算、高效并行部署和通信的实践，以及优化方法的具体实现。</li>
+<li>He等[85]研究了大规模深度学习在泛化保证和优化效率方面的最新进展，其中包括解决训练开销和减少计算设备中所需内存的新颖优化器和策略。他们还详细阐述了对大批量训练的探索。</li>
+<li>He等人[84]总结了一套训练CNN模型的技巧。他们进行了系统的实验，并总结了一些有效的数据增强技术和巧妙的学习率调度器的设计。</li>
+<li>Treviso等[254]总结了NLP的有效方法，并讨论了它们的效率和缺点。</li>
+</ul>
+</li>
+<li><p>最近，大规模深度学习模型的高效训练已经成为机器学习领域的一个关键研究领域。虽然在这一领域已经取得了重大进展，但现有的研究大多集中在特定的模型架构或服务于特定的社区。相比之下，我们的研究提供了<strong>独立于任务或模型架构的任何大规模深度学习模型的实用加速技术的全面综述</strong>。</p>
+<ul>
+<li><p>以数据为中心的高效培训。在深度学习中，<strong>全局期望和训练样本分布之间往往存在差距</strong>。</p>
+<blockquote>
+<p>This can lead to improvement in test accuracy during the middle and late stages of training, despite efficient performance in the early stages. 也就是说，如果没有gap，那么在训练的早期阶段就能够高效地收敛。</p>
+</blockquote>
+<p>通过有效的<strong>数据增强和正则化策略</strong>来扩展训练集的样本容量。它需要额外的预处理计算来增强多样性并保持更高稳定性的潜力，从而在现实世界的应用中获得更好的泛化性能。同时，为了实现高效加速并进一步提高模型的通用性，以数据为中心的方法研究<strong>有效的采样技术，以在随机优化过程中选择一个关键子集</strong>，<strong>有效地减少了需要参与计算梯度的样本数量</strong>。此外，它保护模型在训练那些不重要的样本或已经学习得足够好的数据时，不会过度拟合。最近的进展表明，课程学习（Curriculum Learning，CL）提供了一个渐进的过程，产生了一个有效的训练。它在训练的早期阶段使用正则化较少的低分辨率样本，并逐渐将它们恢复到高质量的样本。综上所述，以数据为中心的方法的核心考虑是如何在不影响性能的情况下降低数据处理要求。</p>
+</li>
+<li><p>以模型为中心的高效培训。深度模型是一个从数据域到真实值的精细映射函数。过去的工作已经探索了许多成熟的架构来构建一个用于高效训练的网络，例如基于卷积的神经网络(CNN)，多层感知器(MLP)和transformer模型。以模型为中心的方法更多地关注深度神经网络的计算复杂性，<strong>通过有效的架构近似、压缩和有效的初始化</strong>来获得更好的通用性。这些方法的重点是在保持良好性能的同时减小深度神经网络的参数大小。具体来说，架构近似侧重于采用一种简化的算子组合，以减少训练中的计算成本。它期待探索用于一般加速的基本模块的表达性替代方案。压缩涉及低精度计算和稀疏训练中的效率，这也需要在硬件实现上得到充分支持。模型初始化注重寻找稳定性和通用性更高的更好的初始状态，可以有效加快收敛速度，防止训练过程在早期崩溃。综上所述，以模型为中心的方法为降低深度模型的计算复杂度以进行高效训练提供了一种很有前途的方法，它具有很强的实用性，可以很容易地在任何深度学习框架中实现。</p>
+</li>
+<li><p>以优化为中心的高效训练。为了提高优化效率，我们总结了三个主要因素，即<strong>学习率、批量大小和优化目标</strong>。不同阶段学习率和衰减策略的正确选择是深度网络训练中的一个关键问题。然而，要找到一种适用于不同模型和优化器的通用方法是具有挑战性的。因此，以学习率为中心的方法旨在开发高效和灵活的策略，以高效和稳定地训练模型。第二个因素，批量大小，在优化中也起着关键作用。借助GPU设备的并行计算能力，增加单个minibatch中的样本数量，可以提高训练效率，尤其是在计算资源充足的情况下。因此，以batch-size为中心的方法通常专注于采用大的minibatch训练来提高优化速度。从优化的角度来看，我们总是努力实现一个具有高稳定性的目标，这是以目标为中心的方法的主要关注点。这些方法专注于优化目标提供<strong>关于数据分布和模型架构具有鲁棒性的泛化</strong>。总而言之，以优化为中心的方法研究训练过程中的高效迭代计算，为高效训练提供坚实的保证。</p>
+</li>
+<li><p>预算有效的培训。预算培训是一种在实际培训中考虑到可用资源的方法。它主要关注资源受限场景下的训练效率，在这种场景下，训练挂钟时间或计算flops等计算资源是有限的。预算训练的主要目标是确保高效稳定的训练，同时<strong>在给定的约束条件下最大化模型的潜力</strong>。这种方法可以在训练的早期阶段带来显著的收益。通过采用预算培训，研究人员和从业人员可以最大限度地利用可用资源，避免将其浪费在低效的模型或培训程序上。这种方法还可以促进开发更实用、更适合现实应用的模型，因为现实应用的资源往往是有限的。</p>
+</li>
+<li><p>以系统为中心的高效培训。以系统为中心的方法侧重于在硬件支持下的实际实现，将算法设计转化为真正的可执行项目。训练大规模模型通常采用多节点多设备环境来实现并行计算。它主要关注设计底层逻辑，以解决跨设备通信中的瓶颈，并高效地协调整个训练过程。为了显著加速深度网络的训练，已经开发了几个开源框架。为了有效利用<strong>分布式训练</strong>，训练过程被分布成更小的计算任务，在不同的节点或设备上并行执行。这些节点相互通信以交换梯度更新，并同步整个训练过程。这种分布式系统能够训练无法在单台机器上执行的大型数据集和复杂模型。目前已经开发了几个开源的分布式训练框架，如TensorFlow、PyTorch和Horovod。这些框架实现了在多节点多设备集群上的高效分布式训练，并显著减少了大规模深度学习模型的训练时间。</p>
+</li>
+</ul>
+</li>
+<li><p>总而言之，我们的调查回顾了高效训练的一般训练加速。在“以数据为中心”、“以模型为中心”、“以优化为中心”和“预算训练”的章节中，我们主要侧重于从算法设计和方法论的角度进行综合研究，而在“以系统为中心”的章节中，我们侧重于从范式创新和硬件支持的角度进行实际实施。本次调研的主要贡献如下:</p>
+<ul>
+<li>从“数据”、“模型”、“优化”、“预算训练”和“系统”的角度对大型模型训练的一般加速技术进行了综述，总结了它们的技术路线和各组成部分的实现，为无任务和无模型的高效训练提供了坚实的指导。</li>
+<li>比较了每个组件在训练加速方面的优势和劣势，展示了它们的见解和互动，这可以启发我们重新思考训练大规模深度学习模型的高效范式的设计。 </li>
+<li>对每条技术路线及其在实际场景中的主要挑战进行了全面的分析，这可以为它们未来的有希望的发展提供指导。</li>
+</ul>
+</li>
+<li><p>本调查的主要结构组织如下。在第2节中，我们介绍了一些初步内容，包括不同骨干中的基本模块和大规模深度学习模型、数据集的预训练，以及本综述中采用的详细符号。在第3节至第6节中，我们基于迭代公式(3)，从“以数据为中心”、“以模型为中心”、“以优化为中心”、“预算训练”和“以系统为中心”的角度详细介绍了训练加速的特点和属性，其中包含了它们不同的训练加速技术路线。我们还分析和评估了每一种实现方式的优缺点。这种新的分类法可以为高效训练的现有方法提供一个清晰和全面的指导。在第8节中，我们讨论和总结了本调查中的技术，并建议了一些未来有希望的研究方向。</p>
+</li>
+</ul>
+<h1 id="2-预备知识"><a href="#2-预备知识" class="headerlink" title="2. 预备知识"></a>2. 预备知识</h1><p>在本节中，我们首先介绍大规模深度学习模型中的几个基本模块。然后我们介绍了一些常用的数据集，并描述了本综述中的几种符号。</p>
+<h2 id="2-1主干网络（backbone）"><a href="#2-1主干网络（backbone）" class="headerlink" title="2.1主干网络（backbone）"></a>2.1主干网络（backbone）</h2><p>我们关注的是通用深度学习骨干的高效训练。它们大多是由基本经典模块的复杂组合堆叠而成，主要包括MLP(线性模块)、CNN(卷积模块)和Transformer(多头注意模块)。在这一部分中，我们只参考它们的一般概念。在第4节中，我们提供了具体的表述，以说明它们如何在深度模型中工作，以及如何对它们进行改进和优化以实现高效的训练。</p>
+<p><strong>MLP</strong>。多层感知器(multilayer perceptron, MLP)是一种应用广泛的经典模型，在深度神经网络的发展中发挥了重要作用。MLP由多个线性层组成，也称为全连接层，具有元素激活函数。在训练过程中，除了输入层和输出层之外，MLP还生成了许多隐藏神经元。它的参数包括投影矩阵和偏置向量。图3显示了MLP的简单视图，它演示了线性计算与非线性激活的组合。尽管MLP结构简单，但通过将现代网络结构和训练技术相结合，可以提高其性能。例如，由Tolstikhin等人[250]提出的完全基于MLP的架构MLP*-* <em>mixer</em>包含两种直接应用于patch或跨patch的MLP层，在图像分类基准上产生最先进的性能。</p>
+<p><strong>CNN。</strong>卷积神经网络(CNN)是一种强大的深度学习模型，广泛用于视觉图像分析。CNN可以被看作是一个多层感知器，专门设计用于处理卷积。它的参数包括一个核矩阵(也称为滤波器)和一个偏置向量。对于图像的每一个小区域，CNN使用一组相似的核来提取高级特征，可以认为是重叠重建图像的相乘。此外，CNN在训练过程中保证了移位不变性，充分模拟了人类视觉系统。图4描述了CNN的基本构建块，它包括卷积层、规范化层和元素激活。一些典型的CNN结构包括AlexNet [123]， VGG[223]，Inception[102, 239, 240, 241]和ResNet[82]。此外，cnn通过调整其架构以适应更具体的任务而进行了优化。例如，全卷积网络(Fully Convolutional Networks, FCN)[152]是专门为语义分割任务设计的CNN的变体。YOLO[207]是一种通过直接从输入图像预测边界框和类概率来实现实时性能的目标检测网络。总之，cnn是深度学习的重要组成部分，并且一直在不断发展，以在各种计算机视觉应用中实现最先进的性能。</p>
+<p><strong>Transformer。</strong>vanilla Transformer[256]首先提出了编码器-解码器架构，旨在从自然语言中提取信息。基本的构建块被称为细胞，它由两个模块组成，多头注意(MHA)和前馈网络(FFN)。MHA是一个模块，它并行运行多个独立的自关注层，以捕获跨不同特征级别输入的高级语义。这使得能够联合关注来自不同表示子空间的信息，并跨越序列的不同部分。FFN是一个特征提取器，它将不同MHA模块的高级语义投影到相同的特征空间。Transformer架构也为计算机视觉社区做出了重大贡献。例如，它启发了Vision Transformer (ViT)[53]、DeiT[252]和Swin Transformer[150]等模型的发展。这些模型在计算机视觉任务中取得了最先进的性能，包括目标检测、图像分类和图像描述。基于Transformer架构，有各种改进的预训练基础模型，如BERT[48]和GPT[196]。纯编码器BERT和纯解码器GPT在问答、语言推理和文本分类等NLP任务中取得了显著的成绩。总之，Transformer体系结构通过其从不同特性级别的输入中捕获和提取高级语义的能力，对NLP和CV社区都做出了重大贡献。它的发展促进了在广泛任务中具有最先进性能的新模型的创建。</p>
+<h2 id="2-2-大规模模型与数据集"><a href="#2-2-大规模模型与数据集" class="headerlink" title="2.2 大规模模型与数据集"></a>2.2 大规模模型与数据集</h2><p>无论是越来越多的参数量还是越来越大的数据集大小，都使得大规模深度学习模型的训练过程更加耗时，这也需要开发更先进的框架和系统，以进一步加速训练过程，降低成本。下面，我们首先介绍几种常用的大规模深度学习模型以及相应的训练数据集。</p>
+<p><strong>大规模的模型。</strong>自2017年Vaswani等人[256]提出Transformer以来，它已成为NLP中占主导地位的模型，导致了大型语言模型(llm)和视觉Transformer(vit)的蓬勃发展。几个(预训练的)Transformer模型展示了高效训练的发展，无论是在模型结构的改进还是在高效训练技术的应用方面。对于NLP，自GPT (117M个参数)[196]以来，模型参数的数量有快速增长的趋势。[196]是第一个预训练的Transformer，它由Transformer解码器构建，并在BookCorpus上进行无监督预训练[307]。与GPT的结构不同，BERT (340M)[48]由多层双向Transformer编码器组成，可以捕获位置之间的关系。GPT-2 (1.5B)[197]比GPT-1具有更多的参数，并且在更大的数据集上进行训练。使用大规模网络来训练语言模型已被证明是一种非常有效的策略，数据集的增长、高效的模型结构以及硬件和软件的突破使其成为可能，促使Turing-NLG (17.2B)[35]、GPT-3 (175B)[18]、Megatron-Turing NLG (530B)[229]和Switch Transformer (1.6T)[60]等模型进一步增加参数数量。CV方面，ViT (ViT- base为86M)[53]是变压器在该领域应用的里程碑。<strong>最近，Dehghani等人[44]受到Transformer缩放驱动的大型语言模型突破的启发，提出了一种高效稳定的训练处方，将ViT缩放到22B参数(ViT-22B)。</strong>在跨模态或多模态区域，CLIP[198]以ResNet-50[82]或ViT为视觉主干，Transformer为语言主干，通过联合训练一个图像编码器和一个文本编码器，将分类任务转化为一个图像-文本匹配任务。它还与DALL-E[204]一起发布，DALL-E是GPT-3的12B参数版本，基于预训练的“文本-图像“对，能够根据输入文本生成图像。上述大多数模型都是在Bommasani等人[15]定义的基础模型中或基于该模型，即通常使用缩放自监督在广泛的数据上训练的模型，并可以自适应(例如微调)到广泛的下游任务。随着Wang等人提出的通用型大规模模型BEiT-3[265]，他们指出，对不同领域的大规模模型的研究正在逐渐接近“大收敛”:首先，transformer已经成为一种常见的主干架构，其次，生成式预训练已经成为最重要的自监督学习方法，第三，扩大数据和模型大小进一步提高大规模模型的性能。虽然模型多种多样，但即使是最庞大的模型也由<strong>线性、卷积和注意力层的基本模块组成</strong>。为此，我们总结了训练大规模深度学习模型的通用加速方法和技术，这些方法和技术是从主流的预训练基础模型和一些不局限于自监督训练的其他工作中学习的。</p>
+<blockquote>
+<p>没写chatgpt和gpt4</p>
+</blockquote>
+<p><strong>数据集。</strong>大型语言模型需要在大量数据集上进行预训练，以学习下游任务的通用语言表示。例如，BERT[48]模型是在两个大型数据集上训练的，BooksCorpus(800万字)[307]和英语维基百科(2500万字)。最近和更大的数据库，如C4 (Colossal, Cleaned Crawl Corpus) [200]， Pile [67]， OSCAR (Open Super-large Crawl aggregated Corpus) [232]， mC4(扩展的C4多语言版本)[284]，BigScience ROOTS Corpus (350B token)[125]被当前的模型使用，如LLaMA Touvron等人[253]，它混合了来自C4, GitHub，维基百科，Gutenberg(一个包含公共书籍的项目)和Books3 (the Pile的一部分)，ArXiv和Stack Exchange的资源。两个最大的多语言数据集是OSCAR和mC4，前者包含152种语言，截至<strong>2023年1月</strong>的大小为9.4TB，后者包含101种语言，大小为27T。从GPT-1[196]到Gopher[199]，所选语言模型的数据集由Thompson[248]总结。</p>
+<p>一个大型数据集可能包含过滤后的网页、书籍、文章、维基、新闻、源代码和社交媒体对话。该模型可以基于数据集不同部分的数量和质量加权采样[18,253]进行学习。在计算机视觉中，ImageNet[45]是一个著名的无标记照片大型数据集。它最常用的子集ILSVRC (ImageNet大规模视觉识别挑战)[212]包含超过100万张图像，跨越1000个对象类别。作为预训练模型数据集的一个例子，最近的ViT-22B[44]是在JFT[234]的版本上进行训练的，该版本扩展到大约4B图像[292]。</p>
+<h1 id="3-以数据为中心的高效训练"><a href="#3-以数据为中心的高效训练" class="headerlink" title="3.以数据为中心的高效训练"></a>3.<strong>以数据为中心的高效训练</strong></h1><p>大规模模型的最新进展显著发光，同时它们对数据集的要求急剧增加。大量的数据样本被用来驱动训练过程并取得突出的性能。因此，以数据为中心的研究对于实际加速至关重要。数据处理的本质作用是在不增加额外标记的情况下，有效地增加数据样本的多样性。数据标注往往过于昂贵，负担不起，这凸显了以数据为中心的领域研究的重要性。同时，也注重提高数据样本的并行加载效率。</p>
+<p>在本节中，我们将所有这些高效的数据处理称为“以数据为中心”的方法，这些方法将显著提高训练大规模模型的性能。我们从以下几个角度来回顾和研究技术:</p>
+<ul>
+<li>数据<strong>正规化。</strong>数据正则化是一种通过一系列变换来增强原始数据样本多样性的预处理技术。它在不需要额外标记信息的情况下，等价地提高了训练样本在特征空间中的表示。高效的数据正则化在训练过程中得到了广泛应用，显著提高了大规模模型的泛化性能。</li>
+<li>数据<strong>采样。</strong>数据抽样是一种有效的方法，可以从大量样本中选择一个子集来执行更新。它受益于忽略当前批次中那些不重要或不好的样本，采用小批量训练。通常采样的数据更重要，产生与全批次训练相当的性能。每次迭代的概率会随着训练过程逐步调整，以确保无偏采样。</li>
+<li>以数据为中心的<strong>课程学习。</strong>课程学习研究训练过程中不同阶段的渐进式训练设置，以减少总计算成本。一开始，用低质量的数据集进行训练就足以学习到低层特征。然后采用高质量的数据集(更多的增强和复杂的预处理方法)逐渐有助于学习复杂的特征，并达到与整个训练相同的精度。</li>
+</ul>
+<h2 id="3-1-数据正则化"><a href="#3-1-数据正则化" class="headerlink" title="3.1 数据正则化"></a><strong>3.1</strong> <strong>数据正则化</strong></h2><p>在一个大的、高质量的数据集上进行训练，会比在一个小的、组织不良的数据集上获得更好的性能。对于个体研究人员来说，手动收集和处理大数据往往不切实际，他们需要选择一些开源数据集，并考虑结合多领域、多语言的数据集，以提高数据多样性，从而提高模型的泛化能力。因此，可能需要应用相应的预处理和清洗方法，如去重[127] (通常使用局部敏感哈希，LSH[222])，删除用于去噪的token较少的文档等。此外，研究高效的数据集正则化有助于提高大规模模型的训练性能和通用性。数据正则化的目的是减少过拟合，使模型更容易自适应，在不太影响训练过程的情况下提高模型的泛化能力。但是，它通常会引入额外的计算成本，有时还会成为训练过程中的瓶颈。为了有效的训练，从一系列技术中选择和测试，并决定使用哪一种是至关重要的。</p>
+<blockquote>
+<p>基本概念–（新）技术1：现象–（老）技术2：传统、新的</p>
+</blockquote>
+<ul>
+<li><p>Szegedy等人[240]提出了标签平滑正则化，通过在标签分布和另一个固定分布之间进行插值来取代标签(例如，均匀分布)。这种方法缓解了过拟合的问题，使模型更具适应性。He等[84]表明，标签平滑使分布以理论值为中心，极值较少。此外，Muller等人[171]提出，标签平滑也提高了模型的校准。他们还观察到，如果教师网络使用标签平滑进行训练，将知识蒸馏到学生网络的效果就会大打折扣。为了解释这些观察结果，他们通过可视化的方式表明，标签平滑鼓励训练实例的表示在正确的类别中形成紧密的簇，但也会导致来自不同类别的样本之间的相似性信息的损失，这对模型蒸馏的效果产生了负面影响。</p>
+</li>
+<li><p>数据增强(DA)是高效训练的另一种重要的正则化策略。数据增强通过更好地利用原始数据集，如变换后的图像，人为而有效地增加训练数据，以提高模型的泛化能力。甚至一些反直觉的数据增强方法反而有效地提高了模型的性能。对于计算机视觉，之前最先进的模型如AlexNet[123]、ResNet[82]和EfficientNetV2[244]都在训练中使用了图像增强技术。基本的数据增强方法有很多，大多数都比较简单，例如旋转、平移、剪切、翻转、裁剪和调整大小、调整对比度和亮度、添加噪声、高斯模糊、颜色抖动、格式转换(例如从RGB颜色模型到HSV表示，它代表色调、饱和度和值)、滤波等。在最近的研究中，基本的擦除方法被证明是有效的，例如在训练期间从输入中随机切出一个正方形的CutOut[49]，以及随机擦除[304]，它也擦除图像的一个矩形区域，并用随机值或平均值填充它。许多数据增强技术都是基于Zhang等人[294]提出的Mixup思想，将特征对及其对应的标签混合在一起。有一类Mixup扩展，例如，Yun等人[290]提出了CutMix，它将一小块图像剪切掉并用另一块图像替换。最近的研究包括SaliencyMix[255]、Manifold Mixup[257]、StyleMix[94]、TokenMix[146]、Co-mixup[117]、Supermix[38]和TransMix[23]。</p>
+</li>
+<li><p>更先进的工作研究了各种数据增强算法的组合使用，并进入了自动数据增强领域，其中AutoAugment[36]是一个重要的代表，它使用一种搜索算法作为强化学习中的控制器RNN来寻找数据驱动的增强策略。但是，它带来了沉重的计算成本，因此只能应用于小数据集。其他先进的算法，如基于种群的增强(PBA)[91]、快速AutoAugment[144]和对抗性AutoAugment[299]，进一步降低了成本。随机组合也可以是高效的，例如，Hendrycks等人[89]提出了一种名为AugMix的数据增强技术，它随机选择不同的数据增强方法，然后混合增强后的图像。Cubuk等人[37]提出了RandAugment方法，该方法从几种图像增强方法中随机选择一定数量的方法，变换的一般幅度，并对每个样本顺序应用它们。他们调查了不同数据增强方法的影响，也表明他们的方法可以用较小的成本将学到的数据增强策略扩展到更大的数据集和模型，并获得更好的性能。</p>
+</li>
+<li><p>在NLP领域，数据增强通常是在训练过程之前完成的，与图像增强的方式相对不同。根据Feng等人[62]的研究，数据增强技术包括:基于规则的技术，如Wei和Zou[271]总结的<em>Easy</em> <em>data**增强</em>技术，包括随机插入、交换、删除和同义词替换。其中，同义词替换方法如Zhang et al.[298]建议用语义贴近度排序的同义词随机替换一个单词或一个短语，Wang和Yang[266]建议用在嵌入词汇表中搜索该单词的k-nearest-neighbor (KNN)结果替换一个单词来创建新实例。例如，由Mixup开创的插值技术，例如SeqMix[76]。基于模型的技术，如Back translation[56, 219]，将文本翻译成另一种语言，然后再翻译回来。由于llm在语言理解方面表现出了巨大的能力，最近的一些研究正在使用最先进的模型进行数据增强，例如，ChatAug[39]使用ChatGPT作为数据增强工具，将输入的句子重新短语为更多的附加句子。</p>
+</li>
+</ul>
+<p>我们注意到，先进的数据增强方法提高了鲁棒性，但也带来了额外的负载，与较小的模型相比，它们通常更适合参数更多、规模更大、训练时间更长的模型。<strong>特别是当训练过程和其他部分存在瓶颈时，进行数据增强计算并不影响最终时间</strong>，可以添加数据增强方法来增强效果，提高吞吐率。Steiner等人[231]进行的一项实证研究表明，数据增强(他们使用Mixup和RandAugment)和模型正则化(一起表示为<em>AugReg</em>)对相对少量的数据是有效的。</p>
+<h2 id="3-2-数据抽样"><a href="#3-2-数据抽样" class="headerlink" title="3.2 数据抽样"></a>3.2 数据抽样</h2><p>在训练过程中，对批次样本进行更新，并且对批次内的所有样本一视同仁。然而，这可能会导致训练过程在正常或信息量较少的样本上花费更多的时间。为了加快训练速度并避免这个问题，可以采用数据采样，包括重要性采样、设计新颖的目标等，以实现数据效率。</p>
+<ul>
+<li>重要性抽样是一种蒙特卡洛方法，它涉及从不同的分布中抽样，以帮助评估某个分布的属性并减少方差。在随机梯度下降中，重要性抽样侧重于对模型参数影响最显著的样本，从而降低梯度估计的方差。当它固定或批量大小增加时，这种方法对于减少计算成本是有用的。重要的是要选择一个合适的、能够准确代表原始数据分布的重要性抽样分布，以避免引入偏差。Katharopoulos和Fleuret[113]推导了梯度范数的上界，并提出了使用重要抽样的方差缩减估计量。Katharopoulos和Fleuret[112]提出损失值可以代替梯度范数作为重要抽样的度量。Jiang等人[108]提出选择性反向传播，通过跳过低损失训练样本的反向传递来加快训练速度，从而使用更少的样本并减少反向传播计算。他们表明，这种方法的收敛速度比普通的标准SGD更快。采样批次支持更大的数据吞吐量，以加速训练过程。</li>
+<li>Chen等人。[29]建议在参数上生成一个掩码，以冻结输入的反向传播。它保留了前向图，而归一化等层的所有批次的统计特征维护了整个数据集的映射。Zhang et al.[296]关注训练过程中较差的样本。他们利用一个选择器来突出大量具有较大梯度作为有效近似的训练样本。梯度小的样本在这个时期被认为是“好点”，网络需要额外注意“坏点”。Mindermann等人[167]建立了一种新的<em>RHO</em>损失函数，从大批中选择一个子集，并更新伯努利抽样估计的损失。<em>RHO</em>在自己的评价尺度下度量具有不同损失值的输入的重要性，然后选择那些重要的样本来更新模型。Kawaguchi和Lu [114]， Ni等人[176]也实现了类似的想法。在[176]中，他们提出了<em>K-SAM</em>在梯度计算中选择两个子集的样本，可以有效地减少反向传播消耗。Kawaguchi和Lu[114]研究了Ordered*-SGD<em>，它直接选择minibatch中top-q的样本，使损失函数最大化，在每次迭代中进行更新。在每个minibatch中，根据损失值选取k个样本进行训练，使小的minibatch能够达到大的minibatch的竞技训练效果。Liu等[151]采用低秩和稀疏输入来加速图神经网络中的聚合。他们用几个稀疏块来划分输入图，以减少O(N2)复杂度的稠密矩阵的计算。他和Dube[81]用不同计算能力的边缘设备模拟了分散式框架。他们交替移除训练中最慢的设备，以直接减少延迟时间成本，这可以被认为是动态batchsize方法的一个变体。Xie等人[279]在缩减的特征空间中工作，通过</em>KL*缩减使文本空间上的重要性权重估计可处理，这可以有效地通过重要性采样训练语言模型。Sujit等人[233]应用类似的思想对输入样本进行剪辑以进行强化学习。Cai et al.[19]丢弃了不相似的补丁，以达到版本transformer模型中减少数据的相同效果。</li>
+</ul>
+<p>基于采样的加速方法侧重于直接减少参与计算的数据总量。这些研究间接验证了训练中的数据冗余。换言之，参与训练的数据量与整个数据集的数据量之比，成为衡量样本利用效率的重要指标之一。如何设计利用率高、计算成本低的算法，将在加速中不断探索。</p>
+<h2 id="3-3-以数据为中心的课程学习"><a href="#3-3-以数据为中心的课程学习" class="headerlink" title="3.3 以数据为中心的课程学习"></a><strong>3.3</strong> <strong>以数据为中心的课程学习</strong></h2><p>课程学习[9,57]是基于从简单任务开始学习，逐渐增加任务复杂性的直觉。这种方法也以各种方式被应用到预训练中，并在许多工作中显示出良好的加速性能。Wu等[275]表明，当训练时间预算有限或存在噪声数据时，课程学习可以提高性能。在应用课程学习时，更重要的挑战之一是找到一个合适的标准来判断样本的难度。</p>
+<p>渐进式调整尺寸[95,111]是一种通过训练过程将小样本下采样训练为大的完整图像的技术，以提高模型性能和收敛时间。例如，一组建议的参数是，初始图像被缩放到全图像的一半，在训练过程的一半期间，每次增加4个像素，最后的20%过程用于微调。Touvron等人[251]提出了FixRes，并表明用小分辨率训练网络，但用更高的分辨率进行推断可以得到更好的泛化。使用低分辨率图像进行训练也有助于节省训练成本，用224进行训练，用384进行测试比直接用384进行训练效果更好。Wang等人[269]在输入图像的傅里叶谱中引入了一种裁剪操作，它允许模型首先从低频分量中学习，作为一种课程学习的形式，因此减少了训练时间。Koc yi˘git et al.[121]采用渐进式分辨率训练[244]、1-循环学习调度技术[226]和硬增强选择技术来训练自监督学习任务，实现训练加速。对于NLP任务，短/长序列对应于低/高分辨率图像。Press等人[191]表明，先用较短的子序列训练transformer，然后切换到较长的子序列可以实现加速。Ding et al.[51]发现，以词-短语-句子的数据学习顺序训练机器翻译模型可以有效地促进跨语言建模，从而获得更好的翻译。在训练过程中，我们应该保持token的数量，并在使用低分辨率图像时增加批量大小。Li等人[131]提出了在早期训练过程中线性增加序列长度的序列长度热身。在他们复制GPT-3模型(125M)的实验中，他们证明了他们的方法能够以更大的批处理规模和更高的学习率稳定地训练，并且使用更少的数据和更少的时间优于原始的GPT-3训练配方。Li等人[133]提出了一种基于课程学习的自适应长度调优技术，以稳定GPTs的训练过程，从而产生了具有壁钟加速的高效大批量训练计划。Nagatsuka等人[172]提出逐步增加BERT训练的输入文本块大小，显示出比RoBERTa[149]-baseline更快的收敛速度和更高的训练效率。</p>
+<h2 id="3-4-总结（反思？）"><a href="#3-4-总结（反思？）" class="headerlink" title="3.4 总结（反思？）"></a>3.4 总结（反思？）</h2><p>在本节中，我们从以数据为中心的角度回顾了高效的训练技术。我们关注数据集正则化的数据效率，包括增强其多样性的增强和预处理，从大批量(或整个数据集)中采样有效子集以提高训练效率，以及课程学习方法以缓解训练早期阶段的昂贵消耗。</p>
+<p>数据正则化是扩展数据样本多样性的有效方法，无需额外的标记。由于复杂和随机的变换，数据集相当于被扩展了多次，这有助于训练具有更好泛化性能的大规模模型。然而，过度使用数据正则化会引入巨大的偏差，导致质量较差。随着越来越多的正则化方法可用，选择有效的组合非常重要。在数据采样方面，它可以通过小批量训练实现相同甚至更好的性能。通过设计良好的算法进行数据采样，可以有效地增加训练模型的容量。通常，在训练过程的开始，模型从表现较差的样本中获益更多。忽略好的样本有助于加速学习不同标记样本的特征的平衡。而且，课程式学习为处理数据集提供了一个渐进式的管道。它允许以较少的增强来喂养低分辨率数据以提取粗粒度特征，并逐渐增强数据质量以捕获细粒度特征。它在保持高性能的同时实现了实际的加速。</p>
+<p>未来，我们认为从以数据为中心的角度来看，有希望的研究包括：</p>
+<ul>
+<li>高效的正则化实现。更具体任务的数据正则化方法值得研究。基于先验知识设计新颖的数据正则化方法可以进一步提高大型网络的泛化性能。同时，采用数据正则化的并行处理也可以大大加速训练过程。</li>
+<li>高效的数据采样。期望新的采样方法，共同考虑训练加速和泛化保证[167]。</li>
+</ul>
+<h1 id="4-以模型为中心的高效训练"><a href="#4-以模型为中心的高效训练" class="headerlink" title="4. 以模型为中心的高效训练"></a>4. 以模型为中心的高效训练</h1><p>设计高效的模型架构是深度学习领域最重要的研究内容之一。一个优秀的模型是一个有效的提取器，可以投影成容易分离的高级特征。与其他额外关注那些高效新结构的工作不同，我们的以模型为中心的研究更关注通用模块的等号替代方案，这些方案在具有可比性能的情况下实现了更高的效率。几乎所有的大型模型都由小型模块或层组成。因此，我们的综述可以为高效训练大规模模型提供很好的指导。</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Efficient LLM</li>
+        <li><strong>Author:</strong> Shuai Lv</li>
+        <li><strong>Created at:</strong> 2023-06-27 15:49:58</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-06-28 16:02:28
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://blogls.top/2023/06/27/Efficient-LLM/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            <div class="recommended-article">
+  <div class="recommended-article-header">
+    <i aria-hidden="true"></i><span>推荐阅读</span>
+  </div>
+  <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/06/20/Efficient-AI-Google研究院综述-2023/" title="Efficient AI-Google研究院综述-2023" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="Efficient AI-Google研究院综述-2023">
+  <span class="title">Efficient AI-Google研究院综述-2023</span>
+</a><a class="recommended-article-item" href="/2023/06/26/LLM+AutoML/" title="LLM+AutoML" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="LLM+AutoML">
+  <span class="title">LLM+AutoML</span>
+</a><a class="recommended-article-item" href="/2023/06/18/ChatGPT综述-待定/" title="ChatGPT综述(待定)" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="ChatGPT综述(待定)">
+  <span class="title">ChatGPT综述(待定)</span>
+</a></div>
+</div>
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/06/26/LLM+AutoML/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">LLM+AutoML</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: 'ca3b187a2eb63dfd2d20',
+                    clientSecret: 'e96896908ba4dc10bb61a89de608ea3a0ce32013',
+                    repo: 'Gitalk',
+                    owner: 'ShuaiLv-JNU',
+                    admin: ['ShuaiLv-JNU'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Efficient LLM</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0-%E6%91%98%E8%A6%81"><span class="nav-text">0. 摘要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%BC%95%E8%A8%80"><span class="nav-text">1. 引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="nav-text">2. 预备知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1%E4%B8%BB%E5%B9%B2%E7%BD%91%E7%BB%9C%EF%BC%88backbone%EF%BC%89"><span class="nav-text">2.1主干网络（backbone）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E5%A4%A7%E8%A7%84%E6%A8%A1%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-text">2.2 大规模模型与数据集</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E4%BB%A5%E6%95%B0%E6%8D%AE%E4%B8%BA%E4%B8%AD%E5%BF%83%E7%9A%84%E9%AB%98%E6%95%88%E8%AE%AD%E7%BB%83"><span class="nav-text">3.以数据为中心的高效训练</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E6%95%B0%E6%8D%AE%E6%AD%A3%E5%88%99%E5%8C%96"><span class="nav-text">3.1 数据正则化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E6%95%B0%E6%8D%AE%E6%8A%BD%E6%A0%B7"><span class="nav-text">3.2 数据抽样</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E4%BB%A5%E6%95%B0%E6%8D%AE%E4%B8%BA%E4%B8%AD%E5%BF%83%E7%9A%84%E8%AF%BE%E7%A8%8B%E5%AD%A6%E4%B9%A0"><span class="nav-text">3.3 以数据为中心的课程学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-%E6%80%BB%E7%BB%93%EF%BC%88%E5%8F%8D%E6%80%9D%EF%BC%9F%EF%BC%89"><span class="nav-text">3.4 总结（反思？）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E4%BB%A5%E6%A8%A1%E5%9E%8B%E4%B8%BA%E4%B8%AD%E5%BF%83%E7%9A%84%E9%AB%98%E6%95%88%E8%AE%AD%E7%BB%83"><span class="nav-text">4. 以模型为中心的高效训练</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Shuai Lv</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.1.4</a>
+        </div>
+        
+        
+        
+            <div id="start_div" style="display:none">
+                2023/5/28 22:00:00
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <div class="customize-info info-item">ChatGPT is all you need.</div>
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+<script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/utils.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/main.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/layouts/navbarShrink.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/tools/scrollTopBottom.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/tools/codeBlock.js"></script>
+
+
+
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/layouts/lazyload.js"></script>
+
+
+
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/tools/runtime.js"></script>
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/layouts/odometer.min.js"></script>
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/libs/Typed.min.js"></script>
+  <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/plugins/typed.js"></script>
+
+
+
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/libs/mermaid.min.js"></script>
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/plugins/mermaid.js"></script>
+
+
+
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/libs/minimasonry.min.js"></script>
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/plugins/masonry.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/tools/tocToggle.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/libs/anime.min.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/layouts/toc.js"></script><script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/plugins/tabs.js"></script>
+    
+</div>
+
+
+    <script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+    <div id="aplayer"></div>
+<script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/libs/APlayer.min.js"></script>
+<script src="//npm.elemecdn.com/hexo-theme-redefine@2.1.4/source/js/plugins/aplayer.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"superSample":2,"width":200,"height":400,"position":"left","hOffset":30,"vOffset":30},"mobile":{"show":true},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"dialog":{"enable":true,"hitokoto":true},"log":false});</script></body>
+</html>

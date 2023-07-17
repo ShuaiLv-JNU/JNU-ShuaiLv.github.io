@@ -17,22 +17,28 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://blogls.top/2023/06/17/图像工程与处理期末论文/"/>
+    <link rel="canonical" href="http://blogls.top/2023/06/26/llm+automl/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="空间域图像处理（占比60%） 自适应中值滤波器（Adaptive Median Filter）的实现与研究。用程序实现该算法，要求程序能够根据图像给出最适合的滤波参数，同时用适当的图像做处理，来说明它的优点。另外任选几种滤波器算法和它对比，表现该算法的优点和缺点。(难度系数1.0，及格要求：能够根据不同图像给出中值滤波的最佳参数。加分点：与其他滤波算法进行比较分析) 频率域图像处理（占比40%）">
+        <meta name="description" content="1.摘要从不同的角度研究了利用LLM增强AutoML方法的方法，以及利用AutoML进一步改进LLM的挑战。 2.引言近年来，大型语言模型(LLMs)成为了热门话题，得益于一系列快速突破。这些模型包括self-attention、BERT、几个版本的GPT、LaMDA、LLaMA和OpenAssistant。LLM是指一种语言模型，通常具有数百万到数十亿个权重的深度神经网络。这些LLM通过在大规模">
 <meta property="og:type" content="article">
-<meta property="og:title" content="图像工程与处理期末论文">
-<meta property="og:url" content="http://blogls.top/2023/06/17/%E5%9B%BE%E5%83%8F%E5%B7%A5%E7%A8%8B%E4%B8%8E%E5%A4%84%E7%90%86%E6%9C%9F%E6%9C%AB%E8%AE%BA%E6%96%87/index.html">
+<meta property="og:title" content="LLM+AutoML">
+<meta property="og:url" content="http://blogls.top/2023/06/26/LLM+AutoML/index.html">
 <meta property="og:site_name" content="乐愚良">
-<meta property="og:description" content="空间域图像处理（占比60%） 自适应中值滤波器（Adaptive Median Filter）的实现与研究。用程序实现该算法，要求程序能够根据图像给出最适合的滤波参数，同时用适当的图像做处理，来说明它的优点。另外任选几种滤波器算法和它对比，表现该算法的优点和缺点。(难度系数1.0，及格要求：能够根据不同图像给出中值滤波的最佳参数。加分点：与其他滤波算法进行比较分析) 频率域图像处理（占比40%）">
+<meta property="og:description" content="1.摘要从不同的角度研究了利用LLM增强AutoML方法的方法，以及利用AutoML进一步改进LLM的挑战。 2.引言近年来，大型语言模型(LLMs)成为了热门话题，得益于一系列快速突破。这些模型包括self-attention、BERT、几个版本的GPT、LaMDA、LLaMA和OpenAssistant。LLM是指一种语言模型，通常具有数百万到数十亿个权重的深度神经网络。这些LLM通过在大规模">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-06-17T14:23:12.000Z">
-<meta property="article:modified_time" content="2023-06-17T15:44:43.810Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306261612752.png">
+<meta property="article:published_time" content="2023-06-26T07:29:51.000Z">
+<meta property="article:modified_time" content="2023-06-29T15:40:37.863Z">
 <meta property="article:author" content="Shuai Lv">
+<meta property="article:tag" content="AutoML">
+<meta property="article:tag" content="LLM">
+<meta property="article:tag" content="HPO">
+<meta property="article:tag" content="Meta Learning">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306261612752.png">
     
     
         <!-- Google tag (gtag.js) -->
@@ -54,7 +60,7 @@
     
     <title>
         
-            图像工程与处理期末论文 -
+            LLM+AutoML -
         
         LeYuLiang
     </title>
@@ -482,7 +488,7 @@ mjx-container[display="true"] + br {
             
             
                 <div class="article-title">
-                    <h1 class="article-title-regular">图像工程与处理期末论文</h1>
+                    <h1 class="article-title-regular">LLM+AutoML</h1>
                 </div>
             
                 
@@ -504,31 +510,54 @@ mjx-container[display="true"] + br {
                             <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2023-06-17 22:23:12</span>
-        <span class="mobile">2023-06-17 22:23</span>
+        <span class="desktop">2023-06-26 15:29:51</span>
+        <span class="mobile">2023-06-26 15:29</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-06-17 23:44:43</span>
-            <span class="mobile">2023-06-17 23:44</span>
+            <span class="desktop">2023-06-29 23:40:37</span>
+            <span class="mobile">2023-06-29 23:40</span>
             <span class="hover-info">Updated</span>
         </span>
     
 
     
     
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/AutoML/">AutoML</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/LLM/">LLM</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/HPO/">HPO</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Meta-Learning/">Meta Learning</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
 
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.1k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>4.4k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>4 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>15 Mins</span>
         </span>
     
     
@@ -544,75 +573,50 @@ mjx-container[display="true"] + br {
             
 
             <div class="article-content markdown-body">
-                <p><strong>空间域图像处理（占比60%）</strong></p>
-<p>自适应中值滤波器（Adaptive Median Filter）的实现与研究。用程序实现该算法，要求程序能够根据图像给出最适合的滤波参数，同时用适当的图像做处理，来说明它的优点。另外任选几种滤波器算法和它对比，表现该算法的优点和缺点。(难度系数1.0，及格要求：能够根据不同图像给出中值滤波的最佳参数。加分点：与其他滤波算法进行比较分析)</p>
-<p><strong>频率域图像处理（占比40%）</strong></p>
-<p>数字产品的迅速发展给多媒体安全和版权保护技术提出了新的要求,数字水印技术作为一种重要的解决方案引起了人们的高度重视。自行实现一种基于傅里叶变换的水印嵌入算法，水印的复杂度会成为难度系数的评判标准。(难度系数 1.0，及格要求：实现最基本的数字水印嵌入。加分点：尝试实现数字水印去除)</p>
-<hr>
+                <h1 id="1-摘要"><a href="#1-摘要" class="headerlink" title="1.摘要"></a>1.摘要</h1><p>从不同的角度研究了利用LLM增强AutoML方法的方法，以及利用AutoML进一步改进LLM的挑战。</p>
+<h1 id="2-引言"><a href="#2-引言" class="headerlink" title="2.引言"></a>2.引言</h1><p>近年来，大型语言模型(LLMs)成为了热门话题，得益于一系列快速突破。这些模型包括self-attention、BERT、几个版本的GPT、LaMDA、LLaMA和OpenAssistant。LLM是指一种语言模型，通常具有数百万到数十亿个权重的深度神经网络。这些LLM通过在大规模文本数据集上进行预训练而得到。由于它们在各种自然语言处理任务上表现出色，如果这些预训练版本能够面向广大公众使用，并且LLMs的权力不掌握在少数拥有足够财政资源的公司手中，它们有可能推动NLP的民主化。</p>
+<p>类似地，自动化机器学习(AutoML)通过部分自动化的方式，支持数据科学家为特定任务找到性能良好的机器学习管道，从而实现机器学习的民主化。在过去十年中，AutoML取得了显著成功，并使用了一些广泛采用的开源框架，例如Auto-WEKA，AutoSklearn，AutoGluon，Auto-PyTorch以及封闭的商业化框架。</p>
+<p>一方面，将AutoML应用到LLMs中，通过增加LLMs的功能并使其更高效来改善LLMs生命周期的各个阶段，包括NAS、HPO、优化预训练、微调和推理的潜在解决方案(第2节)。另一方面，LLMs的颠覆性NLP和知识建模能力可以通过作为人机交互组件的集成，以及作为AutoML框架本身的技术元学习组件，释放AutoML的全部潜力，以改进人机交互、AutoML系统的配置以及LLM替换AutoML系统的部分(第3节)。此外，还严格评估由于AutoML和LLMs的整合而可能产生的潜在风险(第4节)。</p>
+<p>工作如下：</p>
 <ol>
-<li>盲水印是一种嵌入在数字媒体中的隐形水印，旨在对媒体进行身份认证和版权保护。与可见水印不同，盲水印通常是在媒体的不可察觉部分进行嵌入，以保持媒体的视觉质量。基本代码如下：</li>
+<li>由于预训练的<strong>计算需求</strong>和LLMs的<strong>多阶段训练过程具有不同的指标和学习范式</strong>等几个挑战，目前的AutoML方法还没有准备好对LLMs的整个生命周期进行整体优化。 </li>
+<li>LLMs与AutoML工具的集成有可能大大改善相应工具的<strong>人机交互组件</strong>，减轻正确配置AutoML工具的繁琐任务，并通过从<strong>非结构化数据中获得的元学习知识来改进AutoML工具的几个内部组件</strong>。 </li>
+<li>将两个研究领域相互整合也会带来风险，例如对LLM驱动的AutoML系统的评估不足，由于LLM驱动组件的幻觉而导致AutoML系统的灾难性错误行为，(过于)对通过自然语言解释的AutoML工具的结果的高度信任以及不断增加的资源需求。</li>
 </ol>
-<ul>
-<li><a class="link" target="_blank" rel="noopener" href="https://github.com/lishuaijuly/watermark">GitHub - lishuaijuly/Watermark: 使用python实现的水印代码。1、LSB 2、DWT+SVD <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44009107/article/details/125036240">DCT水印嵌入与提取_(Python Version)_dct水印嵌入和提取的源程序_七月的和弦的博客-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link" target="_blank" rel="noopener" href="https://github.com/linyacool/blind-watermark/tree/python3">linyacool/blind-watermark at python3 (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-<ol start="2">
-<li>一般情况下，盲水印是为了提高抵抗性而设计的，以使其在经过一些图像处理操作（如压缩、裁剪、调整大小等）后仍然能够被检测到。因此，从技术角度来看，完全去除盲水印并不容易。如</li>
+<h1 id="3-AutoML-for-LLMs"><a href="#3-AutoML-for-LLMs" class="headerlink" title="3. AutoML for LLMs"></a>3. AutoML for LLMs</h1><p>与以前AutoML在不同学习范式中的应用相比，LLMs带来了一整套新的挑战，使得现有AutoML工具的标准方法部分无效。事实上，Godbole等人(2023)认为，标准的HPO工具不能现成地应用于优化非常深度的、因此是资源密集型的神经网络，如LLMs。此外，正如Hutter(2022)在他对深度学习2.0的愿景中，如果我们想要自动获得与目前为深度学习(包括LLMs)手工设计的模型相同或更高质量水平的模型，我们需要将许多想法汇集在一起，并面临新的挑战。</p>
+<p>简而言之，我们看到了需要解决的五个主要挑战:</p>
+<ol>
+<li>预训练LLMs的基础模型是非常昂贵的，以至于很少有完整的训练运行—甚至可能只有一个—LLMs基础模型是可能的。 </li>
+<li>AutoML任务很复杂，理想情况下必须在LLM生命周期的许多步骤中执行，包括预训练、微调的几个步骤和推理。然而，这些步骤目前不能在一个单一的<strong>联合、整体优化</strong>中解决，相反，大多数时间必须独立执行; </li>
+<li>寻找解决特定问题的良好神经架构是一项繁琐的任务，NAS等现代自动化方法只能在一定程度上做到这一点，但尚未能够产生新的突破性架构。 </li>
+<li>LLM生命周期的所有阶段都需要对不同的<strong>指标</strong>进行优化。特别是在预训练中，此指标可以被视为<strong>跨各种不同任务的最终性能的代理</strong>，LLM可以用于此。这可能会导致AutoML过程的潜在误导、嘈杂和有偏差的性能指标。</li>
+<li>自动学习通常一次只考虑一种学习范式(例如监督学习)。然而，培训LLMs是具有挑战性的，因为生命周期的不同阶段<strong>需要不同的学习范式</strong>。</li>
 </ol>
+<p><img lazyload="" src="/images/loading.svg" data-src="https://raw.githubusercontent.com/ShuaiLv-JNU/blogImage/main/img/202306261612752.png"></p>
+<h2 id="3-1-LLM背景"><a href="#3-1-LLM背景" class="headerlink" title="3.1 LLM背景"></a>3.1 LLM背景</h2><p>LLM的生命周期通常涉及三个关键阶段:<strong>预训练、微调和推理</strong>(Zhao et al.， 2023)。这个生命周期的每个阶段都有自己的一套目标、超参数和影响下游任务最终表现的设计决策，如图1所示。</p>
 <ul>
-<li><p><a class="link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/506901179">基于傅里叶变换的图像自适应水印算法 - 知乎 (zhihu.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-<li><p><a class="link" target="_blank" rel="noopener" href="https://github.com/guofei9987/blind_watermark">guofei9987/blind_watermark: Blind&amp;Invisible Watermark ，图片盲水印，提取水印无须原图！ (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<blockquote>
-<p>文章：<a class="link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/391883137">Python 图片盲水印/隐水印代码库 blind-watermark 发布 0.1.1 版本 - 知乎 (zhihu.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</blockquote>
-</li>
+<li>在预训练期间，基础模型在大量未标记文本语料库上进行训练，以学习语言模式并捕获有关语言的一般知识。预训练的总体目标是以准无监督的方式通过前置文本任务产生序列的有用表示，这与自监督学习(SSL)范式的第一阶段相对应(Balestriero等人，2023)。这通常是训练LLM最昂贵的部分，全世界只有极少数集团和公司能够负担得起预训练基础模型。</li>
+<li>接下来是微调，预训练的模型在特定领域或任务的数据上<strong>进一步训练</strong>，以专业化其知识并适应特定的任务、领域或用例。这种专业化的成功是用相应的度量或损失函数来量化的。假设预训练找到了有用的表示，这里的目标是利用或调整编码到模型检查点的表示，并考虑到特定的下游任务。即使在下游任务的数据有限的情况下，这也可以非常有效，因此在计算上比训练基础模型要求低得多。可能的原因是强大的联合嵌入，具有在预训练期间学习到的大量参数，对于特定的下游任务，经常存在<strong>低维重参数化工作良好</strong>的情况。这使得可以释放迁移学习的全部力量(aghajyan等人，2021)。</li>
+<li>将LLMs的行为和输出与人类价值相关的任务目标(如帮助、诚实、无害等)保持一致，目前主要通过来自人类反馈的强化学习(RLHF)来实现(Fernandes等人，2023)。使强化学习(RL)在预训练语言模型(LM)上工作所需的两个要素是:<ul>
+<li>奖励模型(RM)将文本序列转换为数字上代表人类偏好的标量奖励。</li>
+<li>将LM的输出作为输入以产生语言标记作为输出的策略。</li>
 </ul>
-<ol start="3">
-<li>虽然盲水印的去除是一个复杂的任务，但在某些情况下可能是可行的。如果攻击者具有原始图像和相应的盲水印嵌入密钥，他们可能能够以某种方式去除或篡改水印。但这需要对嵌入算法和密钥的详细了解，而这通常是受到版权保护的。</li>
-</ol>
-<blockquote>
-<p>使用关键词如 “blind watermark removal”、”invisible watermark removal”、”digital image watermark removal” 等，可以帮助你找到相关研究和论文。请注意，这是一个活跃的研究领域，因此可能会有一些最新的研究成果。</p>
-</blockquote>
-<p>如</p>
-<ul>
-<li><p>[vinthony/deep-blind-watermark-removal: <a class="link" target="_blank" rel="noopener" href="https://github.com/vinthony/deep-blind-watermark-removal">AAAI 2021] Split then Refine: Stacked Attention-guided ResUNets for Blind Single Image Visible Watermark Removal (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 </li>
-<li><p><font color="red"><strong>重点：</strong></font><a class="link" target="_blank" rel="noopener" href="https://github.com/SixQuant/nowatermark">SixQuant/nowatermark: remove watermark. 去除图片中的水印 (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-<li><p>机器学习：<a class="link" target="_blank" rel="noopener" href="https://github.com/zuruoke/watermark-removal">Zuruoke/水印去除：一种机器学习图像修复任务，可本能地从与真实图像无法区分的图像中删除水印 (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
+<li>最后，在推理过程中，微调的LLM根据所学的知识和上下文理解为语言相关任务(如问答)生成文本。</li>
 </ul>
-<p><strong>4.相关课程论文素材</strong></p>
-<ul>
-<li><p><a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/qingfengxd1/article/details/118074972">(215条消息) 【新星计划】Matlab-傅里叶变换隐藏水印_studyer_domi的博客-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-<li><p><a class="link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/379228103">如何给图片加盲水印？盲水印和图片隐写术实现及原理 - 知乎 (zhihu.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-<li><p><a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/qq_24502469/article/details/97758340">(215条消息) 音频数字水印的基础_今 晚 打 老 虎的博客-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-<li><p><a class="link" href="file:///C:/Users/lvshu/Downloads/基于实数离散傅里叶变换的图像数字水印算法_辛怡.pdf">基于实数离散傅里叶变换的图像数字水印算法_辛怡.pdf <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-<li><p><a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/sheziqiong/article/details/127202876">(215条消息) 基于离散傅里叶变换（DFT）的数字水印算法研究_傅里叶变换法的数字水印代码_biyezuopin的博客-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-<li><p><a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/m0_52363973/article/details/131115784">(215条消息) 基于DWT-DCT-SVD的图像数字水印算法_ILM:)的博客-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-<li><p>[(215条消息) <a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/hongchengling2/article/details/107747274">Opencv基础]水印，数字水印，频域水印(隐形水印)_opencv检测隐藏水印_Cang_Wang的博客-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-<li><p><a class="link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/27632585">从零开始的频域水印完全解析 - 知乎 (zhihu.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-</ul>
-<p><strong>5.chatgpt与图像水印</strong></p>
-<ul>
-<li><a class="link" target="_blank" rel="noopener" href="https://tianmunews.com/news.html?id=747421">ChatGPT的“克星”来了 数字水印用AI对抗AI？_潮新闻官网 (tianmunews.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-<p>6.没看懂(待看)</p>
-<ul>
-<li><a class="link" target="_blank" rel="noopener" href="https://github.com/marcbelmont/cnn-watermark-removal">marcbelmont/cnn-watermark-removal：完全卷积深度神经网络，用于从图像中删除透明叠加层 (github.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link" target="_blank" rel="noopener" href="https://github.com/topics/watermark?l=python">watermark · GitHub Topics <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li></li>
-</ul>
+<h2 id="3-2-挑战I-预训练基础模型的成本"><a href="#3-2-挑战I-预训练基础模型的成本" class="headerlink" title="3.2 挑战I:预训练基础模型的成本"></a>3.2 挑战I:预训练基础模型的成本</h2><p>应用标准的黑盒自动学习方法(如网格搜索、随机搜索、贝叶斯优化或进化算法)来预训练LLMs是不可行的，因为LLM的单个预训练需要数百个gpu数天。Brown等人(2020)估计，GPT-3的单次训练需要在1000个V100 gpu上花费数月的时间。为了用数字来表示，考虑调优10个超参数，并且一个黑盒自动学习优化器需要至少10倍于样本数量的超参数，我们将需要100个月(即超过8年)在1000个V100 gpu上。鉴于自动学习的最新技术，可以有两种方法来解决这个问题，如下文所述。</p>
+<h3 id="3-2-1-基于缩放定律的先验指导的多保真优化"><a href="#3-2-1-基于缩放定律的先验指导的多保真优化" class="headerlink" title="3.2.1 基于缩放定律的先验指导的多保真优化"></a>3.2.1 基于缩放定律的先验指导的多保真优化</h3><p>在使用不同的超参数或神经结构进行许多完整的训练评估是不可行的情况下，一种常见的自动学习方法是多保真度优化。一般的想法是通过<strong>更便宜的保真度来近似真实的目标函数</strong>(例如，通过训练更少的epoch或通过训练更少的数据)，使其成为HPO for LLM的自然候选策略。</p>
+<p>然而，即使是多保真方法也需要至少十分之一的完整训练运行才能表现良好。与此同时，人类专家在手动调优LLMs方面也取得了一定的成功，而无需进行过多的重新训练。在对早期自动学习问题的观察的指导下，社区开发了利用专家的直觉先验知识的方法。Souza等人(2021年)和Hvarfner等人(2022年)提出了将关于有前途的<strong>超参数配置位置的先验知识集成到贝叶斯优化中</strong>的方法，Mallik等人(2022年)将这一想法扩展到多保真优化，并在10次完整的训练运行中实现了强大的性能。</p>
+<p>此外，必须正确配置多保真方法，特别是关于保真类型的选择，以实现强大的性能。这种选择应该基于这样的观察，即低保真近似上的势配置之间的顺序应该与最大保真度相关。目前尚不清楚，考虑到最近的工作，例如Kirsch等人(2022)是否可以对LLMs做出这样的假设。更相关的是，为了追求理解语言模型的规模与其性能之间的相互作用，最近的工作深入研究了语言模型的缩放定律(Brown et al.， 2020;Kaplan et al.， 2020;Radford, J. Wu等人，2019)。他们表明，沿着尺度维度的改进通常会导致性能的提高，无论是对于参数缩放维度(如网络宽度和深度)，计算缩放维度(如训练步数)，还是用于训练的数据量。当不受其他两个因素的限制时，<strong>性能与三个尺度因素中的每一个都表现出幂律相关性</strong>，受收益递减的限制。相应地，在合理的假设下，如果正确配置，多保真度方法似乎确实非常合适。</p>
+<p>受利用廉价近似的相同想法的激励，G. Yang等人(2021)通过利用特定的网络参数化，允许跨模型大小的稳定训练，减轻了LLM超参数优化的巨大成本。这样，<strong>可以调整实际模型的较小版本，并且可以将找到的最好的超参数配置转移到更大的模型</strong>。然而，该方法仅限于在网络参数化下具有跨不同网络规模的稳定最优的超参数。自然，这排除了定义训练规模的超参数，其他超参数被传递。如论文所示，经验上发现，**<font color="red">具有强正则化效应的超参数，如dropout概率和权重衰减，迁移效果并不好</font>**。</p>
+<h3 id="3-2-2-基于梯度的自动学习"><a href="#3-2-2-基于梯度的自动学习" class="headerlink" title="3.2.2 基于梯度的自动学习"></a>3.2.2 基于梯度的自动学习</h3><p>与其让<strong>外循环</strong>反复训练具有不同配置的ML模型，不如在训练ML模型时<strong>动态学习超参数</strong>。当我们只能负担得起一次培训时，这对LLMs来说尤其有趣。尽管基于梯度的优化对于HPO的和神经架构搜索w.r.t.网络的单个细胞都是可能，到目前为止，这些方法在鲁棒性和扩展到LLMs等大型网络方面都很困难。</p>
+<h3 id="3-3-3-元学习何时以及如何调整训练"><a href="#3-3-3-元学习何时以及如何调整训练" class="headerlink" title="3.3.3 元学习何时以及如何调整训练"></a>3.3.3 元学习何时以及如何调整训练</h3><p>想想人类专家是如何训练LLMs的，他们会使用检查点法，如果训练有失败的危险，他们可以进行干预，例如，相应地改变学习率。总的来说，这种手动策略类似于动态配置方法，即<strong>元学习如何在模型训练进行时调整超参数配置</strong>。再进一步甚至会导致学习过程本身的学习。由于这种方法需要离线元学习来获得相应的元策略(例如，用RL学习)，因此如何将其扩展到LLMs是一个开放的问题，其中元学习的收集和元策略的评估是不可行的。</p>
+<h2 id="3-3-挑战II-多个不同的阶段"><a href="#3-3-挑战II-多个不同的阶段" class="headerlink" title="3.3 挑战II:多个不同的阶段"></a>3.3 挑战II:多个不同的阶段</h2><p>LLM生命周期由不同的阶段组成，每个阶段都有不同的目标、主题和超参数。这使得整体自动学习方法非常困难，甚至可能是不可能的。虽然原则上可以调整复杂的预测模型管道，联合调整LLM训练的所有阶段代价太大。此外，他们甚至不遵循相同的目标指标。因此，我们通常会独立地对它们进行调优，并在下面一步一步地进行讨论。</p>
+<h3 id="3-3-1-预训练"><a href="#3-3-1-预训练" class="headerlink" title="3.3.1 预训练"></a>3.3.1 预训练</h3><p>用于预训练的超参数优化不仅昂贵，而且跨越了各种非常不同类型的超参数。为此，选择用于预训练的数据源是一个微妙但至关重要的选择。它会影响编码到LLM中的特定领域和一般知识，同时也会影响其对话和推理能力。此外，数据预处理决策会影响数据质量，进而影响下游的性能。与所有基于文本的模型一样，分词化在训练数据表示中起着关键作用。随后，必须决定LLM骨干架构的复杂性。基于变压器的模型是语言模型中的先锋。设计这样一个变压器模型包括几个关键的架构选择，如一系列不同的编码器-解码器架构，解码器架构和编码器架构。同样，一个关键的配置选项是选择自监督训练策略。此外，关于规范化的选择，激活函数，或位置编码，以及优化器等训练设置，学习率计划和批量大小必须做出决定。</p>
+<h3 id="3-3-2-监督微调"><a href="#3-3-2-监督微调" class="headerlink" title="3.3.2 监督微调"></a>3.3.2 监督微调</h3><p>用于监督微调的自动学习可以遵循与自动学习社区广泛研究的相同方法，因为它提供了清晰的监督训练信号，并且在计算方面是可行的。关于神经架构搜索，会出现一些有趣的问题，稍后讨论。</p>
+<h3 id="3-3-3-对齐微调"><a href="#3-3-3-对齐微调" class="headerlink" title="3.3.3 对齐微调"></a>3.3.3 对齐微调</h3><p>对齐微调通常通过强化学习进行。作为微调的一部分，奖励模型(RM)的第一个设计决策之一是确定其相对于预训练的LLM的大小。这方面没有既定的标准，目前的解决方案是启发式驱动的。例如，OpenAI对一个1750亿个参数的LLM使用60亿个参数的RM，而Deepmind对RM和LLM使用相同的大小。设计决策可能潜在地依赖于正在执行微调的下游任务和偏好分数旨在捕捉的多个目标。<strong>针对LLM优化RM的最佳尺寸比是一个配置问题，可以通过基于学习曲线的多保真度方法来加速</strong>。类似地，由于LLM的大小，政策更新通常只在权重的子集上执行。这个用于更新的权重子集取决于数据中概念的复杂性和偏好分数以及LLM的大小等因素，潜在的还有许多其他因素。因此，<strong>来自多目标优化的技术可以用于同时优化这些多个目标，而来自多保真优化的技术可以根据下游任务的性质帮助确定最佳大小</strong>。</p>
+<h3 id="3-3-4推理"><a href="#3-3-4推理" class="headerlink" title="3.3.4推理"></a>3.3.4推理</h3><p>推理查询意味着通过十亿参数模型进行<strong>前向传递</strong>，导致很高的部署成本，可能在计算上和生态上都很昂贵。前者尤其重要，因为许多LLMs都针对各种任务进行了微调，为大型用户社区提供服务。因此，减轻这些成本和最大化用户的效用应该是这一阶段的主要目标，并导致一个困难的多目标优化问题。<strong>混合精度训练和自动修剪技术可以帮助降低这一成本</strong>。同样，在用户要求多个响应的情况下，调整生成的令牌的最大数量，即响应的长度，或响应的数量，可以帮助降低成本，但可能会损害用户的利益。此外，调整影响生成文本随机性的超参数，如温度或top-k调整，可能会增加效用，但自然会影响实现期望输出所需的预期查询数量。值得注意的是，提示策略和模板，如思维链提示，可能会提供明显的改进。然而，<strong>自动搜索（自动搜索prompt）</strong>它们是一个开放的挑战。<strong>Liu等人(2023)通过利用BlendSearch</strong>提出了基于成本的修剪策略来优化LLMs的推理超参数，迈出了应用AutoML来优化LLMs推理的第一步。这表明AutoML确实可以用来优化LLM生命周期的推理阶段。</p>
+<h2 id="3-4-挑战Ⅲ-确定LLMs的神经结构"><a href="#3-4-挑战Ⅲ-确定LLMs的神经结构" class="headerlink" title="3.4 挑战Ⅲ:确定LLMs的神经结构"></a>3.4 挑战Ⅲ:确定LLMs的神经结构</h2><p>————</p>
 
             </div>
 
@@ -620,16 +624,16 @@ mjx-container[display="true"] + br {
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> 图像工程与处理期末论文</li>
+        <li><strong>Title:</strong> LLM+AutoML</li>
         <li><strong>Author:</strong> Shuai Lv</li>
-        <li><strong>Created at:</strong> 2023-06-17 22:23:12</li>
+        <li><strong>Created at:</strong> 2023-06-26 15:29:51</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-06-17 23:44:43
+                <strong>Updated at:</strong> 2023-06-29 23:40:37
             </li>
         
         <li>
-            <strong>Link:</strong> https://blogls.top/2023/06/17/图像工程与处理期末论文/
+            <strong>Link:</strong> https://blogls.top/2023/06/26/LLM+AutoML/
         </li>
         <li>
             <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
@@ -641,20 +645,40 @@ mjx-container[display="true"] + br {
             
 
             
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/AutoML/">#AutoML</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/LLM/">#LLM</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/HPO/">#HPO</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Meta-Learning/">#Meta Learning</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
 
             <div class="recommended-article">
   <div class="recommended-article-header">
     <i aria-hidden="true"></i><span>推荐阅读</span>
   </div>
-  <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/05/29/资源汇总/" title="资源汇总" rel="bookmark">
-  <img src="/images/wallhaven-wqery6-light.webp" alt="资源汇总">
-  <span class="title">资源汇总</span>
-</a><a class="recommended-article-item" href="/2023/06/27/Efficient-LLM/" title="Efficient LLM" rel="bookmark">
+  <div class="recommended-article-group"><a class="recommended-article-item" href="/2023/06/27/Efficient-LLM/" title="Efficient LLM" rel="bookmark">
   <img src="/images/wallhaven-wqery6-light.webp" alt="Efficient LLM">
   <span class="title">Efficient LLM</span>
-</a><a class="recommended-article-item" href="/2023/06/16/Efficient-DL-Book/" title="Efficient DL Book" rel="bookmark">
-  <img src="/images/wallhaven-wqery6-light.webp" alt="Efficient DL Book">
-  <span class="title">Efficient DL Book</span>
+</a><a class="recommended-article-item" href="/2023/06/20/Efficient-AI-Google研究院综述-2023/" title="Efficient AI-Google研究院综述-2023" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="Efficient AI-Google研究院综述-2023">
+  <span class="title">Efficient AI-Google研究院综述-2023</span>
+</a><a class="recommended-article-item" href="/2023/06/18/ChatGPT综述-待定/" title="ChatGPT综述(待定)" rel="bookmark">
+  <img src="/images/wallhaven-wqery6-light.webp" alt="ChatGPT综述(待定)">
+  <span class="title">ChatGPT综述(待定)</span>
 </a></div>
 </div>
 
@@ -664,13 +688,13 @@ mjx-container[display="true"] + br {
                         <div class="article-prev">
                             <a class="prev"
                             rel="prev"
-                            href="/2023/06/18/ChatGPT%E7%BB%BC%E8%BF%B0-%E5%BE%85%E5%AE%9A/"
+                            href="/2023/06/27/Efficient-LLM/"
                             >
                                 <span class="left arrow-icon flex-center">
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </span>
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">ChatGPT综述(待定)</span>
+                                    <span class="post-nav-title-item">Efficient LLM</span>
                                     <span class="post-nav-item">Prev posts</span>
                                 </span>
                             </a>
@@ -680,10 +704,10 @@ mjx-container[display="true"] + br {
                         <div class="article-next">
                             <a class="next"
                             rel="next"
-                            href="/2023/06/16/Efficient-DL-System/"
+                            href="/2023/06/24/NLP-Basic/"
                             >
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">Efficient DL System</span>
+                                    <span class="post-nav-title-item">NLP Basic</span>
                                     <span class="post-nav-item">Next posts</span>
                                 </span>
                                 <span class="right arrow-icon flex-center">
@@ -761,8 +785,8 @@ mjx-container[display="true"] + br {
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">图像工程与处理期末论文</div>
-        
+        <div class="page-title">LLM+AutoML</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E6%91%98%E8%A6%81"><span class="nav-text">1.摘要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%BC%95%E8%A8%80"><span class="nav-text">2.引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-AutoML-for-LLMs"><span class="nav-text">3. AutoML for LLMs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-LLM%E8%83%8C%E6%99%AF"><span class="nav-text">3.1 LLM背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E6%8C%91%E6%88%98I-%E9%A2%84%E8%AE%AD%E7%BB%83%E5%9F%BA%E7%A1%80%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%88%90%E6%9C%AC"><span class="nav-text">3.2 挑战I:预训练基础模型的成本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-%E5%9F%BA%E4%BA%8E%E7%BC%A9%E6%94%BE%E5%AE%9A%E5%BE%8B%E7%9A%84%E5%85%88%E9%AA%8C%E6%8C%87%E5%AF%BC%E7%9A%84%E5%A4%9A%E4%BF%9D%E7%9C%9F%E4%BC%98%E5%8C%96"><span class="nav-text">3.2.1 基于缩放定律的先验指导的多保真优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-%E5%9F%BA%E4%BA%8E%E6%A2%AF%E5%BA%A6%E7%9A%84%E8%87%AA%E5%8A%A8%E5%AD%A6%E4%B9%A0"><span class="nav-text">3.2.2 基于梯度的自动学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-3-%E5%85%83%E5%AD%A6%E4%B9%A0%E4%BD%95%E6%97%B6%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E8%B0%83%E6%95%B4%E8%AE%AD%E7%BB%83"><span class="nav-text">3.3.3 元学习何时以及如何调整训练</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E6%8C%91%E6%88%98II-%E5%A4%9A%E4%B8%AA%E4%B8%8D%E5%90%8C%E7%9A%84%E9%98%B6%E6%AE%B5"><span class="nav-text">3.3 挑战II:多个不同的阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-1-%E9%A2%84%E8%AE%AD%E7%BB%83"><span class="nav-text">3.3.1 预训练</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-2-%E7%9B%91%E7%9D%A3%E5%BE%AE%E8%B0%83"><span class="nav-text">3.3.2 监督微调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-3-%E5%AF%B9%E9%BD%90%E5%BE%AE%E8%B0%83"><span class="nav-text">3.3.3 对齐微调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-4%E6%8E%A8%E7%90%86"><span class="nav-text">3.3.4推理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-%E6%8C%91%E6%88%98%E2%85%A2-%E7%A1%AE%E5%AE%9ALLMs%E7%9A%84%E7%A5%9E%E7%BB%8F%E7%BB%93%E6%9E%84"><span class="nav-text">3.4 挑战Ⅲ:确定LLMs的神经结构</span></a></li></ol></li></ol>
 
     </div>
 </div>
