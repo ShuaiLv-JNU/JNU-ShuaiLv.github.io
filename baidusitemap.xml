@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://blogls.top/2023/07/19/LLM-LLaMA2/</loc>
+    <lastmod>2023-07-19</lastmod>
+  </url>
+  <url>
+    <loc>http://blogls.top/2023/07/19/%E7%BB%8F%E5%85%B8%E7%9A%84%E8%BF%9E%E7%BB%AD%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2023-07-19</lastmod>
+  </url>
+  <url>
     <loc>http://blogls.top/2023/07/18/2023AAAI-A-Survey-on-Model-Compression-and-Acceleration-for-Pretrained-Language-Models/</loc>
     <lastmod>2023-07-18</lastmod>
   </url>
